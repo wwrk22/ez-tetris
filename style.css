@@ -1,0 +1,39 @@
+#score {
+
+}
+
+#start-btn {
+
+}
+
+
+
+#board-container {
+    display: flex;
+    flex-direction: row;
+}
+
+#tetris-board {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 300px;
+    height: 600px;
+    background-color: green;
+}
+
+#tetris-board div {
+    width: 30px;
+    height: 30px;
+}
+
+
+
+#up-next-board {
+
+}
+
+#up-next-board div {
+    width: 30px;
+    height: 30px;
+}
