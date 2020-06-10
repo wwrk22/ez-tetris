@@ -1,5 +1,5 @@
 # ez-tetris
-Tetris game with ten columns and twenty rows.
+Tetris game with ten columns and twenty rows.  
 Seven tetrominoes:
 - Two L-shaped
 - Two Z-shaped
