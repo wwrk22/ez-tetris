@@ -9,5 +9,5 @@ Seven tetrominoes:
 
 
 ## Sources
-https://tetris.fandom.com/wiki/SRS
-http://keycode.info/
+- https://tetris.fandom.com/wiki/SRS
+- http://keycode.info/
