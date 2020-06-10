@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head>
-        <meta charset="utf-8">
-        <script src="script.js" charset="utf-8"></script>
+        <meta charset="UTF-8">
         <link rel="stylesheet" href="style.css"></link>
         <title>EZ-TETRIS</title>
     </head>
@@ -11,8 +10,9 @@
         <h3>Score: <span id="score">0</span></h3>
         <button id="start-btn">START/PAUSE</button>
 
-        <div class="container">
-            <div class="grid">
+        <div class="board-container">
+            <!-- The game board -->
+            <div class="tetris-board">
                 <div></div>
                 <div></div>
                 <div></div>
@@ -213,19 +213,20 @@
                 <div></div>
                 <div></div>
                 <div></div>
-                <div class="taken"></div>
-                <div class="taken"></div>
-                <div class="taken"></div>
-                <div class="taken"></div>
-                <div class="taken"></div>
-                <div class="taken"></div>
-                <div class="taken"></div>
-                <div class="taken"></div>
-                <div class="taken"></div>
-                <div class="taken"></div>
+                <div class="occupied"></div>
+                <div class="occupied"></div>
+                <div class="occupied"></div>
+                <div class="occupied"></div>
+                <div class="occupied"></div>
+                <div class="occupied"></div>
+                <div class="occupied"></div>
+                <div class="occupied"></div>
+                <div class="occupied"></div>
+                <div class="occupied"></div>
             </div>
 
-            <div class="mini-grid">
+            <!-- This shows the tetromino that will spawn next. -->
+            <div class="up-next-board">
                 <div></div>
                 <div></div>
                 <div></div>
@@ -244,5 +245,8 @@
                 <div></div>
             </div>
         </div>
+
+        <!-- Allow page to load quicker by putting script-tag here -->
+        <script src="script.js"></script>
     </body>
 </html>
