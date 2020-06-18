@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html>
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="style.css"></link>
@@ -7,10 +7,7 @@
     </head>
 
     <body>
-        <h3>Score: <span id="score">0</span></h3>
-        <button id="start-btn">START/PAUSE</button>
-
-        <div id="board-container">
+        <div id="game-container">
             <!-- The game board -->
             <div id="tetris-board">
                 <div></div>
@@ -225,25 +222,18 @@
                 <div class="occupied-block"></div>
             </div>
 
-            <!-- This shows the tetromino that will spawn next -->
-            <div id="up-next-board">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
+            <div>
+                <div id="up-next-board">
+            
+                </div>
+    
+                <div id="score-container">
+                    <h3>Score <span>0</span></h3>
+                </div>
+    
+                <button id="start-btn">START/PAUSE</button>
             </div>
+            
         </div>
 
         <!-- Allow page to load quicker by putting script-tag here -->

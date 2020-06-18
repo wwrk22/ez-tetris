@@ -1,3 +1,7 @@
+#game-container {
+    display: flex;
+}
+
 #score {
 
 }
@@ -19,7 +23,8 @@
     flex-wrap: wrap;
     width: 300px;
     height: 600px;
-    background-color: green;
+    margin-right: 50px;
+    background-color: #CDCFD2;
 }
 
 #tetris-board div {
@@ -30,7 +35,11 @@
 
 
 #up-next-board {
-
+    display: flex;
+    flex-wrap: wrap;
+    width: 120px;
+    height: 120px;
+    background-color: #CDCFD2;
 }
 
 #up-next-board div {
