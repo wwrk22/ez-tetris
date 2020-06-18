@@ -2,47 +2,37 @@
     display: flex;
 }
 
-#score {
 
-}
-
-#start-btn {
-
-}
-
-
-
-#board-container {
-    display: flex;
-    flex-direction: row;
-}
-
-#tetris-board {
+#board {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     width: 300px;
     height: 600px;
     margin-right: 50px;
-    background-color: #CDCFD2;
 }
 
-#tetris-board div {
+.board-block {
     width: 30px;
     height: 30px;
+    background-color: #F0F2F6;
 }
 
-
+.wall-block {
+    width: 30px;
+    height: 10px;
+    background-color: #CDCFD2;
+}
 
 #up-next-board {
     display: flex;
     flex-wrap: wrap;
     width: 120px;
     height: 120px;
-    background-color: #CDCFD2;
 }
 
 #up-next-board div {
     width: 30px;
     height: 30px;
+    background-color: #F0F2F6;
 }
