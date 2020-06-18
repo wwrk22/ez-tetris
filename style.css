@@ -7,32 +7,40 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    width: 300px;
-    height: 600px;
+    width: 320px;
+    height: 640px;
     margin-right: 50px;
+    border: 5px solid;
+    border-color: #848B8F;
+    background-color: #EEF1F4;
 }
 
 .board-block {
     width: 30px;
     height: 30px;
-    background-color: #F0F2F6;
+    border: 1px solid;
+    border-color: #D6DCDF;
 }
 
 .wall-block {
     width: 30px;
     height: 10px;
-    background-color: #CDCFD2;
 }
 
 #up-next-board {
     display: flex;
     flex-wrap: wrap;
-    width: 120px;
-    height: 120px;
+    width: 128px;
+    height: 128px;
+    border: 5px solid;
+    border-color: #848B8F;
+    background-color: #EEF1F4;
 }
 
-#up-next-board div {
-    width: 30px;
-    height: 30px;
-    background-color: #F0F2F6;
+#h3-score {
+    font-family: 'MuseoModerno', cursive;
+}
+
+.p-indie-flower {
+    font-family: 'Indie Flower', cursive;
 }
