@@ -82,6 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
         /* Board blocks have to be manipulated to show movement of tetrominoes. */
         boardBlocks: Array.from(document.querySelectorAll('#board div'))
     }
+    
     const gameInfo = {
         scoreDisplay: document.querySelector('#score-display'),
         startBtn: document.querySelector('#start-btn'),
@@ -96,5 +97,25 @@ document.addEventListener('DOMContentLoaded', () => {
         currentRotation: 0
     }
 
-    console.log(tetrominoes[0][0])
+    
+    /* Randomly select a tetromino in its first rotation.
+       Random is used to index a tetromino, and currentRotation is used to index
+       the first rotation of the randomly chosen tetromino. */
+    let random = Math.floor(Math.random() * tetrominoes.length)
+    let currentTetromino = tetrominoes[random][gameInfo.currentRotation]
+
+    /* Draws the randomly chosen tetromino in the rotation indexed
+     * by currentRotation.
+     */
+    function draw() {
+        /* Move iTetromino one block to the left, and leave the other tetrominoes as they are. */
+        if (random === 6) {
+            gameInfo.currentPosition--;
+        }
+        currentTetromino.forEach(index => {
+            boardInfo.boardBlocks[gameInfo.currentPosition + index].style.backgroundColor = colors[random];
+        })
+    }
+
+    draw()
 })
