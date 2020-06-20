@@ -1,55 +1,60 @@
 document.addEventListener('DOMContentLoaded', () => {
-    /* Tetrominoes */
+    "use strict"
+
+    /* Board is 10 blocks wide, with each block being 30px by 30px. */
+    const boardWidth = 10;
+
+    /* --Tetrominoes-- */
     const lTetrominoA = [
-        [0, width, width + 1, width + 2],
-        [1, 2, width + 1, width * 2 + 1],
-        [width, width + 1, width + 2, width * 2 + 2],
-        [1, width + 1, width * 2, width * 2 + 1]
+        [0, boardWidth, boardWidth + 1, boardWidth + 2],
+        [1, 2, boardWidth + 1, boardWidth * 2 + 1],
+        [boardWidth, boardWidth + 1, boardWidth + 2, boardWidth * 2 + 2],
+        [1, boardWidth + 1, boardWidth * 2, boardWidth * 2 + 1]
     ]
 
     const lTetrominoB = [
-        [2, width, width + 1, width + 2],
-        [1, width + 1, width * 2 + 1, width * 2 + 2],
-        [width, width + 1, width + 2, width * 2],
-        [0, 1, width + 1, width * 2 + 1]
+        [2, boardWidth, boardWidth + 1, boardWidth + 2],
+        [1, boardWidth + 1, boardWidth * 2 + 1, boardWidth * 2 + 2],
+        [boardWidth, boardWidth + 1, boardWidth + 2, boardWidth * 2],
+        [0, 1, boardWidth + 1, boardWidth * 2 + 1]
     ]
 
     const zTetrominoA = [
-        [0, 1, width + 1, width + 2],
-        [2, width + 1, width + 2, width * 2 + 1],
-        [width, width + 1, width * 2 + 1, width * 2 + 2],
-        [1, width, width + 1, width * 2]
+        [0, 1, boardWidth + 1, boardWidth + 2],
+        [2, boardWidth + 1, boardWidth + 2, boardWidth * 2 + 1],
+        [boardWidth, boardWidth + 1, boardWidth * 2 + 1, boardWidth * 2 + 2],
+        [1, boardWidth, boardWidth + 1, boardWidth * 2]
     ]
 
     const zTetrominoB = [
-        [1, 2, width, width + 1],
-        [1, width + 1, width + 2, width * 2 + 2],
-        [width + 1, width + 2, width * 2, width * 2 + 1],
-        [0, width, width + 1, width * 2 + 1]
+        [1, 2, boardWidth, boardWidth + 1],
+        [1, boardWidth + 1, boardWidth + 2, boardWidth * 2 + 2],
+        [boardWidth + 1, boardWidth + 2, boardWidth * 2, boardWidth * 2 + 1],
+        [0, boardWidth, boardWidth + 1, boardWidth * 2 + 1]
     ]
 
     const tTetromino = [
-        [1, width, width + 1, width + 2],
-        [1, width + 1, width + 2, width * 2 + 1],
-        [width, width + 1, width + 2, width * 2 + 1],
-        [1, width, width + 1, width * 2 + 1]
+        [1, boardWidth, boardWidth + 1, boardWidth + 2],
+        [1, boardWidth + 1, boardWidth + 2, boardWidth * 2 + 1],
+        [boardWidth, boardWidth + 1, boardWidth + 2, boardWidth * 2 + 1],
+        [1, boardWidth, boardWidth + 1, boardWidth * 2 + 1]
     ]
 
     const oTetromino = [
-        [0, 1, width, width + 1],
-        [0, 1, width, width + 1],
-        [0, 1, width, width + 1],
-        [0, 1, width, width + 1]
+        [0, 1, boardWidth, boardWidth + 1],
+        [0, 1, boardWidth, boardWidth + 1],
+        [0, 1, boardWidth, boardWidth + 1],
+        [0, 1, boardWidth, boardWidth + 1]
     ]
 
     const iTetromino = [
-        [width, width + 1, width + 2, width + 3],
-        [2, width + 2, width * 2 + 2, width * 3 + 2],
-        [width, width + 1, width + 2, width + 3],
-        [1, width + 1, width * 2 + 1, width * 3 + 1]
+        [boardWidth, boardWidth + 1, boardWidth + 2, boardWidth + 3],
+        [2, boardWidth + 2, boardWidth * 2 + 2, boardWidth * 3 + 2],
+        [boardWidth, boardWidth + 1, boardWidth + 2, boardWidth + 3],
+        [1, boardWidth + 1, boardWidth * 2 + 1, boardWidth * 3 + 1]
     ]
 
-    /* Tetromino Colors */
+    /* --Tetromino Colors-- */
     const colors = [
         '#B348DA', // lTetrominoA
         '#DA48C6', // lTetrominoB
@@ -71,21 +76,25 @@ document.addEventListener('DOMContentLoaded', () => {
         iTetromino
     ]
 
-    /* Board is where the game is played, and it contains individual blocks. */
-    const board = document.querySelector('#board')
-    /* Board blocks have to be manipulated to show movement of tetrominoes. */
-    let boardBlocks = Array.from(document.querySelectorAll('#board div'))
-    const scoreDisplay = document.querySelector('#score-display')
-    const startBtn = document.querySelector('#start-btn')
-    /* Add 10 (board width) to the position of a block of a tetromino to move it down. */
-    const width = 10
-    let score = 0
-    /* Used for choosing next-up tetromino randomly. */
-    let nextUpRandom = 0;
-    /* Used to move a tetromino every one second. */
-    let timer
-    /* Tetromino will be 'currentPosition' blocks to the right of the left wall of the board. */
-    let currentPosition = 4
-    /* Indicates the rotation the current tetromino is. */
-    let currentRotation = 0
+    const boardInfo = {
+        /* Board is where the game is played, and it contains individual blocks. */
+        board: document.querySelector('#board'),
+        /* Board blocks have to be manipulated to show movement of tetrominoes. */
+        boardBlocks: Array.from(document.querySelectorAll('#board div'))
+    }
+    const gameInfo = {
+        scoreDisplay: document.querySelector('#score-display'),
+        startBtn: document.querySelector('#start-btn'),
+        score: 0,
+        /* Used for choosing next-up tetromino randomly. */
+        nextUpRandom: 0,
+        /* Used to move a tetromino every one second. */
+        timer: undefined,
+        /* Tetromino will be 'currentPosition' blocks to the right of the left wall of the board. */
+        currentPosition: 4,
+        /* Indicates the rotation the current tetromino is. */
+        currentRotation: 0
+    }
+
+    console.log(tetrominoes[0][0])
 })
