@@ -117,5 +117,30 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     }
 
-    draw()
+    /*
+     * Simply removes the tetromino from the board, so it can be redrawn one position below.
+     */
+    function undraw() {
+        currentTetromino.forEach(index => {
+            boardInfo.boardBlocks[currentPosition + index].style.backgroundColor = ""
+        })
+    }
+
+    /* Assign functions to keyCodes to move and rotate tetrominoes. */
+    function controls(event) {
+        switch (event.keyCode) {
+            case 37:
+                moveLeft()
+                break
+            case 38:
+                rotate()
+                break
+            case 39:
+                moveRight()
+                break
+            case 40:
+                moveDown()
+        }
+    }
+    document.addEventListener('keyup', controls);
 })
