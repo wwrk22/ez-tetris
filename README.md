@@ -18,6 +18,7 @@ adding to it to make the game more complete.
 - [ ] Implement gameOver()
 - [ ] Spacebar instantly drops tetromino to the bottom
 - [ ] Allow holding down-arrow key to move tetromino down faster
+- [ ] Use JavaScript to create the multiple <div> tags
 <br>
 
 ## Sources
