@@ -1,11 +1,8 @@
 # ez-tetris
-Tetris game with ten columns and twenty rows.  
-Seven tetrominoes:
-- Two L-shaped
-- Two Z-shaped
-- One T-shaped
-- One O-shaped
-- One i-Shaped
+Tetris game with ten columns and twenty rows.
+This was built by following a guide (link at the bottom), then
+adding to it to make the game more complete.
+<br>
 
 ## TO-DO
 - [ ] Implement moveLeft()
@@ -21,8 +18,13 @@ Seven tetrominoes:
 - [ ] Implement gameOver()
 - [ ] Spacebar instantly drops tetromino to the bottom
 - [ ] Allow holding down-arrow key to move tetromino down faster
-
+<br>
 
 ## Sources
-- https://tetris.fandom.com/wiki/SRS
-- http://keycode.info/
+- Information on the game of Tetris
+    - https://tetris.fandom.com/wiki/SRS
+- JavaScript event keycode
+    - http://keycode.info/
+- Original guide video & repo
+    - https://www.youtube.com/watch?v=rAUn1Lom6dw
+    - https://github.com/kubowania/Tetris-Basic
