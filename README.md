@@ -13,7 +13,7 @@ Seven tetrominoes:
 - [ ] Implement Rotation
     - [ ] rotate()
     - [ ] Correct rotation at walls
-        - If the tetromino is right against the wall, then a rotation may
+        - If the tetromino is right against the wall, then a rotation may<br>
           cause a block of the tetromino to be drawn on the previous line.
 - [ ] Display Up-Next Tetromino
 - [ ] Start/Pause Button
