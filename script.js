@@ -155,6 +155,26 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /*
+     * Moves the current tetromino left by one column
+     */
+    function moveLeft() {
+        undraw()
+        /* Check to see if the tetromino is at the left wall */
+        const isAtLeftWall = currentTetromino.some(index => (gameInfo.currentPosition + index) % boardWidth === 0)
+        
+        if (!isAtLeftWall) {
+            gameInfo.currentPosition -= 1
+        }
+
+        /* If any of the blocks in the tetromino's new position are occupied, then stop it from moving. */
+        if (currentTetromino.some(index => boardInfo.boardBlocks[gameInfo.currentPosition + index].classList.contains('occupied-block'))) {
+            gameInfo.currentPosition += 1
+        }
+
+        draw()
+    }
+
+    /*
      * If the row right below the tetromino is out-of-bounds, then 
      * the tetromino is frozen in place.
      */
