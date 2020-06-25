@@ -148,9 +148,13 @@ document.addEventListener('DOMContentLoaded', () => {
      * Moves the current tetromino down by one line.
      */
     function moveDown() {
-        undraw()
-        gameInfo.currentPosition += boardWidth
-        draw()
+        /* Player may move the tetromino sideways right before it moves down, so we need to
+           make sure the tetromino is not drawn on top of an existing one below. */
+        if (!checkRowBelow()) {
+            undraw()
+            gameInfo.currentPosition += boardWidth
+            draw()
+        }
         freeze()
     }
 
@@ -179,8 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
      * the tetromino is frozen in place.
      */
     function freeze() {
-        if (currentTetromino.some(
-            index => boardInfo.boardBlocks[gameInfo.currentPosition + index + boardWidth].classList.contains('occupied-block'))) {
+        if (currentTetromino.some(index => boardInfo.boardBlocks[gameInfo.currentPosition + index + boardWidth].classList.contains('occupied-block'))) {
             /* Prevent other tetrominoes from using the blocks on which the current tetromino has been frozen. */
             currentTetromino.forEach(
                 index => boardInfo.boardBlocks[gameInfo.currentPosition + index].classList.add('occupied-block'))
@@ -193,7 +196,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         }
     }
-    
+
+    /*
+     * Helper function to check to see if the row right below the current tetromino
+     * is occupied in any blocks, so that the tetromino freezes in place.
+     * Returns true if row below is occupied, false otherwise.
+     */
+    function checkRowBelow() {
+        return currentTetromino.some(index => boardInfo.boardBlocks[gameInfo.currentPosition + index + boardWidth].classList.contains('occupied-block'))
+    }
+
     /* When game starts, draw() has to be called once first. */
     draw()
     gameInfo.timer = setInterval(moveDown, 1000)
