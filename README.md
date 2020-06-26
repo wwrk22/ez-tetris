@@ -5,9 +5,9 @@ adding to it to make the game more complete.
 <br>
 
 ## TO-DO
-- moveLeft() :ballot_box_with_check:<br>
-    - Implement :ballot_box_with_check:<br>
-    - Test :ballot_box_with_check:
+:ballot_box_with_check: moveLeft()
+    :ballot_box_with_check: Implement  
+    :ballot_box_with_check: Test
 - [ ] Implement moveRight()
 - [ ] Implement Rotation
     - [ ] rotate()
