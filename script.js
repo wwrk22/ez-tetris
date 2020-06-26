@@ -192,7 +192,12 @@ document.addEventListener('DOMContentLoaded', () => {
             gameInfo.currentPosition += 1
         }
 
-        
+        /* If any of the blocks in the tetromino's new position are occupied, then stop it from moving. */
+        if (currentTetromino.some(index => boardInfo.boardBlocks[gameInfo.currentPosition + index].classList.contains('occupied-block'))) {
+            gameInfo.currentPosition -= 1
+        }
+
+        draw()
     }
 
     /*
