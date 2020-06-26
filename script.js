@@ -159,10 +159,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /*
-     * Moves the current tetromino left by one column
+     * Moves the current tetromino left by one column.
      */
     function moveLeft() {
         undraw()
+
         /* Check to see if the tetromino is at the left wall */
         const isAtLeftWall = currentTetromino.some(index => (gameInfo.currentPosition + index) % boardWidth === 0)
         
@@ -176,6 +177,22 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         draw()
+    }
+
+    /*
+     * Moves the current tetromino right by one column.
+     */
+    function moveRight() {
+        undraw()
+
+        /* Check to see if the tetromino is at the right wall */
+        const isAtRightWall = currentTetromino.some(index => (gameInfo.currentPosition + index + 1) % boardWidth === 0)
+
+        if (!isAtRightWall) {
+            gameInfo.currentPosition += 1
+        }
+
+        
     }
 
     /*
