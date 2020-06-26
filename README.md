@@ -8,7 +8,8 @@ adding to it to make the game more complete.
 :ballot_box_with_check: moveLeft()<br>
 &nbsp;&nbsp;&nbsp;&nbsp;:ballot_box_with_check: Implement<br> 
 &nbsp;&nbsp;&nbsp;&nbsp;:ballot_box_with_check: Test<br>
-:ballot_box_with_check: moveRight()
+<br>
+:ballot_box_with_check: moveRight()<br>
 &nbsp;&nbsp;&nbsp;&nbsp;:ballot_box_with_check: Implement<br>
 &nbsp;&nbsp;&nbsp;&nbsp;:ballot_box_with_check: Test<br>
 - [ ] Implement Rotation
