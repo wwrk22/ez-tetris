@@ -220,6 +220,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /*
+     * Pressing the START/PAUSE button will
+     * start/resume/pause the game.
+     */
+    gameInfo.startBtn.addEventListener('click', () => {
+        if (gameInfo.timer) {
+            clearInterval(gameInfo.timer)
+            gameInfo.timer = null
+        } else {
+            draw()
+            gameInfo.timer = setInterval(moveDown, 2000)
+            nextUpRandomIndex = Math.floor(Math.random() * tetrominoes.length)
+            /* next step would be to display the next-up tetromino in the mini-grid */
+        }
+    })
+    
+    /*
      * Helper function to check to see if the row right below the current tetromino
      * is occupied in any blocks, so that the tetromino freezes in place.
      * Returns true if row below is occupied, false otherwise.
@@ -227,8 +243,4 @@ document.addEventListener('DOMContentLoaded', () => {
     function checkRowBelow() {
         return currentTetromino.some(index => boardInfo.boardBlocks[gameInfo.currentPosition + index + boardWidth].classList.contains('occupied-block'))
     }
-
-    /* When game starts, draw() has to be called once first. */
-    draw()
-    gameInfo.timer = setInterval(moveDown, 1000)
 })
