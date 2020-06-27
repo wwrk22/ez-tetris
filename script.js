@@ -228,6 +228,13 @@ document.addEventListener('DOMContentLoaded', () => {
         return currentTetromino.some(index => boardInfo.boardBlocks[gameInfo.currentPosition + index + boardWidth].classList.contains('occupied-block'))
     }
 
+    /*
+     * Rotates the current tetromino 90 degrees clockwise.
+     */
+    function rotate() {
+
+    }
+    
     /* When game starts, draw() has to be called once first. */
     draw()
     gameInfo.timer = setInterval(moveDown, 1000)
