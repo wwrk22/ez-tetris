@@ -3,6 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* Board is 10 blocks wide, with each block being 30px by 30px. */
     const boardWidth = 10;
+    /* This is the width of the small board that is to the right of the game board. */
+    const miniBoardWidth = 4;
 
     /* --Tetrominoes-- */
     const lTetrominoA = [
@@ -77,10 +79,17 @@ document.addEventListener('DOMContentLoaded', () => {
     ]
 
     const boardInfo = {
-        /* Board is where the game is played, and it contains individual blocks. */
+        /* board is where the game is played, and it contains individual blocks */
         board: document.querySelector('#board'),
-        /* Board blocks have to be manipulated to show movement of tetrominoes. */
+        /* Board blocks have to be manipulated to show movement of tetrominoes */
         boardBlocks: Array.from(document.querySelectorAll('#board div'))
+    }
+
+    const upNextBoardInfo = {
+        /* upNextBoard is where the up-next tetromino will be displayed for the user to see */
+        upNextBoard: document.querySelector('#up-next-board'),
+        /* use board blocks to display the up-next tetromino */
+        upNextBoardBlocks: Array.from(document.querySelectorAll('#up-next-board div'))
     }
     
     const gameInfo = {
