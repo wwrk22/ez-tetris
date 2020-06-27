@@ -264,7 +264,9 @@ document.addEventListener('DOMContentLoaded', () => {
             block.style.backgroundColor = ''
         })
 
-        
+        upNextTetrominoes[nextUpRandomIndex].forEach(index => {
+            upNextBoardInfo.upNextBoardBlocks[index].style.backgroundColor = colors[nextUpRandomIndex]
+        })
     }
 
     /* --------- Helper Functions --------- */
