@@ -78,6 +78,17 @@ document.addEventListener('DOMContentLoaded', () => {
         iTetromino
     ]
 
+    /* Up-next tetrominoe positions */
+    const upNextTetrominoes = {
+        lTetrominoA: [miniBoardWidth + 1, miniBoardWidth * 2 + 1, miniBoardWidth * 2 + 2, miniBoardWidth * 2 + 3],
+        lTetrominoB: [miniBoardWidth + 3, miniBoardWidth * 2 + 1, miniBoardWidth * 2 + 2, miniBoardWidth * 2 + 3],
+        zTetrominoA: [miniBoardWidth + 1, miniBoardWidth + 2, miniBoardWidth * 2 + 2, miniBoardWidth * 2 + 3],
+        zTetrominoB: [miniBoardWidth + 2, miniBoardWidth + 3, miniBoardWidth * 2 + 1, miniBoardWidth * 2 + 2],
+        tTetromino: [miniBoardWidth + 2, miniBoardWidth * 2 + 1, miniBoardWidth * 2 + 2, miniBoardWidth * 2 + 3],
+        oTetromino: [miniBoardWidth + 1, miniBoardWidth + 2, miniBoardWidth * 2 + 1, miniBoardWidth * 2 + 2],
+        iTetromino: [miniBoardWidth, miniBoardWidth + 1, miniBoardWidth + 2, miniBoardWidth + 3]
+    }
+
     const boardInfo = {
         /* board is where the game is played, and it contains individual blocks */
         board: document.querySelector('#board'),
@@ -244,6 +255,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     })
     
+    /*
+     * Displays the up-next tetromino on the up-next board.
+     */
+    function displayUpNext() {
+        /* Remove the previous up-next tetromino */
+        upNextBoardInfo.upNextBoardBlocks.forEach(block => {
+            block.style.backgroundColor = ''
+        })
+
+        
+    }
+
+    /* --------- Helper Functions --------- */
     /*
      * Helper function to check to see if the row right below the current tetromino
      * is occupied in any blocks, so that the tetromino freezes in place.
