@@ -79,15 +79,22 @@ document.addEventListener('DOMContentLoaded', () => {
     ]
 
     /* Up-next tetrominoe positions */
-    const upNextTetrominoes = {
-        lTetrominoA: [miniBoardWidth + 1, miniBoardWidth * 2 + 1, miniBoardWidth * 2 + 2, miniBoardWidth * 2 + 3],
-        lTetrominoB: [miniBoardWidth + 3, miniBoardWidth * 2 + 1, miniBoardWidth * 2 + 2, miniBoardWidth * 2 + 3],
-        zTetrominoA: [miniBoardWidth + 1, miniBoardWidth + 2, miniBoardWidth * 2 + 2, miniBoardWidth * 2 + 3],
-        zTetrominoB: [miniBoardWidth + 2, miniBoardWidth + 3, miniBoardWidth * 2 + 1, miniBoardWidth * 2 + 2],
-        tTetromino: [miniBoardWidth + 2, miniBoardWidth * 2 + 1, miniBoardWidth * 2 + 2, miniBoardWidth * 2 + 3],
-        oTetromino: [miniBoardWidth + 1, miniBoardWidth + 2, miniBoardWidth * 2 + 1, miniBoardWidth * 2 + 2],
-        iTetromino: [miniBoardWidth, miniBoardWidth + 1, miniBoardWidth + 2, miniBoardWidth + 3]
-    }
+    const upNextTetrominoes = [
+        /* lTetrominoA */
+        [miniBoardWidth + 1, miniBoardWidth * 2 + 1, miniBoardWidth * 2 + 2, miniBoardWidth * 2 + 3],
+        /* lTetrominoB */
+        [miniBoardWidth + 3, miniBoardWidth * 2 + 1, miniBoardWidth * 2 + 2, miniBoardWidth * 2 + 3],
+        /* zTetrominoA */
+        [miniBoardWidth + 1, miniBoardWidth + 2, miniBoardWidth * 2 + 2, miniBoardWidth * 2 + 3],
+        /* zTetrominoB */
+        [miniBoardWidth + 2, miniBoardWidth + 3, miniBoardWidth * 2 + 1, miniBoardWidth * 2 + 2],
+        /* tTetromino */
+        [miniBoardWidth + 2, miniBoardWidth * 2 + 1, miniBoardWidth * 2 + 2, miniBoardWidth * 2 + 3],
+        /* oTetromino */
+        [miniBoardWidth + 1, miniBoardWidth + 2, miniBoardWidth * 2 + 1, miniBoardWidth * 2 + 2],
+        /* iTetromino */
+        [miniBoardWidth, miniBoardWidth + 1, miniBoardWidth + 2, miniBoardWidth + 3]
+    ]
 
     const boardInfo = {
         /* board is where the game is played, and it contains individual blocks */
@@ -235,7 +242,7 @@ document.addEventListener('DOMContentLoaded', () => {
             currentTetromino = tetrominoes[randomIndex][0]
             gameInfo.currentPosition = 4
             draw()
-
+            displayUpNext()
         }
     }
 
@@ -249,9 +256,10 @@ document.addEventListener('DOMContentLoaded', () => {
             gameInfo.timer = null
         } else {
             draw()
-            gameInfo.timer = setInterval(moveDown, 2000)
+            gameInfo.timer = setInterval(moveDown, 1000)
             nextUpRandomIndex = Math.floor(Math.random() * tetrominoes.length)
             /* next step would be to display the next-up tetromino in the mini-grid */
+            displayUpNext()
         }
     })
     
@@ -259,11 +267,12 @@ document.addEventListener('DOMContentLoaded', () => {
      * Displays the up-next tetromino on the up-next board.
      */
     function displayUpNext() {
-        /* Remove the previous up-next tetromino */
+        /* Remove the previous up-next tetromino by removing the colors from the board blocks */
         upNextBoardInfo.upNextBoardBlocks.forEach(block => {
             block.style.backgroundColor = ''
         })
 
+        /* Display the up-next tetromino by coloring the board blocks with the chosen shape */
         upNextTetrominoes[nextUpRandomIndex].forEach(index => {
             upNextBoardInfo.upNextBoardBlocks[index].style.backgroundColor = colors[nextUpRandomIndex]
         })
