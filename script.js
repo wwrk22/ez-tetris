@@ -283,6 +283,28 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     }
 
+    /*
+     * Rotates the current tetromino 90 degrees clockwise.
+     */
+    function rotate() {
+        undraw()
+        /* Get the next rotation of the tetromino, and make sure to loop back to the first
+           rotation if the index is out of bounds */
+        gameInfo.currentRotation++
+        
+        if (gameInfo.currentRotation === 4) {
+            gameInfo.currentRotation = 0
+        }
+
+        currentTetromino = tetrominoes[randomIndex][gameInfo.currentRotation]
+
+        /* We need to check to see if any of the newly rotated tetromino's blocks
+           are out of place on the next row or the previous row. */
+        checkRotation()
+        
+        draw()
+    }
+    
     /* --------- Helper Functions --------- */
     /*
      * Helper function to check to see if the row right below the current tetromino
@@ -294,11 +316,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /*
-     * Rotates the current tetromino 90 degrees clockwise.
-     */
-    function rotate() {
+     * Checks to see if a tetromino was at or close enough to a wall, then repositions it one index
+     * to the left or right to correctly place it in its newly rotated position.
+     */ 
+    function checkRotation() {
+        if (gameInfo.currentPosition % boardWidth > 6) {
+            console.log("gameInfo.currentPosition: " + gameInfo.currentPosition)
+            if (currentTetromino.some(index => (gameInfo.currentPosition + index) % boardWidth === 0)) {
+                gameInfo.currentPosition--
+                checkRotation()
+            }            
+        }
 
+        if ((gameInfo.currentPosition + 1) % boardWidth < 2) {
+            console.log("gameInfo.currentPosition: " + gameInfo.currentPosition)
+            if (currentTetromino.some(index => (gameInfo.currentPosition + index + 1) % boardWidth === 0)) {
+                gameInfo.currentPosition++
+                checkRotation()
+            }
+        }
     }
-    
-
 })
