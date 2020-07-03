@@ -3,6 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* Board is 10 blocks wide, with each block being 30px by 30px. */
     const boardWidth = 10;
+    /* This is the width of the small board that is to the right of the game board. */
+    const miniBoardWidth = 4;
 
     /* --Tetrominoes-- */
     const lTetrominoA = [
@@ -76,11 +78,36 @@ document.addEventListener('DOMContentLoaded', () => {
         iTetromino
     ]
 
+    /* Up-next tetrominoe positions */
+    const upNextTetrominoes = [
+        /* lTetrominoA */
+        [miniBoardWidth + 1, miniBoardWidth * 2 + 1, miniBoardWidth * 2 + 2, miniBoardWidth * 2 + 3],
+        /* lTetrominoB */
+        [miniBoardWidth + 3, miniBoardWidth * 2 + 1, miniBoardWidth * 2 + 2, miniBoardWidth * 2 + 3],
+        /* zTetrominoA */
+        [miniBoardWidth + 1, miniBoardWidth + 2, miniBoardWidth * 2 + 2, miniBoardWidth * 2 + 3],
+        /* zTetrominoB */
+        [miniBoardWidth + 2, miniBoardWidth + 3, miniBoardWidth * 2 + 1, miniBoardWidth * 2 + 2],
+        /* tTetromino */
+        [miniBoardWidth + 2, miniBoardWidth * 2 + 1, miniBoardWidth * 2 + 2, miniBoardWidth * 2 + 3],
+        /* oTetromino */
+        [miniBoardWidth + 1, miniBoardWidth + 2, miniBoardWidth * 2 + 1, miniBoardWidth * 2 + 2],
+        /* iTetromino */
+        [miniBoardWidth, miniBoardWidth + 1, miniBoardWidth + 2, miniBoardWidth + 3]
+    ]
+
     const boardInfo = {
-        /* Board is where the game is played, and it contains individual blocks. */
+        /* board is where the game is played, and it contains individual blocks */
         board: document.querySelector('#board'),
-        /* Board blocks have to be manipulated to show movement of tetrominoes. */
+        /* Board blocks have to be manipulated to show movement of tetrominoes */
         boardBlocks: Array.from(document.querySelectorAll('#board div'))
+    }
+
+    const upNextBoardInfo = {
+        /* upNextBoard is where the up-next tetromino will be displayed for the user to see */
+        upNextBoard: document.querySelector('#up-next-board'),
+        /* use board blocks to display the up-next tetromino */
+        upNextBoardBlocks: Array.from(document.querySelectorAll('#up-next-board div'))
     }
     
     const gameInfo = {
@@ -215,10 +242,43 @@ document.addEventListener('DOMContentLoaded', () => {
             currentTetromino = tetrominoes[randomIndex][0]
             gameInfo.currentPosition = 4
             draw()
-
+            displayUpNext()
         }
     }
 
+    /*
+     * Pressing the START/PAUSE button will
+     * start/resume/pause the game.
+     */
+    gameInfo.startBtn.addEventListener('click', () => {
+        if (gameInfo.timer) {
+            clearInterval(gameInfo.timer)
+            gameInfo.timer = null
+        } else {
+            draw()
+            gameInfo.timer = setInterval(moveDown, 1000)
+            nextUpRandomIndex = Math.floor(Math.random() * tetrominoes.length)
+            /* next step would be to display the next-up tetromino in the mini-grid */
+            displayUpNext()
+        }
+    })
+    
+    /*
+     * Displays the up-next tetromino on the up-next board.
+     */
+    function displayUpNext() {
+        /* Remove the previous up-next tetromino by removing the colors from the board blocks */
+        upNextBoardInfo.upNextBoardBlocks.forEach(block => {
+            block.style.backgroundColor = ''
+        })
+
+        /* Display the up-next tetromino by coloring the board blocks with the chosen shape */
+        upNextTetrominoes[nextUpRandomIndex].forEach(index => {
+            upNextBoardInfo.upNextBoardBlocks[index].style.backgroundColor = colors[nextUpRandomIndex]
+        })
+    }
+
+    /* --------- Helper Functions --------- */
     /*
      * Helper function to check to see if the row right below the current tetromino
      * is occupied in any blocks, so that the tetromino freezes in place.
@@ -227,6 +287,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function checkRowBelow() {
         return currentTetromino.some(index => boardInfo.boardBlocks[gameInfo.currentPosition + index + boardWidth].classList.contains('occupied-block'))
     }
+<<<<<<< HEAD
 
     /*
      * Rotates the current tetromino 90 degrees clockwise.
@@ -238,4 +299,6 @@ document.addEventListener('DOMContentLoaded', () => {
     /* When game starts, draw() has to be called once first. */
     draw()
     gameInfo.timer = setInterval(moveDown, 1000)
+=======
+>>>>>>> develop
 })
