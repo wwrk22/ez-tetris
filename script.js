@@ -258,8 +258,13 @@ document.addEventListener('DOMContentLoaded', () => {
             draw()
             gameInfo.timer = setInterval(moveDown, 1000)
             nextUpRandomIndex = Math.floor(Math.random() * tetrominoes.length)
-            /* next step would be to display the next-up tetromino in the mini-grid */
-            displayUpNext()
+            /* Next step would be to display the next-up tetromino in the mini-grid */
+            /* Only call this if the game has not started to prevent the game from 
+               drawing up a new tetromino every time the game is paused and resumed */
+            if (!gameInfo.gameStarted) {
+                displayUpNext()
+                gameInfo.gameStarted = true
+            }
         }
     })
     
@@ -287,7 +292,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function checkRowBelow() {
         return currentTetromino.some(index => boardInfo.boardBlocks[gameInfo.currentPosition + index + boardWidth].classList.contains('occupied-block'))
     }
-<<<<<<< HEAD
 
     /*
      * Rotates the current tetromino 90 degrees clockwise.
@@ -296,9 +300,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
     }
     
-    /* When game starts, draw() has to be called once first. */
-    draw()
-    gameInfo.timer = setInterval(moveDown, 1000)
-=======
->>>>>>> develop
+
 })
