@@ -147,7 +147,6 @@ document.addEventListener('DOMContentLoaded', () => {
         /* Move iTetromino one block to the left, and leave the other tetrominoes as they are. */
         if (!gameInfo.gameStarted && randomIndex === 6) {
             gameInfo.currentPosition--
-            gameInfo.gameStarted = true
         }
         currentTetromino.forEach(index => {
             boardInfo.boardBlocks[gameInfo.currentPosition + index].style.backgroundColor = colors[randomIndex];
@@ -176,7 +175,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 moveRight()
                 break
             case 40:
-                moveDown()
+                if (!checkRowBelow()) {
+                    moveDown()
+                }
         }
     }
     document.addEventListener('keyup', controls);
@@ -192,7 +193,21 @@ document.addEventListener('DOMContentLoaded', () => {
             gameInfo.currentPosition += boardWidth
             draw()
         }
-        freeze()
+        
+        /* Give time for tetromino to move or rotate before freezing in place */
+        if (checkRowBelow()) {
+            clearInterval(gameInfo.timer)
+            /* Tetromino may have moved, so we should only call freeze() if it
+               hits a wall */
+            setTimeout(() => {
+                if (checkRowBelow()) {
+                    freeze()
+                    gameInfo.timer = setInterval(moveDown, 1000)
+                } else {
+                    moveDown()
+                }
+            }, 1000)
+        }
     }
 
     /*
@@ -242,7 +257,7 @@ document.addEventListener('DOMContentLoaded', () => {
      * the tetromino is frozen in place.
      */
     function freeze() {
-        if (currentTetromino.some(index => boardInfo.boardBlocks[gameInfo.currentPosition + index + boardWidth].classList.contains('occupied-block'))) {
+        if (checkRowBelow()) {
             /* Prevent other tetrominoes from using the blocks on which the current tetromino has been frozen. */
             currentTetromino.forEach(
                 index => boardInfo.boardBlocks[gameInfo.currentPosition + index].classList.add('occupied-block'))
