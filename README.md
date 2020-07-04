@@ -17,6 +17,7 @@ adding to it to make the game more complete.
 &nbsp;&nbsp;&nbsp;&nbsp;:ballot_box_with_check: Correct rotation at walls<br>
 :ballot_box_with_check: Display Up-Next Tetromino
 :ballot_box_with_check: Start/Pause Button
+:ballot_box_with_check: Freeze at bottom after delay
 - [ ] Display Score
 - [ ] Implement gameOver()
 - [ ] Spacebar instantly drops tetromino to the bottom
