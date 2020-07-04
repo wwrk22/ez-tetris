@@ -15,8 +15,8 @@ adding to it to make the game more complete.
 :ballot_box_with_check: Implement Rotation<br>
 &nbsp;&nbsp;&nbsp;&nbsp;:ballot_box_with_check: rotate()<br>
 &nbsp;&nbsp;&nbsp;&nbsp;:ballot_box_with_check: Correct rotation at walls<br>
-- [ ] Display Up-Next Tetromino
-- [ ] Start/Pause Button
+:ballot_box_with_check: Display Up-Next Tetromino
+:ballot_box_with_check: Start/Pause Button
 - [ ] Display Score
 - [ ] Implement gameOver()
 - [ ] Spacebar instantly drops tetromino to the bottom
