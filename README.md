@@ -12,11 +12,9 @@ adding to it to make the game more complete.
 :ballot_box_with_check: moveRight()<br>
 &nbsp;&nbsp;&nbsp;&nbsp;:ballot_box_with_check: Implement<br>
 &nbsp;&nbsp;&nbsp;&nbsp;:ballot_box_with_check: Test<br>
-- [ ] Implement Rotation
-    - [ ] rotate()
-    - [ ] Correct rotation at walls
-        - If the tetromino is right against the wall, then a rotation may<br>
-          cause a block of the tetromino to be drawn on the previous line.
+:ballot_box_with_check: Implement Rotation<br>
+&nbsp;&nbsp;&nbsp;&nbsp;:ballot_box_with_check: rotate()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;:ballot_box_with_check: Correct rotation at walls<br>
 - [ ] Display Up-Next Tetromino
 - [ ] Start/Pause Button
 - [ ] Display Score
