@@ -24,7 +24,8 @@ adding to it to make the game more complete.
 :ballot_box_with_check: Freeze at bottom after delay<br>
 <br>
 :ballot_box_with_check: Display Score<br>
-- [ ] Implement gameOver()
+<br>
+:ballot_box_with_check: Implement gameOver()<br>
 - [ ] Spacebar instantly drops tetromino to the bottom
 - [ ] Allow holding down-arrow key to move tetromino down faster
 - [ ] Use JavaScript to create the multiple \<div\> tags
