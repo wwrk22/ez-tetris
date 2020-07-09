@@ -122,6 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const gameInfo = {
         gameStarted: false,
+        gameOver: false,
         scoreDisplay: document.querySelector('#score-display'),
         startBtn: document.querySelector('#start-btn'),
         score: 0,
@@ -205,7 +206,9 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 if (checkRowBelow()) {
                     freeze()
-                    gameInfo.timer = setInterval(moveDown, 1000)
+                    if (!gameInfo.gameOver) {
+                        gameInfo.timer = setInterval(moveDown, 1000)
+                    }
                 } else {
                     moveDown()
                 }
@@ -271,8 +274,11 @@ document.addEventListener('DOMContentLoaded', () => {
             nextUpRandomIndex = Math.floor(Math.random() * tetrominoes.length)
             currentTetromino = tetrominoes[randomIndex][0]
             gameInfo.currentPosition = 4
-            draw()
-            displayUpNext()
+            gameOver()
+            if (!gameInfo.gameOver) {
+                draw()
+                displayUpNext()
+            }
         }
     }
 
@@ -410,10 +416,14 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     function gameOver() {
         /* What shape tetromino is the up-next one? */
-
+        if (currentTetromino.some(index => boardInfo.boardBlocks[gameInfo.currentPosition + index].classList.contains('occupied-block'))) {
+            /* For now, let's just pause the game when the game is over. */
+            clearInterval(gameInfo.timer)
+            gameInfo.gameOver = true
+        }
         /* Check it's indices added to the currentPosition to see
            if any of them are occupied.  If so, then GAME OVER! */
-        
+
     }
 
 
