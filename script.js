@@ -165,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
     /* Assign functions to keyCodes to move and rotate tetrominoes. */
     function controls(event) {
         /* Prevent calling the move functions if the game has not started. */
-        if (gameStarted) {
+        if (gameInfo.gameStarted) {
             switch (event.keyCode) {
                 case 37:
                     moveLeft()
