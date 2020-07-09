@@ -164,20 +164,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* Assign functions to keyCodes to move and rotate tetrominoes. */
     function controls(event) {
-        switch (event.keyCode) {
-            case 37:
-                moveLeft()
-                break
-            case 38:
-                rotate()
-                break
-            case 39:
-                moveRight()
-                break
-            case 40:
-                if (!checkRowBelow()) {
-                    moveDown()
-                }
+        /* Prevent calling the move functions if the game has not started. */
+        if (gameStarted) {
+            switch (event.keyCode) {
+                case 37:
+                    moveLeft()
+                    break
+                case 38:
+                    rotate()
+                    break
+                case 39:
+                    moveRight()
+                    break
+                case 40:
+                    if (!checkRowBelow()) {
+                        moveDown()
+                    }
+            }
         }
     }
     document.addEventListener('keyup', controls);
