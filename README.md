@@ -21,8 +21,9 @@ adding to it to make the game more complete.
 <br>
 :ballot_box_with_check: Start/Pause Button<br>
 <br>
-:ballot_box_with_check: Freeze at bottom after delay
-- [ ] Display Score
+:ballot_box_with_check: Freeze at bottom after delay<br>
+<br>
+:ballot_box_with_check: Display Score<br>
 - [ ] Implement gameOver()
 - [ ] Spacebar instantly drops tetromino to the bottom
 - [ ] Allow holding down-arrow key to move tetromino down faster
