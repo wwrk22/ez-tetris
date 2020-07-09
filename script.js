@@ -401,6 +401,17 @@ document.addEventListener('DOMContentLoaded', () => {
         gameInfo.scoreDisplay.innerHTML = gameInfo.score
     }
 
+    /**
+     * Ends the game if the game board is filled all the way up to the
+     * third row, and a new tetromino is spawned.
+     * Although an iTetromino spawns on the second row and would leave
+     * an open first row, the tetromino cannot rotate, and the up-next
+     * tetromino will not have room to spawn, regardless of its shape.
+     */
+    function gameOver() {
+        
+    }
+
 
     /* ---------------------------------- Helper Functions ---------------------------------- */
     /*
