@@ -409,6 +409,10 @@ document.addEventListener('DOMContentLoaded', () => {
      * tetromino will not have room to spawn, regardless of its shape.
      */
     function gameOver() {
+        /* What shape tetromino is the up-next one? */
+
+        /* Check it's indices added to the currentPosition to see
+           if any of them are occupied.  If so, then GAME OVER! */
         
     }
 
