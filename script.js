@@ -261,6 +261,8 @@ document.addEventListener('DOMContentLoaded', () => {
             /* Prevent other tetrominoes from using the blocks on which the current tetromino has been frozen. */
             currentTetromino.forEach(
                 index => boardInfo.boardBlocks[gameInfo.currentPosition + index].classList.add('occupied-block'))
+            /* Update score */
+            updateScore()
             /* Generate new random tetromino */
             randomIndex = nextUpRandomIndex
             nextUpRandomIndex = Math.floor(Math.random() * tetrominoes.length)
@@ -330,7 +332,74 @@ document.addEventListener('DOMContentLoaded', () => {
         draw()
     }
     
-    /* --------- Helper Functions --------- */
+    /**
+     * Called, whenever freeze() is called, to check for rows that
+     * are full with tetromino blocks.  Each full row awards ten points.
+     * The way I have it implemented now seems to be inefficient.  Maybe
+     * I can improve it later.
+     */
+    function updateScore() {
+        /* After clearing the full rows, move the remaining tetromino blocks
+           by 'numRowsRemoved' rows. */
+        let numRowsRemoved = 0
+
+        /* Check every row, starting from the bottom, for ones full with tetromino blocks. */
+        for (let i = boardInfo.boardBlocks.length - 20; i >= 10; i -= 10) {
+            let occupiedBlockCount = 0
+
+            /* Check if the entire row is full with tetromino blocks */
+            for (let j = i; j < (i + 10); j++) {
+                if (boardInfo.boardBlocks[j].classList.contains('occupied-block')) {
+                    occupiedBlockCount++
+                }
+            }
+
+            /* If a row is full, then occupiedBlockCount should be equal to ten, and
+               ten points are to be awarded. */
+            if (occupiedBlockCount === 10) {
+                gameInfo.score += 10
+                numRowsRemoved++
+            }
+
+        }
+
+        /* Clear all the rows that are full. */
+        let i = boardInfo.boardBlocks.length - 20
+        let saveNumRowsRemoved = numRowsRemoved
+        while (numRowsRemoved > 0) {
+            console.log("This should only print once.")
+            for (let j = i; j < (i + 10); j++) {
+                boardInfo.boardBlocks[j].classList.remove('occupied-block')
+                boardInfo.boardBlocks[j].style.backgroundColor = ''
+            }
+
+            numRowsRemoved--
+            i -= 10
+        }
+
+        /* Move the remaining tetromino blocks down. */
+        if (saveNumRowsRemoved > 0) {
+            let numBlocksToMoveDown = ((boardInfo.boardBlocks.length - 20) - i)
+            while (i >= 0) {
+                for (let j = i; j < (i + 10); j++) {
+                    if (boardInfo.boardBlocks[j].classList.contains('occupied-block')) {
+                        boardInfo.boardBlocks[j + numBlocksToMoveDown].classList.add('occupied-block')
+                        boardInfo.boardBlocks[j + numBlocksToMoveDown].style.backgroundColor = boardInfo.boardBlocks[j].style.backgroundColor
+                        boardInfo.boardBlocks[j].classList.remove('occupied-block')
+                        boardInfo.boardBlocks[j].style.backgroundColor = ''
+                    }
+                }
+
+                i -= 10
+            }
+        }
+
+        /* Update and display the score */
+        gameInfo.scoreDisplay.innerHTML = gameInfo.score
+    }
+
+
+    /* ---------------------------------- Helper Functions ---------------------------------- */
     /*
      * Helper function to check to see if the row right below the current tetromino
      * is occupied in any blocks, so that the tetromino freezes in place.
