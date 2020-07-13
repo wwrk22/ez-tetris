@@ -144,16 +144,6 @@ document.addEventListener('DOMContentLoaded', () => {
     /* Let's destructure objects and extract values. */
     const { board, boardBlocks } = boardInfo;
     const { upNextBoard, upNextBoardBlocks } = upNextBoardInfo;
-    const {
-        gameStarted,
-        gameOver,
-        scoreDisplay,
-        startBtn,
-        score,
-        timer,
-        currentPosition,
-        currentRotation
-    } = gameInfo;
 
     /* Draws the randomly chosen tetromino in the rotation indexed
      * by currentRotation.
