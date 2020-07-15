@@ -148,7 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
     /* Draws the randomly chosen tetromino in the rotation indexed
      * by currentRotation.
      */
-    function draw( { gameStarted, currentPosition }, { boardBlocks }) {
+    function draw({ gameStarted, currentPosition }, { boardBlocks }) {
         /* Move iTetromino one block to the left, and leave the other tetrominoes as they are. */
         if (!gameStarted && randomIndex === 6) {
             currentPosition--
@@ -161,9 +161,9 @@ document.addEventListener('DOMContentLoaded', () => {
     /*
      * Simply removes the tetromino from the board, so it can be redrawn one position below.
      */
-    function undraw() {
+    function undraw({ currentPosition }, { boardBlocks }) {
         currentTetromino.forEach(index => {
-            boardInfo.boardBlocks[gameInfo.currentPosition + index].style.backgroundColor = ""
+            boardBlocks[currentPosition + index].style.backgroundColor = ""
         })
     }
 
@@ -197,7 +197,7 @@ document.addEventListener('DOMContentLoaded', () => {
         /* Player may move the tetromino sideways right before it moves down, so we need to
            make sure the tetromino is not drawn on top of an existing one below. */
         if (!checkRowBelow(boardInfo)) {
-            undraw()
+            undraw(gameInfo, boardInfo)
             gameInfo.currentPosition += boardWidth
             draw(gameInfo, boardInfo)
         }
@@ -224,7 +224,7 @@ document.addEventListener('DOMContentLoaded', () => {
      * Moves the current tetromino left by one column.
      */
     function moveLeft() {
-        undraw()
+        undraw(gameInfo, boardInfo)
 
         /* Check to see if the tetromino is at the left wall */
         const isAtLeftWall = currentTetromino.some(index => (gameInfo.currentPosition + index) % boardWidth === 0)
@@ -245,7 +245,7 @@ document.addEventListener('DOMContentLoaded', () => {
      * Moves the current tetromino right by one column.
      */
     function moveRight() {
-        undraw()
+        undraw(gameInfo, boardInfo)
 
         /* Check to see if the tetromino is at the right wall */
         const isAtRightWall = currentTetromino.some(index => (gameInfo.currentPosition + index + 1) % boardWidth === 0)
@@ -327,7 +327,7 @@ document.addEventListener('DOMContentLoaded', () => {
      * Rotates the current tetromino 90 degrees clockwise.
      */
     function rotate() {
-        undraw()
+        undraw(gameInfo, boardInfo)
         /* Get the next rotation of the tetromino, and make sure to loop back to the first
            rotation if the index is out of bounds */
         gameInfo.currentRotation++
