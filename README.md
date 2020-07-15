@@ -26,6 +26,7 @@ adding to it to make the game more complete.
 :ballot_box_with_check: Display Score<br>
 <br>
 :ballot_box_with_check: Implement gameOver()<br>
+- [ ] Remove object params for destructuring from all functions except checkRowBelow()
 - [ ] Spacebar instantly drops tetromino to the bottom
 - [ ] Allow holding down-arrow key to move tetromino down faster
 - [ ] Use JavaScript to create the multiple \<div\> tags
