@@ -182,7 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     moveRight()
                     break
                 case 40:
-                    if (!checkRowBelow()) {
+                    if (!checkRowBelow(boardInfo)) {
                         moveDown()
                     }
             }
@@ -196,19 +196,19 @@ document.addEventListener('DOMContentLoaded', () => {
     function moveDown() {
         /* Player may move the tetromino sideways right before it moves down, so we need to
            make sure the tetromino is not drawn on top of an existing one below. */
-        if (!checkRowBelow()) {
+        if (!checkRowBelow(boardInfo)) {
             undraw()
             gameInfo.currentPosition += boardWidth
             draw()
         }
         
         /* Give time for tetromino to move or rotate before freezing in place */
-        if (checkRowBelow()) {
+        if (checkRowBelow(boardInfo)) {
             clearInterval(gameInfo.timer)
             /* Tetromino may have moved, so we should only call freeze() if it
                hits a wall */
             setTimeout(() => {
-                if (checkRowBelow()) {
+                if (checkRowBelow(boardInfo)) {
                     freeze()
                     if (!gameInfo.gameOver) {
                         gameInfo.timer = setInterval(moveDown, 1000)
@@ -267,7 +267,7 @@ document.addEventListener('DOMContentLoaded', () => {
      * the tetromino is frozen in place.
      */
     function freeze() {
-        if (checkRowBelow()) {
+        if (checkRowBelow(boardInfo)) {
             /* Prevent other tetrominoes from using the blocks on which the current tetromino has been frozen. */
             currentTetromino.forEach(
                 index => boardInfo.boardBlocks[gameInfo.currentPosition + index].classList.add('occupied-block'))
@@ -437,8 +437,8 @@ document.addEventListener('DOMContentLoaded', () => {
      * is occupied in any blocks, so that the tetromino freezes in place.
      * Returns true if row below is occupied, false otherwise.
      */
-    function checkRowBelow() {
-        return currentTetromino.some(index => boardInfo.boardBlocks[gameInfo.currentPosition + index + boardWidth].classList.contains('occupied-block'))
+    function checkRowBelow({ boardBlocks }) {
+        return currentTetromino.some(index => boardBlocks[gameInfo.currentPosition + index + boardWidth].classList.contains('occupied-block'))
     }
 
     /*
