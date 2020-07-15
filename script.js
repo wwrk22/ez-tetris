@@ -168,9 +168,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* Assign functions to keyCodes to move and rotate tetrominoes. */
-    function controls(event) {
+    function controls(event, { gameStarted }) {
         /* Prevent calling the move functions if the game has not started. */
-        if (gameInfo.gameStarted) {
+        if (gameStarted) {
             switch (event.keyCode) {
                 case 37:
                     moveLeft()
@@ -188,7 +188,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
-    document.addEventListener('keyup', controls);
+    document.addEventListener('keyup', (event) => { controls(event, gameInfo); });
 
     /*
      * Moves the current tetromino down by one line.
