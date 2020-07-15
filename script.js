@@ -2,9 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     "use strict"
 
     const myName = "Won Rhim";
-    const welcomeString = `Welcome!\nEnjoy the game!\n${myName}`;
-
-    alert(welcomeString);
+    alert(`Welcome!\nEnjoy the game!\nBuilt by ${myName}`);
 
     /* Board is 10 blocks wide, with each block being 30px by 30px. */
     const boardWidth = 10;
