@@ -148,13 +148,13 @@ document.addEventListener('DOMContentLoaded', () => {
     /* Draws the randomly chosen tetromino in the rotation indexed
      * by currentRotation.
      */
-    function draw() {
+    function draw( { gameStarted, currentPosition }, { boardBlocks }) {
         /* Move iTetromino one block to the left, and leave the other tetrominoes as they are. */
-        if (!gameInfo.gameStarted && randomIndex === 6) {
-            gameInfo.currentPosition--
+        if (!gameStarted && randomIndex === 6) {
+            currentPosition--
         }
         currentTetromino.forEach(index => {
-            boardInfo.boardBlocks[gameInfo.currentPosition + index].style.backgroundColor = colors[randomIndex];
+            boardBlocks[currentPosition + index].style.backgroundColor = colors[randomIndex];
         })
     }
 
@@ -199,7 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!checkRowBelow(boardInfo)) {
             undraw()
             gameInfo.currentPosition += boardWidth
-            draw()
+            draw(gameInfo, boardInfo)
         }
         
         /* Give time for tetromino to move or rotate before freezing in place */
@@ -238,7 +238,7 @@ document.addEventListener('DOMContentLoaded', () => {
             gameInfo.currentPosition += 1
         }
 
-        draw()
+        draw(gameInfo, boardInfo)
     }
 
     /*
@@ -259,7 +259,7 @@ document.addEventListener('DOMContentLoaded', () => {
             gameInfo.currentPosition -= 1
         }
 
-        draw()
+        draw(gameInfo, boardInfo)
     }
 
     /*
@@ -280,7 +280,7 @@ document.addEventListener('DOMContentLoaded', () => {
             gameInfo.currentPosition = 4
             gameOver()
             if (!gameInfo.gameOver) {
-                draw()
+                draw(gameInfo, boardInfo)
                 displayUpNext()
             }
         }
@@ -295,7 +295,7 @@ document.addEventListener('DOMContentLoaded', () => {
             clearInterval(gameInfo.timer)
             gameInfo.timer = null
         } else {
-            draw()
+            draw(gameInfo, boardInfo)
             gameInfo.timer = setInterval(moveDown, 1000)
             nextUpRandomIndex = Math.floor(Math.random() * tetrominoes.length)
             /* Next step would be to display the next-up tetromino in the mini-grid */
@@ -342,7 +342,7 @@ document.addEventListener('DOMContentLoaded', () => {
            are out of place on the next row or the previous row. */
         checkRotation()
         
-        draw()
+        draw(gameInfo, boardInfo)
     }
     
     /**
