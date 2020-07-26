@@ -151,26 +151,30 @@ document.addEventListener('DOMContentLoaded', () => {
     /* Draws the randomly chosen tetromino in the rotation indexed
      * by currentRotation.
      */
-    function draw({ gameStarted, currentPosition }, { boardBlocks }) {
+    function draw() {
         /* Move iTetromino one block to the left, and leave the other tetrominoes as they are. */
-        if (!gameStarted && randomIndex === 6) {
-            currentPosition--
+        if (!gameInfo.gameStarted && randomIndex === 6) {
+            gameInfo.currentPosition--
         }
         currentTetromino.forEach(index => {
-            boardBlocks[currentPosition + index].style.backgroundColor = colors[randomIndex];
+            boardInfo.boardBlocks[gameInfo.currentPosition + index].style.backgroundColor = colors[randomIndex];
         })
     }
 
     /*
      * Simply removes the tetromino from the board, so it can be redrawn one position below.
      */
-    function undraw({ currentPosition }, { boardBlocks }) {
+    function undraw() {
         currentTetromino.forEach(index => {
-            boardBlocks[currentPosition + index].style.backgroundColor = ""
+            boardInfo.boardBlocks[gameInfo.currentPosition + index].style.backgroundColor = ""
         })
     }
 
-    /* Assign functions to keyCodes to move and rotate tetrominoes. */
+    /**
+     * Assign functions to keyCodes to move and rotate tetrominoes.
+     * We can object-destructure 'gameInfo' here because we're only checking
+     * the value of 'gameStarted', and not changing it.
+     */
     function controls(event, { gameStarted }) {
         /* Prevent calling the move functions if the game has not started. */
         if (gameStarted) {
