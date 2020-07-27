@@ -1,9 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     "use strict"
 
-    const myName = "Won Rhim";
-    alert(`Welcome!\nEnjoy the game!\nBuilt by ${myName}`);
-
     /* Board is 10 blocks wide, with each block being 30px by 30px. */
     const boardWidth = 10;
     /* This is the width of the small board that is to the right of the game board. */
@@ -109,6 +106,28 @@ document.addEventListener('DOMContentLoaded', () => {
         [miniBoardWidth, miniBoardWidth + 1, miniBoardWidth + 2, miniBoardWidth + 3]
     ]
 
+
+    /* ----------------------------------------------------------------------*/
+    /* Generate div tags to create the game board and the */
+    /* up-next tetromino display mini-board.              */
+    var divTags = "";
+    const boardBlockClass = "\"board-block\"";
+    const occupiedBlockClass = "\"occupied-block\"";
+    
+    /* Create 200 regular blocks */
+    for (let i = 0; i < 200; i++) {
+        divTags += `<div class=${boardBlockClass}></div>`;
+    }
+
+    /* Create 10 occupied blocks */
+    for (let i = 0; i < 10; i++) {
+        divTags += `<div class=${occupiedBlockClass}></div>`;
+    }
+    
+    document.getElementById("board").innerHTML = divTags;
+    /* ----------------------------------------------------------------------*/
+
+
     const boardInfo = {
         /* board is where the game is played, and it contains individual blocks */
         board: document.querySelector('#board'),
@@ -145,28 +164,6 @@ document.addEventListener('DOMContentLoaded', () => {
        and currentRotation is used to index the first rotation of the randomly chosen tetromino. */
     let randomIndex = Math.floor(Math.random() * tetrominoes.length)
     let currentTetromino = tetrominoes[randomIndex][gameInfo.currentRotation]
-
-    
-    /* ----------------------------------------------------------------------*/
-    /* Generate div tags to create the game board and the */
-    /* up-next tetromino display mini-board.              */
-    var divTags = "";
-    const boardBlockClass = "\"board-block\"";
-    const occupiedBlockClass = "\"occupied-block\"";
-
-    /* Create 200 regular blocks */
-    for (let i = 0; i < 200; i++) {
-        divTags += `<div class=${boardBlockClass}></div>`;
-    }
-
-    /* Create 10 occupied blocks */
-    for (let i = 0; i < 10; i++) {
-        divTags += `<div class=${occupiedBlockClass}></div>`;
-    }
-
-    boardInfo.board.innerHTML = divTags;
-    /* ----------------------------------------------------------------------*/
-    
 
     /* Draws the randomly chosen tetromino in the rotation indexed
      * by currentRotation.
@@ -214,7 +211,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 case 40: /* Down Arrow */
                     if (!checkRowBelow(boardInfo)) {
                         moveDown();
-                        console.log("foo foo");
                     }
             }
         }
@@ -550,4 +546,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
+
+    const myName = "Won Rhim";
+    alert(`Welcome!\nEnjoy the game!\nBuilt by ${myName}`);
 })
