@@ -358,12 +358,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.onkeydown = keyDown;
 
                 /* Display the tetromino that will be spawned next. */
-                displayUpNext()
+                displayUpNext();
                 gameInfo.gameStarted = true
             }
             draw()
             gameInfo.timer = setInterval(moveDown, 1000)
-            nextUpRandomIndex = Math.floor(Math.random() * tetrominoes.length)            
+            nextUpRandomIndex = Math.floor(Math.random() * tetrominoes.length);
         }
     })
     
