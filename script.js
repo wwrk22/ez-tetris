@@ -146,6 +146,14 @@ document.addEventListener('DOMContentLoaded', () => {
     let randomIndex = Math.floor(Math.random() * tetrominoes.length)
     let currentTetromino = tetrominoes[randomIndex][gameInfo.currentRotation]
 
+    /**
+     * Generate div tags to create the game board and the up-next tetromino
+     * display mini-board.
+     */
+    function createBoard() {
+        
+    }
+
     /* Draws the randomly chosen tetromino in the rotation indexed
      * by currentRotation.
      */
