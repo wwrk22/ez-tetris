@@ -195,8 +195,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     break
                 case 40: /* Down Arrow */
                     if (!checkRowBelow(boardInfo)) {
-                        moveDown()
+                        moveDown();
+                        console.log("foo foo");
                     }
+            }
+        }
+    }
+
+    function keyDown() {
+        if (event.keyCode === 40) {
+            if (!checkRowBelow(boardInfo)) {
+                moveDown();
             }
         }
     }
@@ -332,6 +341,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!gameInfo.gameStarted) {
                 /* Make game respond to keyboard input */
                 document.addEventListener('keyup', (event) => { controls(event, gameInfo); });
+                document.onkeydown = keyDown;
+
+                /* Display the tetromino that will be spawned next. */
                 displayUpNext()
                 gameInfo.gameStarted = true
             }
