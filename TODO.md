@@ -15,6 +15,6 @@
 :ballot_box_with_check: Implement gameOver()<br>
 :ballot_box_with_check: Remove object params for destructuring from all functions except checkRowBelow()<br>
 :ballot_box_with_check: Spacebar instantly drops tetromino to the bottom<br>
-- [ ] Allow holding down-arrow key to move tetromino down faster
+:ballot_box_with_check: Allow holding down-arrow key to move tetromino down faster
 - [ ] Use JavaScript to create the multiple \<div\> tags
 <br>
