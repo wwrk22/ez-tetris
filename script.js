@@ -146,10 +146,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let randomIndex = Math.floor(Math.random() * tetrominoes.length)
     let currentTetromino = tetrominoes[randomIndex][gameInfo.currentRotation]
 
-    /* Let's destructure objects and extract values. */
-    const { board, boardBlocks } = boardInfo;
-    const { upNextBoard, upNextBoardBlocks } = upNextBoardInfo;
-
     /* Draws the randomly chosen tetromino in the rotation indexed
      * by currentRotation.
      */
