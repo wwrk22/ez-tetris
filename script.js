@@ -151,8 +151,22 @@ document.addEventListener('DOMContentLoaded', () => {
      * display mini-board.
      */
     function createBoard() {
+        var divTags = "";
+        let i;
+        /* Create 200 regular blocks */
+        for (i = 0; i < 200; i++) {
+            divTags += "<div class=\"board-block\"></div>";
+        }
         
+        /* Create 10 occupied blocks */
+        for (i = 0; i < 10; i++) {
+            divTags += "<div class=\"occupied-block\"></div>";
+        }
+
+        var gameBoard = document.getElementById("board");
+        gameBoard.innerHTML = divTags;
     }
+    createBoard();
 
     /* Draws the randomly chosen tetromino in the rotation indexed
      * by currentRotation.
