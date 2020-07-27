@@ -212,7 +212,7 @@ document.addEventListener('DOMContentLoaded', () => {
         gameInfo.instantDrop = true;
         clearInterval(gameInfo.timer);
         gameInfo.timer = null;
-        gameInfo.timer = setInterval(moveDown, 50);
+        gameInfo.timer = setInterval(moveDown, 0);
     }
 
 
@@ -232,7 +232,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (checkRowBelow(boardInfo)) {
             clearInterval(gameInfo.timer)
 
-            const delayTime = gameInfo.instantDrop ? 50 : 1000;
+            const delayTime = gameInfo.instantDrop ? 0 : 1000;
 
             /* Tetromino may have moved, so we should only call freeze() if it
                hits a wall */
