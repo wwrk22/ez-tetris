@@ -146,27 +146,27 @@ document.addEventListener('DOMContentLoaded', () => {
     let randomIndex = Math.floor(Math.random() * tetrominoes.length)
     let currentTetromino = tetrominoes[randomIndex][gameInfo.currentRotation]
 
-    /**
-     * Generate div tags to create the game board and the up-next tetromino
-     * display mini-board.
-     */
-    function createBoard() {
-        var divTags = "";
-        let i;
-        /* Create 200 regular blocks */
-        for (i = 0; i < 200; i++) {
-            divTags += "<div class=\"board-block\"></div>";
-        }
-        
-        /* Create 10 occupied blocks */
-        for (i = 0; i < 10; i++) {
-            divTags += "<div class=\"occupied-block\"></div>";
-        }
+    
+    /* ----------------------------------------------------------------------*/
+    /* Generate div tags to create the game board and the */
+    /* up-next tetromino display mini-board.              */
+    var divTags = "";
+    const boardBlockClass = "\"board-block\"";
+    const occupiedBlockClass = "\"occupied-block\"";
 
-        var gameBoard = document.getElementById("board");
-        gameBoard.innerHTML = divTags;
+    /* Create 200 regular blocks */
+    for (let i = 0; i < 200; i++) {
+        divTags += `<div class=${boardBlockClass}></div>`;
     }
-    createBoard();
+
+    /* Create 10 occupied blocks */
+    for (let i = 0; i < 10; i++) {
+        divTags += `<div class=${occupiedBlockClass}></div>`;
+    }
+
+    boardInfo.board.innerHTML = divTags;
+    /* ----------------------------------------------------------------------*/
+    
 
     /* Draws the randomly chosen tetromino in the rotation indexed
      * by currentRotation.
