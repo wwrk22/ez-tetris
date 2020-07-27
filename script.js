@@ -135,6 +135,8 @@ document.addEventListener('DOMContentLoaded', () => {
         currentPosition: 4,
         /* Indicates the rotation the current tetromino is. */
         currentRotation: 0,
+        /* Used to determine the rate at which tetromino drops. */
+        instantDrop: false
     }
 
     /* Used for choosing next-up tetromino randomly. */
@@ -179,23 +181,40 @@ document.addEventListener('DOMContentLoaded', () => {
         /* Prevent calling the move functions if the game has not started. */
         if (gameStarted) {
             switch (event.keyCode) {
-                case 37:
+                case 32: /* Spacebar */
+                    instantDropTrue();
+                    break;
+                case 37: /* Left Arrow */
                     moveLeft()
                     break
-                case 38:
+                case 38: /* Up Arrow */
                     rotate()
                     break
-                case 39:
+                case 39: /* Right Arrow */
                     moveRight()
                     break
-                case 40:
+                case 40: /* Down Arrow */
                     if (!checkRowBelow(boardInfo)) {
                         moveDown()
                     }
             }
         }
     }
-    document.addEventListener('keyup', (event) => { controls(event, gameInfo); });
+
+    /**
+     * Instantly drops tetromino to the bottom then freezes it in place
+     * without giving the player time to rotate the tetromino at all.
+     */
+    function instantDropTrue() {
+        /* Reduce the timer down to 100 ms and turn a flag ON. */
+        /* When the tetromino freezes, if the flag is ON, the flag should be turned off
+           and the timer should be reset to normal speed. */
+        gameInfo.instantDrop = true;
+        clearInterval(gameInfo.timer);
+        gameInfo.timer = null;
+        gameInfo.timer = setInterval(50);
+    }
+
 
     /*
      * Moves the current tetromino down by one line.
@@ -204,9 +223,9 @@ document.addEventListener('DOMContentLoaded', () => {
         /* Player may move the tetromino sideways right before it moves down, so we need to
            make sure the tetromino is not drawn on top of an existing one below. */
         if (!checkRowBelow(boardInfo)) {
-            undraw(gameInfo, boardInfo)
+            undraw()
             gameInfo.currentPosition += boardWidth
-            draw(gameInfo, boardInfo)
+            draw()
         }
         
         /* Give time for tetromino to move or rotate before freezing in place */
@@ -231,7 +250,7 @@ document.addEventListener('DOMContentLoaded', () => {
      * Moves the current tetromino left by one column.
      */
     function moveLeft() {
-        undraw(gameInfo, boardInfo)
+        undraw()
 
         /* Check to see if the tetromino is at the left wall */
         const isAtLeftWall = currentTetromino.some(index => (gameInfo.currentPosition + index) % boardWidth === 0)
@@ -245,14 +264,14 @@ document.addEventListener('DOMContentLoaded', () => {
             gameInfo.currentPosition += 1
         }
 
-        draw(gameInfo, boardInfo)
+        draw()
     }
 
     /*
      * Moves the current tetromino right by one column.
      */
     function moveRight() {
-        undraw(gameInfo, boardInfo)
+        undraw()
 
         /* Check to see if the tetromino is at the right wall */
         const isAtRightWall = currentTetromino.some(index => (gameInfo.currentPosition + index + 1) % boardWidth === 0)
@@ -266,7 +285,7 @@ document.addEventListener('DOMContentLoaded', () => {
             gameInfo.currentPosition -= 1
         }
 
-        draw(gameInfo, boardInfo)
+        draw()
     }
 
     /*
@@ -287,7 +306,7 @@ document.addEventListener('DOMContentLoaded', () => {
             gameInfo.currentPosition = 4
             gameOver()
             if (!gameInfo.gameOver) {
-                draw(gameInfo, boardInfo)
+                draw()
                 displayUpNext()
             }
         }
@@ -302,16 +321,17 @@ document.addEventListener('DOMContentLoaded', () => {
             clearInterval(gameInfo.timer)
             gameInfo.timer = null
         } else {
-            draw(gameInfo, boardInfo)
-            gameInfo.timer = setInterval(moveDown, 1000)
-            nextUpRandomIndex = Math.floor(Math.random() * tetrominoes.length)
-            /* Next step would be to display the next-up tetromino in the mini-grid */
             /* Only call this if the game has not started to prevent the game from 
                drawing up a new tetromino every time the game is paused and resumed */
             if (!gameInfo.gameStarted) {
+                /* Make game respond to keyboard input */
+                document.addEventListener('keyup', (event) => { controls(event, gameInfo); });
                 displayUpNext()
                 gameInfo.gameStarted = true
             }
+            draw()
+            gameInfo.timer = setInterval(moveDown, 1000)
+            nextUpRandomIndex = Math.floor(Math.random() * tetrominoes.length)            
         }
     })
     
@@ -334,7 +354,7 @@ document.addEventListener('DOMContentLoaded', () => {
      * Rotates the current tetromino 90 degrees clockwise.
      */
     function rotate() {
-        undraw(gameInfo, boardInfo)
+        undraw()
         /* Get the next rotation of the tetromino, and make sure to loop back to the first
            rotation if the index is out of bounds */
         gameInfo.currentRotation++
@@ -349,7 +369,7 @@ document.addEventListener('DOMContentLoaded', () => {
            are out of place on the next row or the previous row. */
         checkRotation()
         
-        draw(gameInfo, boardInfo)
+        draw()
     }
     
     /**
