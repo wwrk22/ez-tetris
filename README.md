@@ -8,25 +8,18 @@ adding to it to make the game more complete.
 :ballot_box_with_check: moveLeft()<br>
 &nbsp;&nbsp;&nbsp;&nbsp;:ballot_box_with_check: Implement<br> 
 &nbsp;&nbsp;&nbsp;&nbsp;:ballot_box_with_check: Test<br>
-<br>
 :ballot_box_with_check: moveRight()<br>
 &nbsp;&nbsp;&nbsp;&nbsp;:ballot_box_with_check: Implement<br>
 &nbsp;&nbsp;&nbsp;&nbsp;:ballot_box_with_check: Test<br>
-<br>
 :ballot_box_with_check: Implement Rotation<br>
 &nbsp;&nbsp;&nbsp;&nbsp;:ballot_box_with_check: rotate()<br>
 &nbsp;&nbsp;&nbsp;&nbsp;:ballot_box_with_check: Correct rotation at walls<br>
-<br>
 :ballot_box_with_check: Display Up-Next Tetromino<br>
-<br>
 :ballot_box_with_check: Start/Pause Button<br>
-<br>
 :ballot_box_with_check: Freeze at bottom after delay<br>
-<br>
 :ballot_box_with_check: Display Score<br>
-<br>
 :ballot_box_with_check: Implement gameOver()<br>
-- [ ] Remove object params for destructuring from all functions except checkRowBelow()
+:ballot_box_with_check: Remove object params for destructuring from all functions except checkRowBelow()
 - [ ] Spacebar instantly drops tetromino to the bottom
 - [ ] Allow holding down-arrow key to move tetromino down faster
 - [ ] Use JavaScript to create the multiple \<div\> tags
