@@ -69,13 +69,62 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* Randomly select a tetromino from this array */
     const tetrominoes = [
-        lTetrominoA, // 0
-        lTetrominoB, // 1
-        zTetrominoA, // 2
-        zTetrominoB, // 3
-        tTetromino,  // 4
-        oTetromino,  // 5
-        iTetromino   // 6
+        /* lTetrominoA - 0 */
+        [
+            [0, boardWidth, boardWidth + 1, boardWidth + 2],
+            [1, 2, boardWidth + 1, boardWidth * 2 + 1],
+            [boardWidth, boardWidth + 1, boardWidth + 2, boardWidth * 2 + 2],
+            [1, boardWidth + 1, boardWidth * 2, boardWidth * 2 + 1]
+        ],
+
+        /* lTetrominoB - 1 */
+        [
+            [2, boardWidth, boardWidth + 1, boardWidth + 2],
+            [1, boardWidth + 1, boardWidth * 2 + 1, boardWidth * 2 + 2],
+            [boardWidth, boardWidth + 1, boardWidth + 2, boardWidth * 2],
+            [0, 1, boardWidth + 1, boardWidth * 2 + 1]
+        ],
+
+        /* zTetrominoA - 2 */
+        [
+            [0, 1, boardWidth + 1, boardWidth + 2],
+            [2, boardWidth + 1, boardWidth + 2, boardWidth * 2 + 1],
+            [boardWidth, boardWidth + 1, boardWidth * 2 + 1, boardWidth * 2 + 2],
+            [1, boardWidth, boardWidth + 1, boardWidth * 2]
+        ],
+
+        /* zTetrominoB - 3 */
+        [
+            [1, 2, boardWidth, boardWidth + 1],
+            [1, boardWidth + 1, boardWidth + 2, boardWidth * 2 + 2],
+            [boardWidth + 1, boardWidth + 2, boardWidth * 2, boardWidth * 2 + 1],
+            [0, boardWidth, boardWidth + 1, boardWidth * 2 + 1]
+        ],
+
+        /* tTetromino - 4 */
+        [
+            [1, boardWidth, boardWidth + 1, boardWidth + 2],
+            [1, boardWidth + 1, boardWidth + 2, boardWidth * 2 + 1],
+            [boardWidth, boardWidth + 1, boardWidth + 2, boardWidth * 2 + 1],
+            [1, boardWidth, boardWidth + 1, boardWidth * 2 + 1]
+        ],
+
+        /* oTetromino - 5 */
+        [
+            [0, 1, boardWidth, boardWidth + 1],
+            [0, 1, boardWidth, boardWidth + 1],
+            [0, 1, boardWidth, boardWidth + 1],
+            [0, 1, boardWidth, boardWidth + 1]
+        ],
+
+        /* iTetromino - 6 */
+        [
+            [boardWidth, boardWidth + 1, boardWidth + 2, boardWidth + 3],
+            [2, boardWidth + 2, boardWidth * 2 + 2, boardWidth * 3 + 2],
+            [boardWidth, boardWidth + 1, boardWidth + 2, boardWidth + 3],
+            [1, boardWidth + 1, boardWidth * 2 + 1, boardWidth * 3 + 1]
+        ]
+        
     ]
 
     const tetrominoNumbers = {
