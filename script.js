@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     ]
 
-    /* Up-next tetrominoe positions */
+    /* Up-next tetrominoes mini-board positions */
     const upNextTetrominoes = [
         /* lTetrominoA */
         [miniBoardWidth + 1, miniBoardWidth * 2 + 1, miniBoardWidth * 2 + 2, miniBoardWidth * 2 + 3],
@@ -545,7 +545,4 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    /* Greeting */
-    const myName = "Won Rhim";
-    alert(`Welcome!\nEnjoy the game!\nBuilt by ${myName}`);
 });
