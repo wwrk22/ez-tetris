@@ -77,16 +77,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     ]
 
-    const tetrominoNumbers = {
-        lA: 0,
-        lB: 1,
-        zA: 2,
-        zB: 3,
-        t: 4,
-        o: 5,
-        i: 6
-    }
-
     /* Up-next tetrominoe positions */
     const upNextTetrominoes = [
         /* lTetrominoA */
@@ -514,7 +504,7 @@ document.addEventListener('DOMContentLoaded', () => {
      */ 
     function checkRotation() {
         /* iTetromino is a special case on its own */
-        if (randomIndex === tetrominoNumbers.i) {
+        if (randomIndex === 6) {
             if ((gameInfo.currentPosition + 3) % boardWidth === 0) {
                 if (currentTetromino.some(index => (gameInfo.currentPosition + index + 1) % boardWidth === 0)) {
                     gameInfo.currentPosition--
@@ -555,6 +545,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    /* Greeting */
     const myName = "Won Rhim";
     alert(`Welcome!\nEnjoy the game!\nBuilt by ${myName}`);
-})
+});
