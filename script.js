@@ -208,19 +208,32 @@ document.addEventListener('DOMContentLoaded', () => {
                 case 39: /* Right Arrow */
                     moveRight()
                     break
-                case 40: /* Down Arrow */
-                    if (!checkRowBelow(boardInfo)) {
-                        moveDown();
-                    }
             }
         }
     }
 
-    function keyDown() {
-        if (event.keyCode === 40) {
-            if (!checkRowBelow(boardInfo)) {
-                moveDown();
+    function keyDown(event, { gameStarted }) {
+        const keyCode = event.keyCode;
+
+        if (gameStarted) {
+
+            switch (keyCode) {
+
+                case 40: /* Down */
+
+                    if (!checkRowBelow(boardInfo)) {
+
+                        moveDown();
+
+                    }
+
+                    break;
+
+                default:
+
+                    break;
             }
+
         }
     }
 
@@ -354,8 +367,8 @@ document.addEventListener('DOMContentLoaded', () => {
                drawing up a new tetromino every time the game is paused and resumed */
             if (!gameInfo.gameStarted) {
                 /* Make game respond to keyboard input */
-                document.addEventListener('keyup', (event) => { controls(event, gameInfo); });
-                document.onkeydown = keyDown;
+                document.addEventListener("keyup", (event) => { controls(event, gameInfo); });
+                document.addEventListener("keydown", (event) => { keyDown(event, gameInfo); });
 
                 /* Display the tetromino that will be spawned next. */
                 nextUpRandomIndex = Math.floor(Math.random() * tetrominoes.length);
