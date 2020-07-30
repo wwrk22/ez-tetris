@@ -6,56 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
     /* This is the width of the small board that is to the right of the game board. */
     const miniBoardWidth = 4;
 
-    /* --Tetrominoes-- */
-    const lTetrominoA = [
-        [0, boardWidth, boardWidth + 1, boardWidth + 2],
-        [1, 2, boardWidth + 1, boardWidth * 2 + 1],
-        [boardWidth, boardWidth + 1, boardWidth + 2, boardWidth * 2 + 2],
-        [1, boardWidth + 1, boardWidth * 2, boardWidth * 2 + 1]
-    ]
-
-    const lTetrominoB = [
-        [2, boardWidth, boardWidth + 1, boardWidth + 2],
-        [1, boardWidth + 1, boardWidth * 2 + 1, boardWidth * 2 + 2],
-        [boardWidth, boardWidth + 1, boardWidth + 2, boardWidth * 2],
-        [0, 1, boardWidth + 1, boardWidth * 2 + 1]
-    ]
-
-    const zTetrominoA = [
-        [0, 1, boardWidth + 1, boardWidth + 2],
-        [2, boardWidth + 1, boardWidth + 2, boardWidth * 2 + 1],
-        [boardWidth, boardWidth + 1, boardWidth * 2 + 1, boardWidth * 2 + 2],
-        [1, boardWidth, boardWidth + 1, boardWidth * 2]
-    ]
-
-    const zTetrominoB = [
-        [1, 2, boardWidth, boardWidth + 1],
-        [1, boardWidth + 1, boardWidth + 2, boardWidth * 2 + 2],
-        [boardWidth + 1, boardWidth + 2, boardWidth * 2, boardWidth * 2 + 1],
-        [0, boardWidth, boardWidth + 1, boardWidth * 2 + 1]
-    ]
-
-    const tTetromino = [
-        [1, boardWidth, boardWidth + 1, boardWidth + 2],
-        [1, boardWidth + 1, boardWidth + 2, boardWidth * 2 + 1],
-        [boardWidth, boardWidth + 1, boardWidth + 2, boardWidth * 2 + 1],
-        [1, boardWidth, boardWidth + 1, boardWidth * 2 + 1]
-    ]
-
-    const oTetromino = [
-        [0, 1, boardWidth, boardWidth + 1],
-        [0, 1, boardWidth, boardWidth + 1],
-        [0, 1, boardWidth, boardWidth + 1],
-        [0, 1, boardWidth, boardWidth + 1]
-    ]
-
-    const iTetromino = [
-        [boardWidth, boardWidth + 1, boardWidth + 2, boardWidth + 3],
-        [2, boardWidth + 2, boardWidth * 2 + 2, boardWidth * 3 + 2],
-        [boardWidth, boardWidth + 1, boardWidth + 2, boardWidth + 3],
-        [1, boardWidth + 1, boardWidth * 2 + 1, boardWidth * 3 + 1]
-    ]
-
     /* --Tetromino Colors-- */
     const colors = [
         '#B348DA', // lTetrominoA
@@ -124,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
             [boardWidth, boardWidth + 1, boardWidth + 2, boardWidth + 3],
             [1, boardWidth + 1, boardWidth * 2 + 1, boardWidth * 3 + 1]
         ]
-        
+
     ]
 
     const tetrominoNumbers = {
