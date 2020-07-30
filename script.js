@@ -118,9 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     const boardInfo = {
-        /* board is where the game is played, and it contains individual blocks */
-        board: document.querySelector('#board'),
-        /* Board blocks have to be manipulated to show movement of tetrominoes */
+        /* Array of divs are colored in different positions to draw tetrominoes */
         boardBlocks: Array.from(document.querySelectorAll('#board div'))
     }
 
