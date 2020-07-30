@@ -125,9 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const upNextBoardInfo = {
-        /* upNextBoard is where the up-next tetromino will be displayed for the user to see */
-        upNextBoard: document.querySelector('#up-next-board'),
-        /* use board blocks to display the up-next tetromino */
+        /* Mini-board blocks where the up-next tetromino is displayed */
         upNextBoardBlocks: Array.from(document.querySelectorAll('#up-next-board div'))
     }
     
