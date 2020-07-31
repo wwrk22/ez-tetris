@@ -202,7 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function controls(event, { gameStarted, gameOver }) {
         /* Prevent calling the move functions if the game has not started. */
         if (gameStarted && !gameOver) {
-            console.log("helloooo");
+
             switch (event.keyCode) {
                 case 32: /* Spacebar */
                     instantDropTrue();
@@ -359,8 +359,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!gameInfo.gameOver) {
                 draw()
                 displayUpNext()
-            } else {
-                console.log("GAME OVER");
             }
         }
     }
@@ -421,11 +419,10 @@ document.addEventListener('DOMContentLoaded', () => {
             gameInfo.currentRotation = 0
         }
 
-        gameInfo.currentTetromino = tetrominoes[gameInfo.randomIndex][gameInfo.currentRotation]
-
         /* We need to check to see if any of the newly rotated tetromino's blocks
            are out of place on the next row or the previous row. */
         checkRotation()
+        gameInfo.currentTetromino = tetrominoes[gameInfo.randomIndex][gameInfo.currentRotation]
         
         draw()
     }
@@ -559,6 +556,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     gameInfo.currentPosition--
                 }
             }
+        }
+
+        /* Tetromino is right on top of other tetrominoes that are frozen in place */
+        const rotationToCheck = tetrominoes[gameInfo.randomIndex][gameInfo.currentRotation]
+        if (rotationToCheck.some(index => boardBlocks[gameInfo.currentPosition + index].classList.contains("occupied-block"))) {
+
+            /* Revert the tetromino to its previous rotation */
+            gameInfo.currentRotation = (--gameInfo.currentRotation === -1) ? 3 : gameInfo.currentRotation
+
         }
     }
 
