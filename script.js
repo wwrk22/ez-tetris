@@ -122,27 +122,54 @@ document.addEventListener('DOMContentLoaded', () => {
     /* Mini-board blocks where the up-next tetromino is displayed */
     const upNextBoardBlocks = Array.from(document.querySelectorAll('#up-next-board div'));
     
-    const gameInfo = {
-        gameStarted: false,
-        gameOver: false,
-        score: document.querySelector('#score'),
-        startBtn: document.querySelector('#start-btn'),
+    /* Apply usage of object literal */
+    const createGameInfo = (
+        gameStarted,
+        gameOver,
+        score,
+        startBtn,
+        timer,
+        currentPosition,
+        currentRotation,
+        instantDrop,
+        nextUpRandomIndex,
+        randomIndex,
+        currentTetromino
+    ) => ({
+        gameStarted,
+        gameOver,
+        score,
+        startBtn,
         /* Used to move a tetromino every one second. */
-        timer: undefined,
+        timer,
         /* Tetromino will be 'currentPosition' blocks to the right of the left wall of the board. */
-        currentPosition: 4,
+        currentPosition,
         /* Indicates the rotation the current tetromino is. */
-        currentRotation: 0,
+        currentRotation,
         /* Used to determine the rate at which tetromino drops. */
-        instantDrop: false,
+        instantDrop,
         /* Used for choosing next-up tetromino randomly. */
-        nextUpRandomIndex: 0,
+        nextUpRandomIndex,
         /* Randomly select a tetromino in its first rotation. 'randomIndex' is used to index a tetromino,
         and currentRotation is used to index the first rotation of the randomly chosen tetromino. */
-        randomIndex: Math.floor(Math.random() * tetrominoes.length),
+        randomIndex,
         /* 1D array of indices that draw the tetromino */
-        currentTetromino: null
-    };
+        currentTetromino
+    });
+
+    const gameInfo = createGameInfo(
+        false,
+        false,
+        document.querySelector("#score"),
+        document.querySelector("#start-btn"),
+        undefined,
+        4,
+        0,
+        false,
+        0,
+        Math.floor(Math.random() * tetrominoes.length),
+        null
+    );
 
     /* Draws the randomly chosen tetromino in the rotation indexed
      * by currentRotation.
@@ -322,7 +349,7 @@ document.addEventListener('DOMContentLoaded', () => {
             gameInfo.nextUpRandomIndex = Math.floor(Math.random() * tetrominoes.length)
             gameInfo.currentTetromino = tetrominoes[gameInfo.randomIndex][0]
             gameInfo.currentPosition = 4
-            gameOver()
+            checkGameOver()
 
             if (!gameInfo.gameOver) {
                 draw()
@@ -460,7 +487,7 @@ document.addEventListener('DOMContentLoaded', () => {
      * an open first row, the tetromino cannot rotate, and the up-next
      * tetromino will not have room to spawn, regardless of its shape.
      */
-    function gameOver() {
+    function checkGameOver() {
 
         if (gameInfo.currentTetromino.some(index => boardBlocks[gameInfo.currentPosition + index].classList.contains('occupied-block'))) {
             /* For now, let's just pause the game when the game is over. */
