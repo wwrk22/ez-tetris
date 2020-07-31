@@ -199,9 +199,10 @@ document.addEventListener('DOMContentLoaded', () => {
      * We can object-destructure 'gameInfo' here because we're only checking
      * the value of 'gameStarted', and not changing it.
      */
-    function controls(event, { gameStarted }) {
+    function controls(event, { gameStarted, gameOver }) {
         /* Prevent calling the move functions if the game has not started. */
-        if (gameStarted) {
+        if (gameStarted && !gameOver) {
+            console.log("helloooo");
             switch (event.keyCode) {
                 case 32: /* Spacebar */
                     instantDropTrue();
@@ -219,9 +220,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function keyDown(event, { gameStarted }) {
+    function keyDown(event, { gameStarted, gameOver }) {
 
-        if (gameStarted) {
+        if (gameStarted && !gameOver) {
 
             switch (event.keyCode) {
 
@@ -342,18 +343,24 @@ document.addEventListener('DOMContentLoaded', () => {
             /* Prevent other tetrominoes from using the blocks on which the current tetromino has been frozen. */
             gameInfo.currentTetromino.forEach(
                 index => boardBlocks[gameInfo.currentPosition + index].classList.add('occupied-block'))
+            
             /* Update score */
             updateScore()
+
             /* Generate new random tetromino */
             gameInfo.randomIndex = gameInfo.nextUpRandomIndex;
             gameInfo.nextUpRandomIndex = Math.floor(Math.random() * tetrominoes.length)
             gameInfo.currentTetromino = tetrominoes[gameInfo.randomIndex][0]
             gameInfo.currentPosition = 4
+
+            /* Check to see if game is over */
             checkGameOver()
 
             if (!gameInfo.gameOver) {
                 draw()
                 displayUpNext()
+            } else {
+                console.log("GAME OVER");
             }
         }
     }
