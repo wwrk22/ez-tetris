@@ -202,7 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function controls(event, { gameStarted, gameOver }) {
         /* Prevent calling the move functions if the game has not started. */
         if (gameStarted && !gameOver) {
-            console.log("helloooo");
+
             switch (event.keyCode) {
                 case 32: /* Spacebar */
                     instantDropTrue();
@@ -359,8 +359,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!gameInfo.gameOver) {
                 draw()
                 displayUpNext()
-            } else {
-                console.log("GAME OVER");
             }
         }
     }
@@ -556,9 +554,18 @@ document.addEventListener('DOMContentLoaded', () => {
             /* Tetromino is at right wall */
             if ((gameInfo.currentPosition + 2) % boardWidth === 0) {
                 if (gameInfo.currentTetromino.some(index => (gameInfo.currentPosition + index + 1) % boardWidth === 0)) {
+                    console.log("NO!");
                     gameInfo.currentPosition--
                 }
             }
+        }
+
+        /* Tetromino is right on top of other tetrominoes that are frozen in place */
+        if (gameInfo.currentTetromino.some(index => boardBlocks[gameInfo.currentPosition + index].classList.contains("occupied-block"))) {
+
+            /* Revert the tetromino to its previous rotation */
+            gameInfo.currentRotation = (--gameInfo.currentRotation === -1) ? 3 : gameInfo.currentRotation;
+
         }
     }
 
