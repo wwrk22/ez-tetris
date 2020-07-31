@@ -197,48 +197,37 @@ document.addEventListener('DOMContentLoaded', () => {
     /**
      * Assign functions to keyCodes to move and rotate tetrominoes.
      * We can object-destructure 'gameInfo' here because we're only checking
-     * the value of 'gameStarted', and not changing it.
+     * the value of its properties and not changing it.
      */
-    function controls(event, { gameStarted, gameOver }) {
+    function keyDown(event, { gameStarted, gameOver }) {
+
         /* Prevent calling the move functions if the game has not started. */
         if (gameStarted && !gameOver) {
 
             switch (event.keyCode) {
+
                 case 32: /* Spacebar */
-                    instantDropTrue();
-                    break;
-                case 37: /* Left Arrow */
+                    instantDropTrue()
+                    break
+
+                case 37: /* Left */
                     moveLeft()
                     break
-                case 38: /* Up Arrow */
+
+                case 38: /* Up */
                     rotate()
                     break
-                case 39: /* Right Arrow */
+
+                case 39: /* Right */
                     moveRight()
                     break
-            }
-        }
-    }
-
-    function keyDown(event, { gameStarted, gameOver }) {
-
-        if (gameStarted && !gameOver) {
-
-            switch (event.keyCode) {
 
                 case 40: /* Down */
-
                     if (!checkRowBelow()) {
-
-                        moveDown();
-
+                        moveDown()
                     }
+                    break
 
-                    break;
-
-                default:
-
-                    break;
             }
 
         }
@@ -376,7 +365,6 @@ document.addEventListener('DOMContentLoaded', () => {
                drawing up a new tetromino every time the game is paused and resumed */
             if (!gameInfo.gameStarted) {
                 /* Make game respond to keyboard input */
-                document.addEventListener("keyup", (event) => { controls(event, gameInfo); });
                 document.addEventListener("keydown", (event) => { keyDown(event, gameInfo); });
 
                 /* Display the tetromino that will be spawned next. */
