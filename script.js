@@ -116,23 +116,17 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById("board").innerHTML = divTags;
     /* ----------------------------------------------------------------------*/
 
+    /* Array of divs that form the game board */
+    const boardBlocks = Array.from(document.querySelectorAll('#board div'));
 
-    const boardInfo = {
-        /* Array of divs are colored in different positions to draw tetrominoes */
-        boardBlocks: Array.from(document.querySelectorAll('#board div'))
-    }
-
-    const upNextBoardInfo = {
-        /* Mini-board blocks where the up-next tetromino is displayed */
-        upNextBoardBlocks: Array.from(document.querySelectorAll('#up-next-board div'))
-    }
+    /* Mini-board blocks where the up-next tetromino is displayed */
+    const upNextBoardBlocks = Array.from(document.querySelectorAll('#up-next-board div'));
     
     const gameInfo = {
         gameStarted: false,
         gameOver: false,
-        scoreDisplay: document.querySelector('#score-display'),
+        score: document.querySelector('#score'),
         startBtn: document.querySelector('#start-btn'),
-        score: 0,
         /* Used to move a tetromino every one second. */
         timer: undefined,
         /* Tetromino will be 'currentPosition' blocks to the right of the left wall of the board. */
@@ -159,7 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
             gameInfo.currentPosition--
         }
         currentTetromino.forEach(index => {
-            boardInfo.boardBlocks[gameInfo.currentPosition + index].style.backgroundColor = colors[randomIndex];
+            boardBlocks[gameInfo.currentPosition + index].style.backgroundColor = colors[randomIndex];
         })
     }
 
@@ -168,7 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     function undraw() {
         currentTetromino.forEach(index => {
-            boardInfo.boardBlocks[gameInfo.currentPosition + index].style.backgroundColor = ""
+            boardBlocks[gameInfo.currentPosition + index].style.backgroundColor = ""
         })
     }
 
@@ -206,7 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 case 40: /* Down */
 
-                    if (!checkRowBelow(boardInfo)) {
+                    if (!checkRowBelow()) {
 
                         moveDown();
 
@@ -243,14 +237,14 @@ document.addEventListener('DOMContentLoaded', () => {
     function moveDown() {
         /* Player may move the tetromino sideways right before it moves down, so we need to
            make sure the tetromino is not drawn on top of an existing one below. */
-        if (!checkRowBelow(boardInfo)) {
+        if (!checkRowBelow()) {
             undraw()
             gameInfo.currentPosition += boardWidth
             draw()
         }
         
         /* Give time for tetromino to move or rotate before freezing in place */
-        if (checkRowBelow(boardInfo)) {
+        if (checkRowBelow()) {
             clearInterval(gameInfo.timer)
 
             const delayTime = gameInfo.instantDrop ? 0 : 1000;
@@ -258,7 +252,7 @@ document.addEventListener('DOMContentLoaded', () => {
             /* Tetromino may have moved, so we should only call freeze() if it
                hits a wall */
             setTimeout(() => {
-                if (checkRowBelow(boardInfo)) {
+                if (checkRowBelow()) {
                     freeze()
                     if (!gameInfo.gameOver) {
                         gameInfo.timer = setInterval(moveDown, 1000);
@@ -286,7 +280,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         /* If any of the blocks in the tetromino's new position are occupied, then stop it from moving. */
-        if (currentTetromino.some(index => boardInfo.boardBlocks[gameInfo.currentPosition + index].classList.contains('occupied-block'))) {
+        if (currentTetromino.some(index => boardBlocks[gameInfo.currentPosition + index].classList.contains('occupied-block'))) {
             gameInfo.currentPosition += 1
         }
 
@@ -307,7 +301,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         /* If any of the blocks in the tetromino's new position are occupied, then stop it from moving. */
-        if (currentTetromino.some(index => boardInfo.boardBlocks[gameInfo.currentPosition + index].classList.contains('occupied-block'))) {
+        if (currentTetromino.some(index => boardBlocks[gameInfo.currentPosition + index].classList.contains('occupied-block'))) {
             gameInfo.currentPosition -= 1
         }
 
@@ -319,10 +313,10 @@ document.addEventListener('DOMContentLoaded', () => {
      * the tetromino is frozen in place.
      */
     function freeze() {
-        if (checkRowBelow(boardInfo)) {
+        if (checkRowBelow()) {
             /* Prevent other tetrominoes from using the blocks on which the current tetromino has been frozen. */
             currentTetromino.forEach(
-                index => boardInfo.boardBlocks[gameInfo.currentPosition + index].classList.add('occupied-block'))
+                index => boardBlocks[gameInfo.currentPosition + index].classList.add('occupied-block'))
             /* Update score */
             updateScore()
             /* Generate new random tetromino */
@@ -370,13 +364,13 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     function displayUpNext() {
         /* Remove the previous up-next tetromino by removing the colors from the board blocks */
-        upNextBoardInfo.upNextBoardBlocks.forEach(block => {
+        upNextBoardBlocks.forEach(block => {
             block.style.backgroundColor = ''
         })
 
         /* Display the up-next tetromino by coloring the board blocks with the chosen shape */
         upNextTetrominoes[nextUpRandomIndex].forEach(index => {
-            upNextBoardInfo.upNextBoardBlocks[index].style.backgroundColor = colors[nextUpRandomIndex]
+            upNextBoardBlocks[index].style.backgroundColor = colors[nextUpRandomIndex]
         })
     }
 
@@ -411,12 +405,12 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateScore() {
 
         /* Check every row, starting from the bottom, for ones full with tetromino blocks. */
-        for (let i = boardInfo.boardBlocks.length - 20; i >= 10; i -= 10) {
+        for (let i = boardBlocks.length - 20; i >= 10; i -= 10) {
             let occupiedBlockCount = 0
 
             /* Check if the entire row is full with tetromino blocks */
             for (let j = i; j < (i + 10); j++) {
-                if (boardInfo.boardBlocks[j].classList.contains('occupied-block')) {
+                if (boardBlocks[j].classList.contains('occupied-block')) {
                     occupiedBlockCount++
                 }
             }
@@ -424,12 +418,12 @@ document.addEventListener('DOMContentLoaded', () => {
             /* If a row is full, then occupiedBlockCount should be equal to ten, and
                ten points are to be awarded. */
             if (occupiedBlockCount === 10) {
-                gameInfo.score += 10
+                gameInfo.score.innerHTML = parseInt(gameInfo.score.innerHTML) + 1;
 
                 /* First, clear the row. */
                 for (let rowBlockIndex = i; rowBlockIndex < (i + 10); rowBlockIndex++) {
-                    boardInfo.boardBlocks[rowBlockIndex].classList.remove("occupied-block");
-                    boardInfo.boardBlocks[rowBlockIndex].style.backgroundColor = "";
+                    boardBlocks[rowBlockIndex].classList.remove("occupied-block");
+                    boardBlocks[rowBlockIndex].style.backgroundColor = "";
                 }
 
                 /* Then, move all rows above it down by one. */
@@ -437,15 +431,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     for (let colIndex = rowIndex; colIndex < (rowIndex + 10); colIndex++) {
 
-                        if (boardInfo.boardBlocks[colIndex].classList.contains("occupied-block")) {
+                        if (boardBlocks[colIndex].classList.contains("occupied-block")) {
 
-                            if (!boardInfo.boardBlocks[colIndex + 10].classList.contains("occupied-block")) {
+                            if (!boardBlocks[colIndex + 10].classList.contains("occupied-block")) {
 
-                                boardInfo.boardBlocks[colIndex + 10].classList.add("occupied-block");
-                                boardInfo.boardBlocks[colIndex + 10].style.backgroundColor = boardInfo.boardBlocks[colIndex].style.backgroundColor;
+                                boardBlocks[colIndex + 10].classList.add("occupied-block");
+                                boardBlocks[colIndex + 10].style.backgroundColor = boardBlocks[colIndex].style.backgroundColor;
 
-                                boardInfo.boardBlocks[colIndex].classList.remove("occupied-block");
-                                boardInfo.boardBlocks[colIndex].style.backgroundColor = "";
+                                boardBlocks[colIndex].classList.remove("occupied-block");
+                                boardBlocks[colIndex].style.backgroundColor = "";
 
                             }
 
@@ -457,11 +451,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
         }
-
-        console.log("updateScore() finished");
-
-        /* Update and display the score */
-        gameInfo.scoreDisplay.innerHTML = gameInfo.score
     }
 
     /**
@@ -473,7 +462,7 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     function gameOver() {
         /* What shape tetromino is the up-next one? */
-        if (currentTetromino.some(index => boardInfo.boardBlocks[gameInfo.currentPosition + index].classList.contains('occupied-block'))) {
+        if (currentTetromino.some(index => boardBlocks[gameInfo.currentPosition + index].classList.contains('occupied-block'))) {
             /* For now, let's just pause the game when the game is over. */
             clearInterval(gameInfo.timer)
             gameInfo.gameOver = true
@@ -490,7 +479,7 @@ document.addEventListener('DOMContentLoaded', () => {
      * is occupied in any blocks, so that the tetromino freezes in place.
      * Returns true if row below is occupied, false otherwise.
      */
-    function checkRowBelow({ boardBlocks }) {
+    function checkRowBelow() {
         return currentTetromino.some(index => boardBlocks[gameInfo.currentPosition + index + boardWidth].classList.contains('occupied-block'))
     }
 
