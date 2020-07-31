@@ -6,56 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
     /* This is the width of the small board that is to the right of the game board. */
     const miniBoardWidth = 4;
 
-    /* --Tetrominoes-- */
-    const lTetrominoA = [
-        [0, boardWidth, boardWidth + 1, boardWidth + 2],
-        [1, 2, boardWidth + 1, boardWidth * 2 + 1],
-        [boardWidth, boardWidth + 1, boardWidth + 2, boardWidth * 2 + 2],
-        [1, boardWidth + 1, boardWidth * 2, boardWidth * 2 + 1]
-    ]
-
-    const lTetrominoB = [
-        [2, boardWidth, boardWidth + 1, boardWidth + 2],
-        [1, boardWidth + 1, boardWidth * 2 + 1, boardWidth * 2 + 2],
-        [boardWidth, boardWidth + 1, boardWidth + 2, boardWidth * 2],
-        [0, 1, boardWidth + 1, boardWidth * 2 + 1]
-    ]
-
-    const zTetrominoA = [
-        [0, 1, boardWidth + 1, boardWidth + 2],
-        [2, boardWidth + 1, boardWidth + 2, boardWidth * 2 + 1],
-        [boardWidth, boardWidth + 1, boardWidth * 2 + 1, boardWidth * 2 + 2],
-        [1, boardWidth, boardWidth + 1, boardWidth * 2]
-    ]
-
-    const zTetrominoB = [
-        [1, 2, boardWidth, boardWidth + 1],
-        [1, boardWidth + 1, boardWidth + 2, boardWidth * 2 + 2],
-        [boardWidth + 1, boardWidth + 2, boardWidth * 2, boardWidth * 2 + 1],
-        [0, boardWidth, boardWidth + 1, boardWidth * 2 + 1]
-    ]
-
-    const tTetromino = [
-        [1, boardWidth, boardWidth + 1, boardWidth + 2],
-        [1, boardWidth + 1, boardWidth + 2, boardWidth * 2 + 1],
-        [boardWidth, boardWidth + 1, boardWidth + 2, boardWidth * 2 + 1],
-        [1, boardWidth, boardWidth + 1, boardWidth * 2 + 1]
-    ]
-
-    const oTetromino = [
-        [0, 1, boardWidth, boardWidth + 1],
-        [0, 1, boardWidth, boardWidth + 1],
-        [0, 1, boardWidth, boardWidth + 1],
-        [0, 1, boardWidth, boardWidth + 1]
-    ]
-
-    const iTetromino = [
-        [boardWidth, boardWidth + 1, boardWidth + 2, boardWidth + 3],
-        [2, boardWidth + 2, boardWidth * 2 + 2, boardWidth * 3 + 2],
-        [boardWidth, boardWidth + 1, boardWidth + 2, boardWidth + 3],
-        [1, boardWidth + 1, boardWidth * 2 + 1, boardWidth * 3 + 1]
-    ]
-
     /* --Tetromino Colors-- */
     const colors = [
         '#B348DA', // lTetrominoA
@@ -69,26 +19,65 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* Randomly select a tetromino from this array */
     const tetrominoes = [
-        lTetrominoA, // 0
-        lTetrominoB, // 1
-        zTetrominoA, // 2
-        zTetrominoB, // 3
-        tTetromino,  // 4
-        oTetromino,  // 5
-        iTetromino   // 6
+        /* lTetrominoA - 0 */
+        [
+            [0, boardWidth, boardWidth + 1, boardWidth + 2],
+            [1, 2, boardWidth + 1, boardWidth * 2 + 1],
+            [boardWidth, boardWidth + 1, boardWidth + 2, boardWidth * 2 + 2],
+            [1, boardWidth + 1, boardWidth * 2, boardWidth * 2 + 1]
+        ],
+
+        /* lTetrominoB - 1 */
+        [
+            [2, boardWidth, boardWidth + 1, boardWidth + 2],
+            [1, boardWidth + 1, boardWidth * 2 + 1, boardWidth * 2 + 2],
+            [boardWidth, boardWidth + 1, boardWidth + 2, boardWidth * 2],
+            [0, 1, boardWidth + 1, boardWidth * 2 + 1]
+        ],
+
+        /* zTetrominoA - 2 */
+        [
+            [0, 1, boardWidth + 1, boardWidth + 2],
+            [2, boardWidth + 1, boardWidth + 2, boardWidth * 2 + 1],
+            [boardWidth, boardWidth + 1, boardWidth * 2 + 1, boardWidth * 2 + 2],
+            [1, boardWidth, boardWidth + 1, boardWidth * 2]
+        ],
+
+        /* zTetrominoB - 3 */
+        [
+            [1, 2, boardWidth, boardWidth + 1],
+            [1, boardWidth + 1, boardWidth + 2, boardWidth * 2 + 2],
+            [boardWidth + 1, boardWidth + 2, boardWidth * 2, boardWidth * 2 + 1],
+            [0, boardWidth, boardWidth + 1, boardWidth * 2 + 1]
+        ],
+
+        /* tTetromino - 4 */
+        [
+            [1, boardWidth, boardWidth + 1, boardWidth + 2],
+            [1, boardWidth + 1, boardWidth + 2, boardWidth * 2 + 1],
+            [boardWidth, boardWidth + 1, boardWidth + 2, boardWidth * 2 + 1],
+            [1, boardWidth, boardWidth + 1, boardWidth * 2 + 1]
+        ],
+
+        /* oTetromino - 5 */
+        [
+            [0, 1, boardWidth, boardWidth + 1],
+            [0, 1, boardWidth, boardWidth + 1],
+            [0, 1, boardWidth, boardWidth + 1],
+            [0, 1, boardWidth, boardWidth + 1]
+        ],
+
+        /* iTetromino - 6 */
+        [
+            [boardWidth, boardWidth + 1, boardWidth + 2, boardWidth + 3],
+            [2, boardWidth + 2, boardWidth * 2 + 2, boardWidth * 3 + 2],
+            [boardWidth, boardWidth + 1, boardWidth + 2, boardWidth + 3],
+            [1, boardWidth + 1, boardWidth * 2 + 1, boardWidth * 3 + 1]
+        ]
+
     ]
 
-    const tetrominoNumbers = {
-        lA: 0,
-        lB: 1,
-        zA: 2,
-        zB: 3,
-        t: 4,
-        o: 5,
-        i: 6
-    }
-
-    /* Up-next tetrominoe positions */
+    /* Up-next tetrominoes mini-board positions */
     const upNextTetrominoes = [
         /* lTetrominoA */
         [miniBoardWidth + 1, miniBoardWidth * 2 + 1, miniBoardWidth * 2 + 2, miniBoardWidth * 2 + 3],
@@ -127,64 +116,82 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById("board").innerHTML = divTags;
     /* ----------------------------------------------------------------------*/
 
+    /* Array of divs that form the game board */
+    const boardBlocks = Array.from(document.querySelectorAll('#board div'));
 
-    const boardInfo = {
-        /* board is where the game is played, and it contains individual blocks */
-        board: document.querySelector('#board'),
-        /* Board blocks have to be manipulated to show movement of tetrominoes */
-        boardBlocks: Array.from(document.querySelectorAll('#board div'))
-    }
-
-    const upNextBoardInfo = {
-        /* upNextBoard is where the up-next tetromino will be displayed for the user to see */
-        upNextBoard: document.querySelector('#up-next-board'),
-        /* use board blocks to display the up-next tetromino */
-        upNextBoardBlocks: Array.from(document.querySelectorAll('#up-next-board div'))
-    }
+    /* Mini-board blocks where the up-next tetromino is displayed */
+    const upNextBoardBlocks = Array.from(document.querySelectorAll('#up-next-board div'));
     
-    const gameInfo = {
-        gameStarted: false,
-        gameOver: false,
-        scoreDisplay: document.querySelector('#score-display'),
-        startBtn: document.querySelector('#start-btn'),
-        score: 0,
+    /* Apply usage of object literal */
+    const createGameInfo = (
+        gameStarted,
+        gameOver,
+        score,
+        startBtn,
+        timer,
+        currentPosition,
+        currentRotation,
+        instantDrop,
+        nextUpRandomIndex,
+        randomIndex,
+        currentTetromino
+    ) => ({
+        gameStarted,
+        gameOver,
+        score,
+        startBtn,
         /* Used to move a tetromino every one second. */
-        timer: undefined,
+        timer,
         /* Tetromino will be 'currentPosition' blocks to the right of the left wall of the board. */
-        currentPosition: 4,
+        currentPosition,
         /* Indicates the rotation the current tetromino is. */
-        currentRotation: 0,
+        currentRotation,
         /* Used to determine the rate at which tetromino drops. */
-        instantDrop: false
-    }
+        instantDrop,
+        /* Used for choosing next-up tetromino randomly. */
+        nextUpRandomIndex,
+        /* Randomly select a tetromino in its first rotation. 'randomIndex' is used to index a tetromino,
+        and currentRotation is used to index the first rotation of the randomly chosen tetromino. */
+        randomIndex,
+        /* 1D array of indices that draw the tetromino */
+        currentTetromino
+    });
 
-    /* Used for choosing next-up tetromino randomly. */
-    let nextUpRandomIndex = 0
-    /* Randomly select a tetromino in its first rotation. 'randomIndex' is used to index a tetromino,
-       and currentRotation is used to index the first rotation of the randomly chosen tetromino. */
-    let randomIndex = Math.floor(Math.random() * tetrominoes.length)
-    let currentTetromino = tetrominoes[randomIndex][gameInfo.currentRotation]
+    const gameInfo = createGameInfo(
+        false,
+        false,
+        document.querySelector("#score"),
+        document.querySelector("#start-btn"),
+        undefined,
+        4,
+        0,
+        false,
+        0,
+        Math.floor(Math.random() * tetrominoes.length),
+        null
+    );
 
     /* Draws the randomly chosen tetromino in the rotation indexed
      * by currentRotation.
      */
     function draw() {
         /* Move iTetromino one block to the left, and leave the other tetrominoes as they are. */
-        if (!gameInfo.gameStarted && randomIndex === 6) {
-            gameInfo.currentPosition--
+        if (!gameInfo.gameStarted && gameInfo.randomIndex === 6) {
+            gameInfo.currentPosition--;
         }
-        currentTetromino.forEach(index => {
-            boardInfo.boardBlocks[gameInfo.currentPosition + index].style.backgroundColor = colors[randomIndex];
-        })
+
+        gameInfo.currentTetromino.forEach(index => {
+            boardBlocks[gameInfo.currentPosition + index].style.backgroundColor = colors[gameInfo.randomIndex];
+        });
     }
 
     /*
      * Simply removes the tetromino from the board, so it can be redrawn one position below.
      */
     function undraw() {
-        currentTetromino.forEach(index => {
-            boardInfo.boardBlocks[gameInfo.currentPosition + index].style.backgroundColor = ""
-        })
+        gameInfo.currentTetromino.forEach(index => {
+            boardBlocks[gameInfo.currentPosition + index].style.backgroundColor = ""
+        });
     }
 
     /**
@@ -213,15 +220,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function keyDown(event, { gameStarted }) {
-        const keyCode = event.keyCode;
 
         if (gameStarted) {
 
-            switch (keyCode) {
+            switch (event.keyCode) {
 
                 case 40: /* Down */
 
-                    if (!checkRowBelow(boardInfo)) {
+                    if (!checkRowBelow()) {
 
                         moveDown();
 
@@ -247,7 +253,6 @@ document.addEventListener('DOMContentLoaded', () => {
            and the timer should be reset to normal speed. */
         gameInfo.instantDrop = true;
         clearInterval(gameInfo.timer);
-        gameInfo.timer = null;
         gameInfo.timer = setInterval(moveDown, 0);
     }
 
@@ -258,22 +263,21 @@ document.addEventListener('DOMContentLoaded', () => {
     function moveDown() {
         /* Player may move the tetromino sideways right before it moves down, so we need to
            make sure the tetromino is not drawn on top of an existing one below. */
-        if (!checkRowBelow(boardInfo)) {
-            undraw()
-            gameInfo.currentPosition += boardWidth
-            draw()
+        if (!checkRowBelow()) {
+            undraw();
+            gameInfo.currentPosition += boardWidth;
+            draw();
         }
         
         /* Give time for tetromino to move or rotate before freezing in place */
-        if (checkRowBelow(boardInfo)) {
-            clearInterval(gameInfo.timer)
+        if (checkRowBelow()) {
+            clearInterval(gameInfo.timer);
 
             const delayTime = gameInfo.instantDrop ? 0 : 1000;
 
-            /* Tetromino may have moved, so we should only call freeze() if it
-               hits a wall */
             setTimeout(() => {
-                if (checkRowBelow(boardInfo)) {
+                /* Tetromino may have moved, so we should only call freeze() if it hits a wall */
+                if (checkRowBelow()) {
                     freeze()
                     if (!gameInfo.gameOver) {
                         gameInfo.timer = setInterval(moveDown, 1000);
@@ -294,15 +298,15 @@ document.addEventListener('DOMContentLoaded', () => {
         undraw()
 
         /* Check to see if the tetromino is at the left wall */
-        const isAtLeftWall = currentTetromino.some(index => (gameInfo.currentPosition + index) % boardWidth === 0)
+        const isAtLeftWall = gameInfo.currentTetromino.some(index => (gameInfo.currentPosition + index) % boardWidth === 0)
         
         if (!isAtLeftWall) {
-            gameInfo.currentPosition -= 1
+            gameInfo.currentPosition--;
         }
 
         /* If any of the blocks in the tetromino's new position are occupied, then stop it from moving. */
-        if (currentTetromino.some(index => boardInfo.boardBlocks[gameInfo.currentPosition + index].classList.contains('occupied-block'))) {
-            gameInfo.currentPosition += 1
+        if (gameInfo.currentTetromino.some(index => boardBlocks[gameInfo.currentPosition + index].classList.contains('occupied-block'))) {
+            gameInfo.currentPosition++;
         }
 
         draw()
@@ -315,15 +319,15 @@ document.addEventListener('DOMContentLoaded', () => {
         undraw()
 
         /* Check to see if the tetromino is at the right wall */
-        const isAtRightWall = currentTetromino.some(index => (gameInfo.currentPosition + index + 1) % boardWidth === 0)
+        const isAtRightWall = gameInfo.currentTetromino.some(index => (gameInfo.currentPosition + index + 1) % boardWidth === 0)
 
         if (!isAtRightWall) {
-            gameInfo.currentPosition += 1
+            gameInfo.currentPosition++;
         }
 
         /* If any of the blocks in the tetromino's new position are occupied, then stop it from moving. */
-        if (currentTetromino.some(index => boardInfo.boardBlocks[gameInfo.currentPosition + index].classList.contains('occupied-block'))) {
-            gameInfo.currentPosition -= 1
+        if (gameInfo.currentTetromino.some(index => boardBlocks[gameInfo.currentPosition + index].classList.contains('occupied-block'))) {
+            gameInfo.currentPosition--;
         }
 
         draw()
@@ -334,18 +338,18 @@ document.addEventListener('DOMContentLoaded', () => {
      * the tetromino is frozen in place.
      */
     function freeze() {
-        if (checkRowBelow(boardInfo)) {
+        if (checkRowBelow()) {
             /* Prevent other tetrominoes from using the blocks on which the current tetromino has been frozen. */
-            currentTetromino.forEach(
-                index => boardInfo.boardBlocks[gameInfo.currentPosition + index].classList.add('occupied-block'))
+            gameInfo.currentTetromino.forEach(
+                index => boardBlocks[gameInfo.currentPosition + index].classList.add('occupied-block'))
             /* Update score */
             updateScore()
             /* Generate new random tetromino */
-            randomIndex = nextUpRandomIndex
-            nextUpRandomIndex = Math.floor(Math.random() * tetrominoes.length)
-            currentTetromino = tetrominoes[randomIndex][0]
+            gameInfo.randomIndex = gameInfo.nextUpRandomIndex;
+            gameInfo.nextUpRandomIndex = Math.floor(Math.random() * tetrominoes.length)
+            gameInfo.currentTetromino = tetrominoes[gameInfo.randomIndex][0]
             gameInfo.currentPosition = 4
-            gameOver()
+            checkGameOver()
 
             if (!gameInfo.gameOver) {
                 draw()
@@ -371,10 +375,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.addEventListener("keydown", (event) => { keyDown(event, gameInfo); });
 
                 /* Display the tetromino that will be spawned next. */
-                nextUpRandomIndex = Math.floor(Math.random() * tetrominoes.length);
+                gameInfo.nextUpRandomIndex = Math.floor(Math.random() * tetrominoes.length);
                 displayUpNext();
                 gameInfo.gameStarted = true
+
+                /* Initialize the first tetromino */
+                gameInfo.currentTetromino = tetrominoes[gameInfo.randomIndex][gameInfo.currentRotation];
             }
+
             draw()
             gameInfo.timer = setInterval(moveDown, 1000)
         }
@@ -385,13 +393,13 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     function displayUpNext() {
         /* Remove the previous up-next tetromino by removing the colors from the board blocks */
-        upNextBoardInfo.upNextBoardBlocks.forEach(block => {
+        upNextBoardBlocks.forEach(block => {
             block.style.backgroundColor = ''
         })
 
         /* Display the up-next tetromino by coloring the board blocks with the chosen shape */
-        upNextTetrominoes[nextUpRandomIndex].forEach(index => {
-            upNextBoardInfo.upNextBoardBlocks[index].style.backgroundColor = colors[nextUpRandomIndex]
+        upNextTetrominoes[gameInfo.nextUpRandomIndex].forEach(index => {
+            upNextBoardBlocks[index].style.backgroundColor = colors[gameInfo.nextUpRandomIndex]
         })
     }
 
@@ -402,13 +410,11 @@ document.addEventListener('DOMContentLoaded', () => {
         undraw()
         /* Get the next rotation of the tetromino, and make sure to loop back to the first
            rotation if the index is out of bounds */
-        gameInfo.currentRotation++
-        
-        if (gameInfo.currentRotation === 4) {
+        if (++gameInfo.currentRotation === 4) {
             gameInfo.currentRotation = 0
         }
 
-        currentTetromino = tetrominoes[randomIndex][gameInfo.currentRotation]
+        gameInfo.currentTetromino = tetrominoes[gameInfo.randomIndex][gameInfo.currentRotation]
 
         /* We need to check to see if any of the newly rotated tetromino's blocks
            are out of place on the next row or the previous row. */
@@ -426,25 +432,25 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateScore() {
 
         /* Check every row, starting from the bottom, for ones full with tetromino blocks. */
-        for (let i = boardInfo.boardBlocks.length - 20; i >= 10; i -= 10) {
+        for (let i = boardBlocks.length - 20; i >= 10; i -= 10) {
             let occupiedBlockCount = 0
 
             /* Check if the entire row is full with tetromino blocks */
-            for (let j = i; j < (i + 10); j++) {
-                if (boardInfo.boardBlocks[j].classList.contains('occupied-block')) {
-                    occupiedBlockCount++
-                }
+            if (boardBlocks.slice(i, i + 10).every(value => value.classList.contains("occupied-block"))) {
+
+                occupiedBlockCount = 10;
+
             }
 
             /* If a row is full, then occupiedBlockCount should be equal to ten, and
                ten points are to be awarded. */
             if (occupiedBlockCount === 10) {
-                gameInfo.score += 10
+                gameInfo.score.innerHTML = parseInt(gameInfo.score.innerHTML) + 1;
 
                 /* First, clear the row. */
                 for (let rowBlockIndex = i; rowBlockIndex < (i + 10); rowBlockIndex++) {
-                    boardInfo.boardBlocks[rowBlockIndex].classList.remove("occupied-block");
-                    boardInfo.boardBlocks[rowBlockIndex].style.backgroundColor = "";
+                    boardBlocks[rowBlockIndex].classList.remove("occupied-block");
+                    boardBlocks[rowBlockIndex].style.backgroundColor = "";
                 }
 
                 /* Then, move all rows above it down by one. */
@@ -452,15 +458,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     for (let colIndex = rowIndex; colIndex < (rowIndex + 10); colIndex++) {
 
-                        if (boardInfo.boardBlocks[colIndex].classList.contains("occupied-block")) {
+                        if (boardBlocks[colIndex].classList.contains("occupied-block")) {
 
-                            if (!boardInfo.boardBlocks[colIndex + 10].classList.contains("occupied-block")) {
+                            if (!boardBlocks[colIndex + 10].classList.contains("occupied-block")) {
 
-                                boardInfo.boardBlocks[colIndex + 10].classList.add("occupied-block");
-                                boardInfo.boardBlocks[colIndex + 10].style.backgroundColor = boardInfo.boardBlocks[colIndex].style.backgroundColor;
+                                boardBlocks[colIndex + 10].classList.add("occupied-block");
+                                boardBlocks[colIndex + 10].style.backgroundColor = boardBlocks[colIndex].style.backgroundColor;
 
-                                boardInfo.boardBlocks[colIndex].classList.remove("occupied-block");
-                                boardInfo.boardBlocks[colIndex].style.backgroundColor = "";
+                                boardBlocks[colIndex].classList.remove("occupied-block");
+                                boardBlocks[colIndex].style.backgroundColor = "";
 
                             }
 
@@ -472,11 +478,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
         }
-
-        console.log("updateScore() finished");
-
-        /* Update and display the score */
-        gameInfo.scoreDisplay.innerHTML = gameInfo.score
     }
 
     /**
@@ -486,15 +487,13 @@ document.addEventListener('DOMContentLoaded', () => {
      * an open first row, the tetromino cannot rotate, and the up-next
      * tetromino will not have room to spawn, regardless of its shape.
      */
-    function gameOver() {
-        /* What shape tetromino is the up-next one? */
-        if (currentTetromino.some(index => boardInfo.boardBlocks[gameInfo.currentPosition + index].classList.contains('occupied-block'))) {
+    function checkGameOver() {
+
+        if (gameInfo.currentTetromino.some(index => boardBlocks[gameInfo.currentPosition + index].classList.contains('occupied-block'))) {
             /* For now, let's just pause the game when the game is over. */
             clearInterval(gameInfo.timer)
             gameInfo.gameOver = true
         }
-        /* Check it's indices added to the currentPosition to see
-           if any of them are occupied.  If so, then GAME OVER! */
 
     }
 
@@ -505,8 +504,8 @@ document.addEventListener('DOMContentLoaded', () => {
      * is occupied in any blocks, so that the tetromino freezes in place.
      * Returns true if row below is occupied, false otherwise.
      */
-    function checkRowBelow({ boardBlocks }) {
-        return currentTetromino.some(index => boardBlocks[gameInfo.currentPosition + index + boardWidth].classList.contains('occupied-block'))
+    function checkRowBelow() {
+        return gameInfo.currentTetromino.some(index => boardBlocks[gameInfo.currentPosition + index + boardWidth].classList.contains('occupied-block'))
     }
 
     /*
@@ -515,15 +514,15 @@ document.addEventListener('DOMContentLoaded', () => {
      */ 
     function checkRotation() {
         /* iTetromino is a special case on its own */
-        if (randomIndex === tetrominoNumbers.i) {
+        if (gameInfo.randomIndex === 6) {
             if ((gameInfo.currentPosition + 3) % boardWidth === 0) {
-                if (currentTetromino.some(index => (gameInfo.currentPosition + index + 1) % boardWidth === 0)) {
+                if (gameInfo.currentTetromino.some(index => (gameInfo.currentPosition + index + 1) % boardWidth === 0)) {
                     gameInfo.currentPosition--
                 }
             } 
 
             if ((gameInfo.currentPosition + 2) % boardWidth === 0) {
-                if (currentTetromino.some(index => (gameInfo.currentPosition + index) % boardWidth === 0)) {
+                if (gameInfo.currentTetromino.some(index => (gameInfo.currentPosition + index) % boardWidth === 0)) {
                     if (gameInfo.currentRotation === 0) {
                         gameInfo.currentPosition -= 2
                     }
@@ -534,7 +533,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             if ((gameInfo.currentPosition + 1) % boardWidth === 0) {
-                if (currentTetromino.some(index => (gameInfo.currentPosition + index + 1) % boardWidth === 0)) {
+                if (gameInfo.currentTetromino.some(index => (gameInfo.currentPosition + index + 1) % boardWidth === 0)) {
                     gameInfo.currentPosition++
                 }
             }
@@ -542,20 +541,18 @@ document.addEventListener('DOMContentLoaded', () => {
             /* All other tetrominoes */
             /* Tetromino is at left wall */
             if ((gameInfo.currentPosition + 1) % boardWidth === 0) {
-                if (currentTetromino.some(index => (gameInfo.currentPosition + index + 1) % boardWidth === 0)) {
+                if (gameInfo.currentTetromino.some(index => (gameInfo.currentPosition + index + 1) % boardWidth === 0)) {
                     gameInfo.currentPosition++
                 }            
             }
 
             /* Tetromino is at right wall */
             if ((gameInfo.currentPosition + 2) % boardWidth === 0) {
-                if (currentTetromino.some(index => (gameInfo.currentPosition + index + 1) % boardWidth === 0)) {
+                if (gameInfo.currentTetromino.some(index => (gameInfo.currentPosition + index + 1) % boardWidth === 0)) {
                     gameInfo.currentPosition--
                 }
             }
         }
     }
 
-    const myName = "Won Rhim";
-    alert(`Welcome!\nEnjoy the game!\nBuilt by ${myName}`);
-})
+});
