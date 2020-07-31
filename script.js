@@ -150,11 +150,12 @@ document.addEventListener('DOMContentLoaded', () => {
     function draw() {
         /* Move iTetromino one block to the left, and leave the other tetrominoes as they are. */
         if (!gameInfo.gameStarted && gameInfo.randomIndex === 6) {
-            gameInfo.currentPosition--
+            gameInfo.currentPosition--;
         }
+
         gameInfo.currentTetromino.forEach(index => {
             boardBlocks[gameInfo.currentPosition + index].style.backgroundColor = colors[gameInfo.randomIndex];
-        })
+        });
     }
 
     /*
@@ -163,7 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function undraw() {
         gameInfo.currentTetromino.forEach(index => {
             boardBlocks[gameInfo.currentPosition + index].style.backgroundColor = ""
-        })
+        });
     }
 
     /**
@@ -192,11 +193,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function keyDown(event, { gameStarted }) {
-        const keyCode = event.keyCode;
 
         if (gameStarted) {
 
-            switch (keyCode) {
+            switch (event.keyCode) {
 
                 case 40: /* Down */
 
@@ -226,7 +226,6 @@ document.addEventListener('DOMContentLoaded', () => {
            and the timer should be reset to normal speed. */
         gameInfo.instantDrop = true;
         clearInterval(gameInfo.timer);
-        gameInfo.timer = null;
         gameInfo.timer = setInterval(moveDown, 0);
     }
 
@@ -238,20 +237,19 @@ document.addEventListener('DOMContentLoaded', () => {
         /* Player may move the tetromino sideways right before it moves down, so we need to
            make sure the tetromino is not drawn on top of an existing one below. */
         if (!checkRowBelow()) {
-            undraw()
-            gameInfo.currentPosition += boardWidth
-            draw()
+            undraw();
+            gameInfo.currentPosition += boardWidth;
+            draw();
         }
         
         /* Give time for tetromino to move or rotate before freezing in place */
         if (checkRowBelow()) {
-            clearInterval(gameInfo.timer)
+            clearInterval(gameInfo.timer);
 
             const delayTime = gameInfo.instantDrop ? 0 : 1000;
 
-            /* Tetromino may have moved, so we should only call freeze() if it
-               hits a wall */
             setTimeout(() => {
+                /* Tetromino may have moved, so we should only call freeze() if it hits a wall */
                 if (checkRowBelow()) {
                     freeze()
                     if (!gameInfo.gameOver) {
@@ -357,7 +355,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 /* Initialize the first tetromino */
                 gameInfo.currentTetromino = tetrominoes[gameInfo.randomIndex][gameInfo.currentRotation];
             }
-            
+
             draw()
             gameInfo.timer = setInterval(moveDown, 1000)
         }
