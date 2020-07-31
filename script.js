@@ -274,12 +274,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const isAtLeftWall = gameInfo.currentTetromino.some(index => (gameInfo.currentPosition + index) % boardWidth === 0)
         
         if (!isAtLeftWall) {
-            gameInfo.currentPosition -= 1
+            gameInfo.currentPosition--;
         }
 
         /* If any of the blocks in the tetromino's new position are occupied, then stop it from moving. */
         if (gameInfo.currentTetromino.some(index => boardBlocks[gameInfo.currentPosition + index].classList.contains('occupied-block'))) {
-            gameInfo.currentPosition += 1
+            gameInfo.currentPosition++;
         }
 
         draw()
@@ -295,12 +295,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const isAtRightWall = gameInfo.currentTetromino.some(index => (gameInfo.currentPosition + index + 1) % boardWidth === 0)
 
         if (!isAtRightWall) {
-            gameInfo.currentPosition += 1
+            gameInfo.currentPosition++;
         }
 
         /* If any of the blocks in the tetromino's new position are occupied, then stop it from moving. */
         if (gameInfo.currentTetromino.some(index => boardBlocks[gameInfo.currentPosition + index].classList.contains('occupied-block'))) {
-            gameInfo.currentPosition -= 1
+            gameInfo.currentPosition--;
         }
 
         draw()
@@ -383,9 +383,7 @@ document.addEventListener('DOMContentLoaded', () => {
         undraw()
         /* Get the next rotation of the tetromino, and make sure to loop back to the first
            rotation if the index is out of bounds */
-        gameInfo.currentRotation++
-        
-        if (gameInfo.currentRotation === 4) {
+        if (++gameInfo.currentRotation === 4) {
             gameInfo.currentRotation = 0
         }
 
@@ -411,10 +409,10 @@ document.addEventListener('DOMContentLoaded', () => {
             let occupiedBlockCount = 0
 
             /* Check if the entire row is full with tetromino blocks */
-            for (let j = i; j < (i + 10); j++) {
-                if (boardBlocks[j].classList.contains('occupied-block')) {
-                    occupiedBlockCount++
-                }
+            if (boardBlocks.slice(i, i + 10).every(value => value.classList.contains("occupied-block"))) {
+
+                occupiedBlockCount = 10;
+
             }
 
             /* If a row is full, then occupiedBlockCount should be equal to ten, and
@@ -463,14 +461,12 @@ document.addEventListener('DOMContentLoaded', () => {
      * tetromino will not have room to spawn, regardless of its shape.
      */
     function gameOver() {
-        /* What shape tetromino is the up-next one? */
+
         if (gameInfo.currentTetromino.some(index => boardBlocks[gameInfo.currentPosition + index].classList.contains('occupied-block'))) {
             /* For now, let's just pause the game when the game is over. */
             clearInterval(gameInfo.timer)
             gameInfo.gameOver = true
         }
-        /* Check it's indices added to the currentPosition to see
-           if any of them are occupied.  If so, then GAME OVER! */
 
     }
 
