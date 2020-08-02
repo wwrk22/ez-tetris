@@ -170,7 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
         //Math.floor(Math.random() * tetrominoes.length),
 
         /* ----------- TESTING ------------------- */
-        6,
+        2,
         /* ----------- TESTING ------------------- */
 
         null
@@ -345,12 +345,12 @@ document.addEventListener('DOMContentLoaded', () => {
             //gameInfo.randomIndex = gameInfo.nextUpRandomIndex;
 
             /* ----------- TESTING ------------------- */
-            gameInfo.random = 6
+            gameInfo.random = 2
             /* ----------- TESTING ------------------- */
 
             gameInfo.nextUpRandomIndex = Math.floor(Math.random() * tetrominoes.length)
-            gameInfo.currentTetromino = tetrominoes[gameInfo.randomIndex][0]
-
+            gameInfo.currentRotation = 0
+            gameInfo.currentTetromino = tetrominoes[gameInfo.randomIndex][gameInfo.currentRotation]
             gameInfo.currentPosition = 4
 
             /* Check to see if game is over */
@@ -412,9 +412,9 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     function rotate() {
 
-        /* --------------------- TEST -------------------------*/
-        console.log("currentPosition: " + gameInfo.currentPosition)
-        /* --------------------- TEST -------------------------*/
+        /* ----- TESTING ----- */
+        console.log("rotate() called")
+        /* ----- TESTING ----- */
 
         undraw()
         /* Get the next rotation of the tetromino, and make sure to loop back to the first
@@ -427,15 +427,6 @@ document.addEventListener('DOMContentLoaded', () => {
            are out of place on the next row or the previous row. */
         checkRotation()
         gameInfo.currentTetromino = tetrominoes[gameInfo.randomIndex][gameInfo.currentRotation]
-        
-        /* --------------------- TEST -------------------------*/
-        let fakeTetromino = tetrominoes[gameInfo.randomIndex][gameInfo.currentRotation]
-        console.log("currentRotation: " + gameInfo.currentRotation)
-        console.log("currentPosition: " + gameInfo.currentPosition)
-        gameInfo.currentTetromino.forEach(index => {
-            console.log(index + gameInfo.currentPosition + "  ")
-        })
-        /* --------------------- TEST -------------------------*/
 
         draw()
     }
