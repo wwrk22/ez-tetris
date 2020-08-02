@@ -170,7 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
         //Math.floor(Math.random() * tetrominoes.length),
 
         /* ----------- TESTING ------------------- */
-        0,
+        1,
         /* ----------- TESTING ------------------- */
 
         null
@@ -353,7 +353,7 @@ document.addEventListener('DOMContentLoaded', () => {
             //gameInfo.randomIndex = gameInfo.nextUpRandomIndex;
 
             /* ----------- TESTING ------------------- */
-            gameInfo.random = 0
+            gameInfo.random = 1
             /* ----------- TESTING ------------------- */
 
             gameInfo.nextUpRandomIndex = Math.floor(Math.random() * tetrominoes.length)
@@ -530,6 +530,8 @@ document.addEventListener('DOMContentLoaded', () => {
         switch (gameInfo.randomIndex) {
 
             case 0:
+            
+            case 1:
 
                 /* Left Wall */
                 if (gameInfo.currentRotation === 2 && (gameInfo.currentPosition + 1) % boardWidth === 0) {
@@ -544,6 +546,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     gameInfo.currentPosition--;
 
                 }
+
+                break;
 
             case 6:
 
