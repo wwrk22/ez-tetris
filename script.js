@@ -167,7 +167,12 @@ document.addEventListener('DOMContentLoaded', () => {
         0,
         false,
         0,
-        Math.floor(Math.random() * tetrominoes.length),
+        //Math.floor(Math.random() * tetrominoes.length),
+
+        /* ----------- TESTING ------------------- */
+        6,
+        /* ----------- TESTING ------------------- */
+
         null
     );
 
@@ -337,9 +342,15 @@ document.addEventListener('DOMContentLoaded', () => {
             updateScore()
 
             /* Generate new random tetromino */
-            gameInfo.randomIndex = gameInfo.nextUpRandomIndex;
+            //gameInfo.randomIndex = gameInfo.nextUpRandomIndex;
+
+            /* ----------- TESTING ------------------- */
+            gameInfo.random = 6
+            /* ----------- TESTING ------------------- */
+
             gameInfo.nextUpRandomIndex = Math.floor(Math.random() * tetrominoes.length)
             gameInfo.currentTetromino = tetrominoes[gameInfo.randomIndex][0]
+
             gameInfo.currentPosition = 4
 
             /* Check to see if game is over */
@@ -400,6 +411,11 @@ document.addEventListener('DOMContentLoaded', () => {
      * Rotates the current tetromino 90 degrees clockwise.
      */
     function rotate() {
+
+        /* --------------------- TEST -------------------------*/
+        console.log("currentPosition: " + gameInfo.currentPosition)
+        /* --------------------- TEST -------------------------*/
+
         undraw()
         /* Get the next rotation of the tetromino, and make sure to loop back to the first
            rotation if the index is out of bounds */
@@ -412,6 +428,15 @@ document.addEventListener('DOMContentLoaded', () => {
         checkRotation()
         gameInfo.currentTetromino = tetrominoes[gameInfo.randomIndex][gameInfo.currentRotation]
         
+        /* --------------------- TEST -------------------------*/
+        let fakeTetromino = tetrominoes[gameInfo.randomIndex][gameInfo.currentRotation]
+        console.log("currentRotation: " + gameInfo.currentRotation)
+        console.log("currentPosition: " + gameInfo.currentPosition)
+        gameInfo.currentTetromino.forEach(index => {
+            console.log(index + gameInfo.currentPosition + "  ")
+        })
+        /* --------------------- TEST -------------------------*/
+
         draw()
     }
     
@@ -505,30 +530,13 @@ document.addEventListener('DOMContentLoaded', () => {
      * to the left or right to correctly place it in its newly rotated position.
      */ 
     function checkRotation() {
+
         /* iTetromino is a special case on its own */
         if (gameInfo.randomIndex === 6) {
-            if ((gameInfo.currentPosition + 3) % boardWidth === 0) {
-                if (gameInfo.currentTetromino.some(index => (gameInfo.currentPosition + index + 1) % boardWidth === 0)) {
-                    gameInfo.currentPosition--
-                }
-            } 
+            
+            
 
-            if ((gameInfo.currentPosition + 2) % boardWidth === 0) {
-                if (gameInfo.currentTetromino.some(index => (gameInfo.currentPosition + index) % boardWidth === 0)) {
-                    if (gameInfo.currentRotation === 0) {
-                        gameInfo.currentPosition -= 2
-                    }
-                    if (gameInfo.currentRotation === 2) {
-                        gameInfo.currentPosition += 2
-                    }
-                }
-            }
-
-            if ((gameInfo.currentPosition + 1) % boardWidth === 0) {
-                if (gameInfo.currentTetromino.some(index => (gameInfo.currentPosition + index + 1) % boardWidth === 0)) {
-                    gameInfo.currentPosition++
-                }
-            }
+            
         } else {
             /* All other tetrominoes */
             /* Tetromino is at left wall */
