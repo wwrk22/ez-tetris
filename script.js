@@ -505,6 +505,9 @@ document.addEventListener('DOMContentLoaded', () => {
      * to the left or right to correctly place it in its newly rotated position.
      */ 
     function checkRotation() {
+
+        /* NEEDS FIXIN' */
+
         /* iTetromino is a special case on its own */
         if (gameInfo.randomIndex === 6) {
             if ((gameInfo.currentPosition + 3) % boardWidth === 0) {
