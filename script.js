@@ -170,7 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
         //Math.floor(Math.random() * tetrominoes.length),
 
         /* ----------- TESTING ------------------- */
-        6,
+        0,
         /* ----------- TESTING ------------------- */
 
         null
@@ -353,7 +353,7 @@ document.addEventListener('DOMContentLoaded', () => {
             //gameInfo.randomIndex = gameInfo.nextUpRandomIndex;
 
             /* ----------- TESTING ------------------- */
-            gameInfo.random = 6
+            gameInfo.random = 0
             /* ----------- TESTING ------------------- */
 
             gameInfo.nextUpRandomIndex = Math.floor(Math.random() * tetrominoes.length)
@@ -526,39 +526,54 @@ document.addEventListener('DOMContentLoaded', () => {
      */ 
     function checkRotation() {
 
-        /* iTetromino is a special case on its own */
-        if (gameInfo.randomIndex === 6) {
-            
-            /* Left Wall */
-            if (gameInfo.currentRotation === 0 && (gameInfo.currentPosition + 1) % boardWidth === 0) {
+        /* iTetromino */
+        switch (gameInfo.randomIndex) {
 
-                gameInfo.currentPosition++;
+            case 0:
 
-            }
+                /* Left Wall */
+                if (gameInfo.currentRotation === 2 && (gameInfo.currentPosition + 1) % boardWidth === 0) {
 
-            if (gameInfo.currentRotation === 2 && (gameInfo.currentPosition + 2) % boardWidth === 0) {
+                    gameInfo.currentPosition++;
 
-                gameInfo.currentPosition += 2;
+                }
 
-            }
+                /* Right Wall */
+                if (gameInfo.currentRotation === 0 && (gameInfo.currentPosition + 2) % boardWidth === 0) {
 
-            /* Right Wall */
-            if (gameInfo.currentRotation === 0 && (gameInfo.currentPosition + 2) % boardWidth === 0) {
+                    gameInfo.currentPosition--;
 
-                gameInfo.currentPosition -= 2;
+                }
 
-            }
+            case 6:
 
-            if (gameInfo.currentRotation === 2 && (gameInfo.currentPosition + 3) % boardWidth === 0) {
+                /* Left Wall */
+                if (gameInfo.currentRotation === 0 && (gameInfo.currentPosition + 1) % boardWidth === 0) {
 
-                gameInfo.currentPosition--;
+                    gameInfo.currentPosition++;
 
-            }
+                }
 
-            
-        } else {
-            
+                if (gameInfo.currentRotation === 2 && (gameInfo.currentPosition + 2) % boardWidth === 0) {
 
+                    gameInfo.currentPosition += 2;
+
+                }
+
+                /* Right Wall */
+                if (gameInfo.currentRotation === 0 && (gameInfo.currentPosition + 2) % boardWidth === 0) {
+
+                    gameInfo.currentPosition -= 2;
+
+                }
+
+                if (gameInfo.currentRotation === 2 && (gameInfo.currentPosition + 3) % boardWidth === 0) {
+
+                    gameInfo.currentPosition--;
+
+                }
+
+                break;
 
         }
 
