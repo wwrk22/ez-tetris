@@ -304,6 +304,10 @@ document.addEventListener('DOMContentLoaded', () => {
             gameInfo.currentPosition++;
         }
 
+        /* ----- TESTING ----- */
+        console.log("currentPosition: " + gameInfo.currentPosition)
+        /* ----- TESTING ----- */
+
         draw()
     }
 
@@ -324,6 +328,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (gameInfo.currentTetromino.some(index => boardBlocks[gameInfo.currentPosition + index].classList.contains('occupied-block'))) {
             gameInfo.currentPosition--;
         }
+
+        /* ----- TESTING ----- */
+        console.log("currentPosition: " + gameInfo.currentPosition)
+        /* ----- TESTING ----- */
 
         draw()
     }
@@ -411,10 +419,6 @@ document.addEventListener('DOMContentLoaded', () => {
      * Rotates the current tetromino 90 degrees clockwise.
      */
     function rotate() {
-
-        /* ----- TESTING ----- */
-        console.log("rotate() called")
-        /* ----- TESTING ----- */
 
         undraw()
         /* Get the next rotation of the tetromino, and make sure to loop back to the first
@@ -522,27 +526,65 @@ document.addEventListener('DOMContentLoaded', () => {
      */ 
     function checkRotation() {
 
-        /* iTetromino is a special case on its own */
-        if (gameInfo.randomIndex === 6) {
-            
-            
+        /* iTetromino */
+        switch (gameInfo.randomIndex) {
 
+            case 0:
             
-        } else {
-            /* All other tetrominoes */
-            /* Tetromino is at left wall */
-            if ((gameInfo.currentPosition + 1) % boardWidth === 0) {
-                if (gameInfo.currentTetromino.some(index => (gameInfo.currentPosition + index + 1) % boardWidth === 0)) {
-                    gameInfo.currentPosition++
-                }            
-            }
+            case 1:
 
-            /* Tetromino is at right wall */
-            if ((gameInfo.currentPosition + 2) % boardWidth === 0) {
-                if (gameInfo.currentTetromino.some(index => (gameInfo.currentPosition + index + 1) % boardWidth === 0)) {
-                    gameInfo.currentPosition--
+            case 2:
+
+            case 3:
+
+            case 4:
+
+                /* Left Wall */
+                if (gameInfo.currentRotation === 2 && (gameInfo.currentPosition + 1) % boardWidth === 0) {
+
+                    gameInfo.currentPosition++;
+
                 }
-            }
+
+                /* Right Wall */
+                if (gameInfo.currentRotation === 0 && (gameInfo.currentPosition + 2) % boardWidth === 0) {
+
+                    gameInfo.currentPosition--;
+
+                }
+
+                break;
+
+            case 6:
+
+                /* Left Wall */
+                if (gameInfo.currentRotation === 0 && (gameInfo.currentPosition + 1) % boardWidth === 0) {
+
+                    gameInfo.currentPosition++;
+
+                }
+
+                if (gameInfo.currentRotation === 2 && (gameInfo.currentPosition + 2) % boardWidth === 0) {
+
+                    gameInfo.currentPosition += 2;
+
+                }
+
+                /* Right Wall */
+                if (gameInfo.currentRotation === 0 && (gameInfo.currentPosition + 2) % boardWidth === 0) {
+
+                    gameInfo.currentPosition -= 2;
+
+                }
+
+                if (gameInfo.currentRotation === 2 && (gameInfo.currentPosition + 3) % boardWidth === 0) {
+
+                    gameInfo.currentPosition--;
+
+                }
+
+                break;
+
         }
 
         /* Tetromino is right on top of other tetrominoes that are frozen in place */
