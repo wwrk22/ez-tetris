@@ -171,37 +171,39 @@ document.addEventListener('DOMContentLoaded', () => {
         null
     );
 
-    /* Functions can be defined within objects */
-    const pencil = {
+    /* Use class syntax to define a constructor function for an object
+       in which functions are defined */
+    class Pencil {
 
-        /**
-         * Draws the randomly chosen tetromino in the rotation indexed
-         * by currentRotation.
-         */
-        draw() {
+        constructor(owner) {
 
-            if (!gameInfo.gameStarted && gameInfo.randomIndex === 6) {
-                gameInfo.currentPosition--;
+            this.owner = owner
+
+            this.draw = () => {
+
+                if (!gameInfo.gameStarted && gameInfo.randomIndex === 6) {
+                    gameInfo.currentPosition--;
+                }
+        
+                gameInfo.currentTetromino.forEach(index => {
+                    boardBlocks[gameInfo.currentPosition + index].style.backgroundColor = colors[gameInfo.randomIndex];
+                });
+
             }
-    
-            gameInfo.currentTetromino.forEach(index => {
-                boardBlocks[gameInfo.currentPosition + index].style.backgroundColor = colors[gameInfo.randomIndex];
-            });
 
-        },
+            this.undraw = () => {
 
-        /**
-        * Simply removes the tetromino from the board, so it can be redrawn one position below.
-        */
-        undraw() {
+                gameInfo.currentTetromino.forEach(index => {
+                    boardBlocks[gameInfo.currentPosition + index].style.backgroundColor = ""
+                });
 
-            gameInfo.currentTetromino.forEach(index => {
-                boardBlocks[gameInfo.currentPosition + index].style.backgroundColor = ""
-            });
+            }
 
         }
 
     }
+
+    const pencil = new Pencil("Tetris")
 
     /**
      * Assign functions to keyCodes to move and rotate tetrominoes.
