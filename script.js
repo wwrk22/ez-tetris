@@ -171,27 +171,36 @@ document.addEventListener('DOMContentLoaded', () => {
         null
     );
 
-    /* Draws the randomly chosen tetromino in the rotation indexed
-     * by currentRotation.
-     */
-    function draw() {
-        /* Move iTetromino one block to the left, and leave the other tetrominoes as they are. */
-        if (!gameInfo.gameStarted && gameInfo.randomIndex === 6) {
-            gameInfo.currentPosition--;
+    /* Functions can be defined within objects */
+    const pencil = {
+
+        /**
+         * Draws the randomly chosen tetromino in the rotation indexed
+         * by currentRotation.
+         */
+        draw() {
+
+            if (!gameInfo.gameStarted && gameInfo.randomIndex === 6) {
+                gameInfo.currentPosition--;
+            }
+    
+            gameInfo.currentTetromino.forEach(index => {
+                boardBlocks[gameInfo.currentPosition + index].style.backgroundColor = colors[gameInfo.randomIndex];
+            });
+
+        },
+
+        /**
+        * Simply removes the tetromino from the board, so it can be redrawn one position below.
+        */
+        undraw() {
+
+            gameInfo.currentTetromino.forEach(index => {
+                boardBlocks[gameInfo.currentPosition + index].style.backgroundColor = ""
+            });
+
         }
 
-        gameInfo.currentTetromino.forEach(index => {
-            boardBlocks[gameInfo.currentPosition + index].style.backgroundColor = colors[gameInfo.randomIndex];
-        });
-    }
-
-    /*
-     * Simply removes the tetromino from the board, so it can be redrawn one position below.
-     */
-    function undraw() {
-        gameInfo.currentTetromino.forEach(index => {
-            boardBlocks[gameInfo.currentPosition + index].style.backgroundColor = ""
-        });
     }
 
     /**
@@ -254,9 +263,9 @@ document.addEventListener('DOMContentLoaded', () => {
         /* Player may move the tetromino sideways right before it moves down, so we need to
            make sure the tetromino is not drawn on top of an existing one below. */
         if (!checkRowBelow()) {
-            undraw();
+            pencil.undraw();
             gameInfo.currentPosition += boardWidth;
-            draw();
+            pencil.draw();
         }
         
         /* Give time for tetromino to move or rotate before freezing in place */
@@ -285,7 +294,7 @@ document.addEventListener('DOMContentLoaded', () => {
      * Moves the current tetromino left by one column.
      */
     function moveLeft() {
-        undraw()
+        pencil.undraw()
 
         /* Check to see if the tetromino is at the left wall */
         const isAtLeftWall = gameInfo.currentTetromino.some(index => (gameInfo.currentPosition + index) % boardWidth === 0)
@@ -299,14 +308,14 @@ document.addEventListener('DOMContentLoaded', () => {
             gameInfo.currentPosition++;
         }
 
-        draw()
+        pencil.draw()
     }
 
     /*
      * Moves the current tetromino right by one column.
      */
     function moveRight() {
-        undraw()
+        pencil.undraw()
 
         /* Check to see if the tetromino is at the right wall */
         const isAtRightWall = gameInfo.currentTetromino.some(index => (gameInfo.currentPosition + index + 1) % boardWidth === 0)
@@ -320,7 +329,7 @@ document.addEventListener('DOMContentLoaded', () => {
             gameInfo.currentPosition--;
         }
 
-        draw()
+        pencil.draw()
     }
 
     /*
@@ -348,7 +357,7 @@ document.addEventListener('DOMContentLoaded', () => {
             checkGameOver()
 
             if (!gameInfo.gameOver) {
-                draw()
+                pencil.draw()
                 displayUpNext()
             }
         }
@@ -378,7 +387,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 gameInfo.currentTetromino = tetrominoes[gameInfo.randomIndex][gameInfo.currentRotation];
             }
 
-            draw()
+            pencil.draw()
             gameInfo.timer = setInterval(moveDown, 1000)
         }
     })
@@ -403,7 +412,7 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     function rotate() {
 
-        undraw()
+        pencil.undraw()
         /* Get the next rotation of the tetromino, and make sure to loop back to the first
            rotation if the index is out of bounds */
         if (++gameInfo.currentRotation === 4) {
@@ -415,7 +424,7 @@ document.addEventListener('DOMContentLoaded', () => {
         checkRotation()
         gameInfo.currentTetromino = tetrominoes[gameInfo.randomIndex][gameInfo.currentRotation]
 
-        draw()
+        pencil.draw()
     }
     
     /**
