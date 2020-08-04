@@ -167,12 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
         0,
         false,
         0,
-        //Math.floor(Math.random() * tetrominoes.length),
-
-        /* ----------- TESTING ------------------- */
-        2,
-        /* ----------- TESTING ------------------- */
-
+        Math.floor(Math.random() * tetrominoes.length),
         null
     );
 
@@ -304,10 +299,6 @@ document.addEventListener('DOMContentLoaded', () => {
             gameInfo.currentPosition++;
         }
 
-        /* ----- TESTING ----- */
-        console.log("currentPosition: " + gameInfo.currentPosition)
-        /* ----- TESTING ----- */
-
         draw()
     }
 
@@ -329,10 +320,6 @@ document.addEventListener('DOMContentLoaded', () => {
             gameInfo.currentPosition--;
         }
 
-        /* ----- TESTING ----- */
-        console.log("currentPosition: " + gameInfo.currentPosition)
-        /* ----- TESTING ----- */
-
         draw()
     }
 
@@ -350,11 +337,7 @@ document.addEventListener('DOMContentLoaded', () => {
             updateScore()
 
             /* Generate new random tetromino */
-            //gameInfo.randomIndex = gameInfo.nextUpRandomIndex;
-
-            /* ----------- TESTING ------------------- */
-            gameInfo.random = 2
-            /* ----------- TESTING ------------------- */
+            gameInfo.randomIndex = gameInfo.nextUpRandomIndex;
 
             gameInfo.nextUpRandomIndex = Math.floor(Math.random() * tetrominoes.length)
             gameInfo.currentRotation = 0
