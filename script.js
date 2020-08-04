@@ -122,54 +122,119 @@ document.addEventListener('DOMContentLoaded', () => {
     /* Mini-board blocks where the up-next tetromino is displayed */
     const upNextBoardBlocks = Array.from(document.querySelectorAll('#up-next-board div'));
     
-    /* Apply usage of object literal */
-    const createGameInfo = (
-        gameStarted,
-        gameOver,
-        score,
-        startBtn,
-        timer,
-        currentPosition,
-        currentRotation,
-        instantDrop,
-        nextUpRandomIndex,
-        randomIndex,
-        currentTetromino
-    ) => ({
-        gameStarted,
-        gameOver,
-        score,
-        startBtn,
-        /* Used to move a tetromino every one second. */
-        timer,
-        /* Tetromino will be 'currentPosition' blocks to the right of the left wall of the board. */
-        currentPosition,
-        /* Indicates the rotation the current tetromino is. */
-        currentRotation,
-        /* Used to determine the rate at which tetromino drops. */
-        instantDrop,
-        /* Used for choosing next-up tetromino randomly. */
-        nextUpRandomIndex,
-        /* Randomly select a tetromino in its first rotation. 'randomIndex' is used to index a tetromino,
-        and currentRotation is used to index the first rotation of the randomly chosen tetromino. */
-        randomIndex,
-        /* 1D array of indices that draw the tetromino */
-        currentTetromino
-    });
+    /* Use getters and setters to control access to an object */
+    class GameInfo {
 
-    const gameInfo = createGameInfo(
-        false,
-        false,
-        document.querySelector("#score"),
-        document.querySelector("#start-btn"),
-        undefined,
-        4,
-        0,
-        false,
-        0,
-        Math.floor(Math.random() * tetrominoes.length),
-        null
-    );
+        constructor(playerName) {
+
+            this._playerName = playerName
+            this._gameStarted = false
+            this._gameOver = false
+            this._score = document.querySelector("#score")
+            this._startBtn = document.querySelector("#start-btn")
+            this._timer = null
+            this._currentPosition = 4
+            this._currentRotation = 0
+            this._instantDrop = false
+            this._nextUpRandomIndex = 0
+            this._randomIndex = Math.floor(Math.random() * tetrominoes.length)
+            this._currentTetromino = null
+
+        }
+
+        /* -- Getters -- */
+        get playerName() {
+            return this._playerName
+        }
+
+        get gameStarted() {
+            return this._gameStarted
+        }
+
+        get gameOver() {
+            return this._gameOver
+        }
+
+        get score() {
+            return this._score
+        }
+
+        get startBtn() {
+            return this._startBtn
+        }
+
+        get timer() {
+            return this._timer
+        }
+
+        get currentPosition() {
+            return this._currentPosition
+        }
+
+        get currentRotation() {
+            return this._currentRotation
+        }
+
+        get instantDrop() {
+            return this._instantDrop
+        }
+
+        get nextUpRandomIndex() {
+            return this._nextUpRandomIndex
+        }
+
+        get randomIndex() {
+            return this._randomIndex
+        }
+
+        get currentTetromino() {
+            return this._currentTetromino
+        }
+
+        /* -- Setters -- */
+        set playerName(updatePlayerName) {
+            this._playerName = updatePlayerName
+        }
+
+        set gameStarted(updateGameStarted) {
+            this._gameStarted = updateGameStarted
+        }
+
+        set gameOver(updateGameOver) {
+            this._gameOver = updateGameOver
+        }
+
+        set timer(updateTimer) {
+            this._timer = updateTimer
+        }
+
+        set currentPosition(updateCurrentPosition) {
+            this._currentPosition = updateCurrentPosition
+        }
+
+        set currentRotation(updateCurrentRotation) {
+            this._currentRotation = updateCurrentRotation
+        }
+
+        set instantDrop(updateInstantDrop) {
+            this._instantDrop = updateInstantDrop
+        }
+
+        set nextUpRandomIndex(updateNextUpRandomIndex) {
+            this._nextUpRandomIndex = updateNextUpRandomIndex
+        }
+
+        set randomIndex(updateRandomIndex) {
+            this._randomIndex = updateRandomIndex
+        }
+
+        set currentTetromino(updateCurrentTetromino) {
+            this._currentTetromino = updateCurrentTetromino
+        }
+
+    }
+
+    const gameInfo = new GameInfo("New Player")
 
     /* Use class syntax to define a constructor function for an object
        in which functions are defined */
