@@ -94,34 +94,31 @@ document.addEventListener('DOMContentLoaded', () => {
         /* iTetromino */
         [miniBoardWidth, miniBoardWidth + 1, miniBoardWidth + 2, miniBoardWidth + 3]
     ]
-
-
+    
     /* ----------------------------------------------------------------------*/
     /* Generate div tags to create the game board and the */
     /* up-next tetromino display mini-board.              */
-    var divTags = "";
-    const boardBlockClass = "\"board-block\"";
-    const occupiedBlockClass = "\"occupied-block\"";
-    
+    var blocks = ""
+
     /* Create 200 regular blocks */
     for (let i = 0; i < 200; i++) {
-        divTags += `<div class=${boardBlockClass}></div>`;
+        blocks += `<div class="board-block"></div>`
     }
 
     /* Create 10 occupied blocks */
     for (let i = 0; i < 10; i++) {
-        divTags += `<div class=${occupiedBlockClass}></div>`;
+        blocks += `<div class="occupied-block"></div>`
     }
-    
-    document.getElementById("board").innerHTML = divTags;
-    /* ----------------------------------------------------------------------*/
 
+    document.getElementById("board").innerHTML = blocks
+    
+    
     /* Array of divs that form the game board */
     const boardBlocks = Array.from(document.querySelectorAll('#board div'));
 
     /* Mini-board blocks where the up-next tetromino is displayed */
     const upNextBoardBlocks = Array.from(document.querySelectorAll('#up-next-board div'));
-    
+
     /* Use getters and setters to control access to an object */
     class GameInfo {
 
@@ -249,7 +246,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!gameInfo.gameStarted && gameInfo.randomIndex === 6) {
                     gameInfo.currentPosition--;
                 }
-        
+
                 gameInfo.currentTetromino.forEach(index => {
                     boardBlocks[gameInfo.currentPosition + index].style.backgroundColor = colors[gameInfo.randomIndex];
                 });
@@ -334,7 +331,7 @@ document.addEventListener('DOMContentLoaded', () => {
             gameInfo.currentPosition += boardWidth;
             pencil.draw();
         }
-        
+
         /* Give time for tetromino to move or rotate before freezing in place */
         if (checkRowBelow()) {
             clearInterval(gameInfo.timer);
@@ -365,7 +362,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         /* Check to see if the tetromino is at the left wall */
         const isAtLeftWall = gameInfo.currentTetromino.some(index => (gameInfo.currentPosition + index) % boardWidth === 0)
-        
+
         if (!isAtLeftWall) {
             gameInfo.currentPosition--;
         }
@@ -408,7 +405,7 @@ document.addEventListener('DOMContentLoaded', () => {
             /* Prevent other tetrominoes from using the blocks on which the current tetromino has been frozen. */
             gameInfo.currentTetromino.forEach(
                 index => boardBlocks[gameInfo.currentPosition + index].classList.add('occupied-block'))
-            
+
             /* Update score */
             updateScore()
 
@@ -436,19 +433,28 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     gameInfo.startBtn.addEventListener('click', () => {
         if (gameInfo.timer) {
+            
+            /* Allow browser to respond to keys */
+            window.removeEventListener("keydown", keyDownHandler, false)
+            
             clearInterval(gameInfo.timer)
             gameInfo.timer = null
         } else {
             /* Only call this if the game has not started to prevent the game from 
                drawing up a new tetromino every time the game is paused and resumed */
             if (!gameInfo.gameStarted) {
+                
+                gameInfo.gameStarted = true
+                
                 /* Make game respond to keyboard input */
                 document.addEventListener("keydown", (event) => { keyDown(event, gameInfo); });
-
+                
+                /* Prevent browser scroll from responding to the keys */
+                window.addEventListener("keydown", keyDownHandler, false)
+                
                 /* Display the tetromino that will be spawned next. */
                 gameInfo.nextUpRandomIndex = Math.floor(Math.random() * tetrominoes.length);
                 displayUpNext();
-                gameInfo.gameStarted = true
 
                 /* Initialize the first tetromino */
                 gameInfo.currentTetromino = tetrominoes[gameInfo.randomIndex][gameInfo.currentRotation];
@@ -458,6 +464,17 @@ document.addEventListener('DOMContentLoaded', () => {
             gameInfo.timer = setInterval(moveDown, 1000)
         }
     })
+
+    const keyDownHandler = function (event) {
+        switch (event.keyCode) {
+            case 32:
+            case 37:
+            case 38:
+            case 39:
+            case 40:
+                event.preventDefault()
+        }
+    }
     
     /*
      * Displays the up-next tetromino on the up-next board.
@@ -493,7 +510,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         pencil.draw()
     }
-    
+
     /**
      * Called, whenever freeze() is called, to check for rows that
      * are full with tetromino blocks.  Each full row awards ten points.
@@ -526,7 +543,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 /* Then, move all rows above it down by one. */
                 for (let rowIndex = i - 10; rowIndex >= 0; rowIndex -= 10) {
-                    
+
                     for (let colIndex = rowIndex; colIndex < (rowIndex + 10); colIndex++) {
 
                         if (boardBlocks[colIndex].classList.contains("occupied-block")) {
@@ -544,7 +561,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
 
                     }
-                    
+
                 }
             }
 
@@ -589,7 +606,7 @@ document.addEventListener('DOMContentLoaded', () => {
         switch (gameInfo.randomIndex) {
 
             case 0:
-            
+
             case 1:
 
             case 2:
