@@ -39,6 +39,7 @@
     }
 
 
-    add_shortcode('ez-tetris', 'cf_shortcode');
+    /* I think this is WordPress Plugin API */
+    // add_shortcode('ez-tetris', 'cf_shortcode');
 
 ?>
