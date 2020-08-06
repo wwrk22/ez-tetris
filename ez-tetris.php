@@ -39,6 +39,6 @@
     }
 
 
-    add_shortcode('ez-tetris', 'cf_shortcode');
+    add_shortcode('ez_tetris', 'cf_shortcode');
 
 ?>
