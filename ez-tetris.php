@@ -14,13 +14,17 @@
     include "includes/footer.php";
 
 
-    function add_ez_tetris_style() {
+    function wpet_enqueue_styles() {
 
-        wp_enqueue_style('ez-tetris-style', plugin_dir_url( __FILE__ ) . 'assets/css/ez-tetris-style.css');
+        wp_enqueue_style(
+            'ez-tetris-style',
+            plugin_dir_url( __FILE__ ) . 'assets/css/ez-tetris-style.css',
+            array('twentytwenty-theme')
+        );
 
     }
 
-    add_action('wp_enqueue_scripts', 'add_ez_tetris_style');
+    add_action('wp_enqueue_scripts', 'wpet_enqueue_styles');
 
 
     function generate_html() {
