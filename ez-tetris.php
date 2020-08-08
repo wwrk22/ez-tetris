@@ -14,28 +14,14 @@
     include "includes/footer.php";
 
 
-    function enqueue_ez_tetris_style() {
+    function add_ez_tetris_style() {
 
-        wp_enqueue_style("ez-tetris-style", plugin_dir_url( __FILE__ ) . "assets/css/ez-tetris-style.css");
-
-    }
-
-    add_action("wp_enqueue_scripts", "ez_tetris_style");
-
-
-    function reenqueue_ez_tetris_style() {
-
-        if (defined(plugin_dir_url( __FILE__ ))) {
-
-            wp_dequeue_style("ez_tetris_style");
-
-            wp_enqueue_style("ez_tetris_style", plugin_dir_url( __FILE__ ) . "assets/css/ez-tetris-style.css", array("twentytwenty-theme"));
-
-        }
+        wp_enqueue_style('ez-tetris-style', plugin_dir_url( __FILE__ ) . 'assets/css/ez-tetris-style.css');
 
     }
 
-    add_action("wp_enqueue_scripts", "reenqueue_ez_tetris_style");
+    add_action('wp_enqueue_scripts', 'add_ez_tetris_style');
+
 
     function generate_html() {
         
