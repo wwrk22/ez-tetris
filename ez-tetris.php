@@ -13,6 +13,11 @@
     include "includes/body.php";
     include "includes/footer.php";
 
+    function ez_tetris_styles() {
+        wp_enqueue_style("ez-tetris-style", plugin_dir_url( __DIR__ ) . "assets/css/ez-tetris-style.css");
+    }
+    add_action("wp_enqueue_scripts", "ez_tetris_styles");
+
 
     function generate_html() {
         
