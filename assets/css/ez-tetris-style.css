@@ -1,13 +1,15 @@
 /* EZ-Tetris CSS */
 #container {
+	box-sizing: content-box;
     display: flex;
 }
 
 #container div.board {
+	box-sizing: content-box;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    width: 320px;
+    width: 320px !important;
     height: 640px;
     margin-right: 50px;
     border: 5px solid;
@@ -15,7 +17,8 @@
     background-color: #EEF1F4;
 }
 
-.board-block {
+#main-board div.board-block {
+	box-sizing: content-box;
     width: 30px;
     height: 30px;
     border: 1px solid;
@@ -23,6 +26,7 @@
 }
 
 .wall-block {
+	box-sizing: content-box;
     width: 30px;
     height: 10px;
 }
