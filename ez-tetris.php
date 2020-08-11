@@ -14,6 +14,16 @@
     include "includes/footer.php";
 
 
+    function wpet_enqueue_scripts() {
+
+        wp_enqueue_style('ez-tetris-style', plugin_dir_url(__FILE__) . 'assets/css/ez-tetris-style.css');
+        wp_enqueue_script('ez-tetris-script', plugin_dir_url(__FILE__) . 'assets/js/game-script.js');
+
+    }
+
+    add_action('wp_enqueue_scripts', 'wpet_enqueue_scripts');
+
+
     function generate_html() {
         
         global $header;

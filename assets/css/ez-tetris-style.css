@@ -1,9 +1,9 @@
-#game-container {
+/* EZ-Tetris CSS */
+#container {
     display: flex;
 }
 
-
-#board {
+#container div.board {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -14,23 +14,25 @@
     border-color: #848B8F;
     background-color: #EEF1F4;
 }
+
 .board-block {
     width: 30px;
     height: 30px;
     border: 1px solid;
     border-color: #D6DCDF;
 }
+
 .wall-block {
     width: 30px;
     height: 10px;
 }
-
 
 #info-container {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
+
 #up-next-board {
     display: flex;
     flex-wrap: wrap;
@@ -40,27 +42,29 @@
     border-color: #848B8F;
     background-color: #EEF1F4;
 }
+
 #btn-container {
     border: 5px solid;
     border-color: #D8DDE1;
     padding-left: 5px;
     padding-right: 5px;
 }
+
 #h3-score {
     font-family: 'MuseoModerno', cursive;
     color: #696B6D;
 }
+
 #start-btn {
     font-family: 'MuseoModerno', cursive;
     color: #696B6D;
 }
 
-
-.p-museo-moderno {
+#p-museo-moderno {
     font-family: 'MuseoModerno', cursive;
     color: #696B6D;
 }
-.p-indie-flower {
+#p-indie-flower {
     font-family: 'Indie Flower', cursive;
     color: #696B6D;
 }

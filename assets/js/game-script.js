@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
         /* iTetromino */
         [miniBoardWidth, miniBoardWidth + 1, miniBoardWidth + 2, miniBoardWidth + 3]
     ]
-    
+
     /* ----------------------------------------------------------------------*/
     /* Generate div tags to create the game board and the */
     /* up-next tetromino display mini-board.              */
@@ -102,17 +102,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* Create 200 regular blocks */
     for (let i = 0; i < 200; i++) {
-        blocks += `<div class="board-block"></div>`
+        blocks += '<div class="board-block"></div>'
     }
 
     /* Create 10 occupied blocks */
     for (let i = 0; i < 10; i++) {
-        blocks += `<div class="occupied-block"></div>`
+        blocks += '<div class="occupied-block"></div>'
     }
 
-    document.getElementById("board").innerHTML = blocks
-    
-    
+    document.getElementById("main-board").innerHTML = blocks
+
+
     /* Array of divs that form the game board */
     const boardBlocks = Array.from(document.querySelectorAll('#board div'));
 
@@ -234,7 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const gameInfo = new GameInfo("New Player")
 
     /* Use class syntax to define a constructor function for an object
-       in which functions are defined */
+        in which functions are defined */
     class Pencil {
 
         constructor(owner) {
@@ -313,7 +313,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function instantDropTrue() {
         /* Reduce the timer down to 100 ms and turn a flag ON. */
         /* When the tetromino freezes, if the flag is ON, the flag should be turned off
-           and the timer should be reset to normal speed. */
+            and the timer should be reset to normal speed. */
         gameInfo.instantDrop = true;
         clearInterval(gameInfo.timer);
         gameInfo.timer = setInterval(moveDown, 0);
@@ -321,11 +321,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     /*
-     * Moves the current tetromino down by one line.
-     */
+        * Moves the current tetromino down by one line.
+        */
     function moveDown() {
         /* Player may move the tetromino sideways right before it moves down, so we need to
-           make sure the tetromino is not drawn on top of an existing one below. */
+            make sure the tetromino is not drawn on top of an existing one below. */
         if (!checkRowBelow()) {
             pencil.undraw();
             gameInfo.currentPosition += boardWidth;
@@ -355,8 +355,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /*
-     * Moves the current tetromino left by one column.
-     */
+        * Moves the current tetromino left by one column.
+        */
     function moveLeft() {
         pencil.undraw()
 
@@ -376,8 +376,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /*
-     * Moves the current tetromino right by one column.
-     */
+        * Moves the current tetromino right by one column.
+        */
     function moveRight() {
         pencil.undraw()
 
@@ -397,9 +397,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /*
-     * If the row right below the tetromino is out-of-bounds, then 
-     * the tetromino is frozen in place.
-     */
+        * If the row right below the tetromino is out-of-bounds, then 
+        * the tetromino is frozen in place.
+        */
     function freeze() {
         if (checkRowBelow()) {
             /* Prevent other tetrominoes from using the blocks on which the current tetromino has been frozen. */
@@ -428,9 +428,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /*
-     * Pressing the START/PAUSE button will
-     * start/resume/pause the game.
-     */
+        * Pressing the START/PAUSE button will
+        * start/resume/pause the game.
+        */
     gameInfo.startBtn.addEventListener('click', () => {
         if (gameInfo.timer) {
             
@@ -441,7 +441,7 @@ document.addEventListener('DOMContentLoaded', () => {
             gameInfo.timer = null
         } else {
             /* Only call this if the game has not started to prevent the game from 
-               drawing up a new tetromino every time the game is paused and resumed */
+                drawing up a new tetromino every time the game is paused and resumed */
             if (!gameInfo.gameStarted) {
                 
                 gameInfo.gameStarted = true
@@ -475,10 +475,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 event.preventDefault()
         }
     }
-    
+
     /*
-     * Displays the up-next tetromino on the up-next board.
-     */
+        * Displays the up-next tetromino on the up-next board.
+        */
     function displayUpNext() {
         /* Remove the previous up-next tetromino by removing the colors from the board blocks */
         upNextBoardBlocks.forEach(block => {
@@ -492,19 +492,19 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /*
-     * Rotates the current tetromino 90 degrees clockwise.
-     */
+        * Rotates the current tetromino 90 degrees clockwise.
+        */
     function rotate() {
 
         pencil.undraw()
         /* Get the next rotation of the tetromino, and make sure to loop back to the first
-           rotation if the index is out of bounds */
+            rotation if the index is out of bounds */
         if (++gameInfo.currentRotation === 4) {
             gameInfo.currentRotation = 0
         }
 
         /* We need to check to see if any of the newly rotated tetromino's blocks
-           are out of place on the next row or the previous row. */
+            are out of place on the next row or the previous row. */
         checkRotation()
         gameInfo.currentTetromino = tetrominoes[gameInfo.randomIndex][gameInfo.currentRotation]
 
@@ -531,7 +531,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             /* If a row is full, then occupiedBlockCount should be equal to ten, and
-               ten points are to be awarded. */
+                ten points are to be awarded. */
             if (occupiedBlockCount === 10) {
                 gameInfo.score.innerHTML = parseInt(gameInfo.score.innerHTML) + 1;
 
@@ -588,18 +588,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* ---------------------------------- Helper Functions ---------------------------------- */
     /*
-     * Helper function to check to see if the row right below the current tetromino
-     * is occupied in any blocks, so that the tetromino freezes in place.
-     * Returns true if row below is occupied, false otherwise.
-     */
+        * Helper function to check to see if the row right below the current tetromino
+        * is occupied in any blocks, so that the tetromino freezes in place.
+        * Returns true if row below is occupied, false otherwise.
+        */
     function checkRowBelow() {
         return gameInfo.currentTetromino.some(index => boardBlocks[gameInfo.currentPosition + index + boardWidth].classList.contains('occupied-block'))
     }
 
     /*
-     * Checks to see if a tetromino was at or close enough to a wall, then repositions it one index
-     * to the left or right to correctly place it in its newly rotated position.
-     */ 
+        * Checks to see if a tetromino was at or close enough to a wall, then repositions it one index
+        * to the left or right to correctly place it in its newly rotated position.
+        */ 
     function checkRotation() {
 
         /* iTetromino */
@@ -672,5 +672,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
         }
     }
-
-});
+})
