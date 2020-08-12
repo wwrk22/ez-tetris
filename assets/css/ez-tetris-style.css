@@ -17,7 +17,7 @@
     background-color: #EEF1F4;
 }
 
-#main-board div.board-block {
+div.board-block {
 	box-sizing: content-box;
     width: 30px;
     height: 30px;
@@ -25,19 +25,15 @@
     border-color: #D6DCDF;
 }
 
-.wall-block {
-	box-sizing: content-box;
-    width: 30px;
-    height: 10px;
-}
-
 #info-container {
+	box-sizing: content-box;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-#up-next-board {
+#info-container div.board {
+	box-sizing: content-box;
     display: flex;
     flex-wrap: wrap;
     width: 128px;
