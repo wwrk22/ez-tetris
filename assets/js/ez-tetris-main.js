@@ -110,14 +110,14 @@ document.addEventListener('DOMContentLoaded', () => {
         blocks += '<div class="occupied-block"></div>'
     }
 
-    document.getElementById("main-board").innerHTML = blocks
+    document.getElementById("game-board-0").innerHTML = blocks
 
 
     /* Array of divs that form the game board */
-    const boardBlocks = Array.from(document.querySelectorAll('#main-board div'));
+    const boardBlocks = Array.from(document.querySelectorAll('#game-board-0 div'));
 
     /* Mini-board blocks where the up-next tetromino is displayed */
-    const upNextBoardBlocks = Array.from(document.querySelectorAll('#up-next-board div'));
+    const upNextBoardBlocks = Array.from(document.querySelectorAll('#mini-board-0 div'));
 
     /* Use getters and setters to control access to an object */
     class GameInfo {
@@ -128,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
             this._gameStarted = false
             this._gameOver = false
             this._score = document.querySelector("#score")
-            this._startBtn = document.querySelector("#start-btn")
+            this._startBtn = document.querySelector("#start-btn-0")
             this._timer = null
             this._currentPosition = 4
             this._currentRotation = 0

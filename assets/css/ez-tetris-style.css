@@ -1,15 +1,15 @@
 /* EZ-Tetris CSS */
-#container {
+div.et-main-container {
 	box-sizing: content-box;
     display: flex;
 }
 
-#container div.main-board {
+div.et-main-container .game-board {
 	box-sizing: content-box;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    width: 320px !important;
+    width: 320px;
     height: 640px;
     margin-right: 50px;
     border: 5px solid;
@@ -17,7 +17,8 @@
     background-color: #EEF1F4;
 }
 
-div.board-block {
+div.et-main-container .game-board div.board-block,
+div.et-main-container .et-info-container .mini-board div.board-block {
 	box-sizing: content-box;
     width: 30px;
     height: 30px;
@@ -25,14 +26,14 @@ div.board-block {
     border-color: #D6DCDF;
 }
 
-#info-container {
+div.et-main-container .et-info-container {
 	box-sizing: content-box;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-#info-container div.mini-board {
+div.et-main-container .et-info-container .mini-board {
 	box-sizing: content-box;
     display: flex;
     flex-wrap: wrap;
@@ -43,24 +44,50 @@ div.board-block {
     background-color: #EEF1F4;
 }
 
-#btn-container {
+div.et-main-container .et-info-container .score-n-btn-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
     border: 5px solid;
     border-color: #D8DDE1;
     padding-left: 5px;
     padding-right: 5px;
 }
 
-#h3-score {
+div.et-main-container .et-info-container .score-n-btn-container .score-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+div.et-main-container .et-info-container .score-n-btn-container .score-container .h3-score-text {
     font-family: 'MuseoModerno', cursive;
     color: #696B6D;
+	margin: 2px 0px 2px 0px;
 }
 
-#start-btn {
+div.et-main-container .et-info-container .score-n-btn-container .score-container .score-value {
+	font-family: 'MuseoModerno', cursive;
+	font-size: 20px;
+	color: #696B6D;
+}
+
+div.et-main-container .et-info-container .score-n-btn-container .start-btn {
     font-family: 'MuseoModerno', cursive;
     border: 1px solid #848B8F;
+	padding: 5px;
+	margin-top: 30px;
+	margin-bottom: 6px;
 }
 
-#p-museo-moderno {
+div.et-main-container .et-info-container .h4-museo-moderno {
+	font-family: 'MuseoModerno', cursive;
+	color: #696B6D;
+	margin: 0px 0px 24px 0px;
+}
+
+div.et-main-container .et-info-container .score-n-btn-container .p-museo-moderno {
+	font-size: 16px;
     font-family: 'MuseoModerno', cursive;
     color: #696B6D;
 }

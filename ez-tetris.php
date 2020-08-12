@@ -11,7 +11,6 @@ include "includes/body.php";
 function et_add_scripts() {
     // CSS
     wp_enqueue_style('museo-moderno-font', 'https://fonts.googleapis.com/css2?family=MuseoModerno&display=swap');
-    wp_enqueue_style('indie-flower-font', 'https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
     wp_enqueue_style('ez-tetris-style', plugin_dir_url(__FILE__) . 'assets/css/ez-tetris-style.css');
 
     // JS
