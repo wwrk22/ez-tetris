@@ -6,7 +6,7 @@
     $body .= "          </div>";
 
     $body .= "          <div id=\"info-container\">";
-    $body .= "              <div id=\"up-next-board\">";
+    $body .= "              <div class=\"board\" id=\"mini-board\">";
     $body .= "                  <div class=\"board-block\"></div>";
     $body .= "                  <div class=\"board-block\"></div>";
     $body .= "                  <div class=\"board-block\"></div>";
