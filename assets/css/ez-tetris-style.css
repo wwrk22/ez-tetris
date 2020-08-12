@@ -4,7 +4,7 @@
     display: flex;
 }
 
-#container div.board {
+#container div.main-board {
 	box-sizing: content-box;
     display: flex;
     flex-direction: row;
@@ -32,7 +32,7 @@ div.board-block {
     align-items: center;
 }
 
-#info-container div.board {
+#info-container div.mini-board {
 	box-sizing: content-box;
     display: flex;
     flex-wrap: wrap;
@@ -57,16 +57,11 @@ div.board-block {
 
 #start-btn {
     font-family: 'MuseoModerno', cursive;
-    color: #696B6D;
+    border: 1px solid #848B8F;
 }
 
 #p-museo-moderno {
     font-family: 'MuseoModerno', cursive;
     color: #696B6D;
 }
-#p-indie-flower {
-    font-family: 'Indie Flower', cursive;
-    color: #696B6D;
-}
-
 
