@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     /* Array of divs that form the game board */
-    const boardBlocks = Array.from(document.querySelectorAll('#board div'));
+    const boardBlocks = Array.from(document.querySelectorAll('#main-board div'));
 
     /* Mini-board blocks where the up-next tetromino is displayed */
     const upNextBoardBlocks = Array.from(document.querySelectorAll('#up-next-board div'));
