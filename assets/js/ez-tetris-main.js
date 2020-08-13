@@ -127,6 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
             this._playerName = playerName
             this._gameStarted = false
             this._gameOver = false
+            this._gamePaused = true
             this._forceFreeze = false
 			this._stopDoubleMoveDown = false
             this._score = document.querySelector("#score-value-0")
@@ -152,6 +153,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         get gameOver() {
             return this._gameOver
+        }
+
+        get gamePaused() {
+            return this._gamePaused
         }
 
         get forceFreeze() {
@@ -209,6 +214,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         set gameOver(updateGameOver) {
             this._gameOver = updateGameOver
+        }
+
+        set gamePaused(updateGamePaused) {
+            this._gamePaused = updateGamePaused
         }
 
         set forceFreeze(updateForceFreeze) {
@@ -290,10 +299,10 @@ document.addEventListener('DOMContentLoaded', () => {
      * We can object-destructure 'gameInfo' here because we're only checking
      * the value of its properties and not changing it.
      */
-    function keyDown(event, { gameStarted, gameOver }) {
+    function keyDown(event, { gameStarted, gameOver, gamePaused }) {
 
         /* Prevent calling the move functions if the game has not started. */
-        if (gameStarted && !gameOver) {
+        if (gameStarted && !gameOver && !gamePaused) {
 
             switch (event.keyCode) {
 
@@ -487,20 +496,21 @@ document.addEventListener('DOMContentLoaded', () => {
             /* Allow browser to respond to keys */
             window.removeEventListener("keydown", keyDownHandler, false)
             
+            /* Disable game keyboard input */
+            gameInfo.gamePaused = true
+
             clearInterval(gameInfo.timer)
             gameInfo.timer = null
+
         } else {
             /* Only call this if the game has not started to prevent the game from 
                 drawing up a new tetromino every time the game is paused and resumed */
             if (!gameInfo.gameStarted) {
                 
                 gameInfo.gameStarted = true
-                
+
                 /* Make game respond to keyboard input */
-                document.addEventListener("keydown", (event) => { keyDown(event, gameInfo); });
-                
-                /* Prevent browser scroll from responding to the keys */
-                window.addEventListener("keydown", keyDownHandler, false)
+                document.addEventListener("keydown", (event) => { keyDown(event, gameInfo) })
                 
                 /* Display the tetromino that will be spawned next. */
                 gameInfo.nextUpRandomIndex = Math.floor(Math.random() * tetrominoes.length);
@@ -513,7 +523,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (gameInfo.randomIndex === 6) {
                     gameInfo.currentPosition--
                 }
+
             }
+
+            /* Enable game keyboard input */
+            gameInfo.gamePaused = false
+                
+            /* Prevent browser scroll from responding to the keys */
+            window.addEventListener("keydown", keyDownHandler, false)
 
             pencil.draw()
             gameInfo.timer = setInterval(moveDown, 1000)
