@@ -128,6 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
             this._gameStarted = false
             this._gameOver = false
             this._forceFreeze = false
+			this._stopDoubleMoveDown = false
             this._score = document.querySelector("#score-value-0")
             this._startBtn = document.querySelector("#start-btn-0")
             this._timer = null
@@ -157,6 +158,10 @@ document.addEventListener('DOMContentLoaded', () => {
             return this._forceFreeze
         }
 
+		get stopDoubleMoveDown() {
+			return this._stopDoubleMoveDown	
+		}
+		
         get score() {
             return this._score
         }
@@ -210,6 +215,10 @@ document.addEventListener('DOMContentLoaded', () => {
             this._forceFreeze = updateForceFreeze
         }
 
+		set stopDoubleMoveDown(updateStopDoubleMoveDown) {
+			this._stopDoubleMoveDown = updateStopDoubleMoveDown
+		}
+		
         set timer(updateTimer) {
             this._timer = updateTimer
         }
@@ -309,6 +318,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     otherwise freeze it immediately. */
                     if (checkRowBelow()) {
                         gameInfo.forceFreeze = true
+						gameInfo.stopDoubleMoveDown = true
                     }
                     moveDown()
                     break
@@ -374,7 +384,11 @@ document.addEventListener('DOMContentLoaded', () => {
                             gameInfo.timer = setInterval(moveDown, 1000);
                         }
                     } else {
-                        moveDown()
+						if (gameInfo.stopDoubleMoveDown) {
+							gameInfo.stopDoubleMoveDown = false
+						} else {
+                        	moveDown()
+						}
                     }
                 }, delayTime);
 
