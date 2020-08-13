@@ -463,6 +463,10 @@ document.addEventListener('DOMContentLoaded', () => {
             gameInfo.currentTetromino = tetrominoes[gameInfo.randomIndex][gameInfo.currentRotation]
             gameInfo.currentPosition = 4
 
+            if (gameInfo.randomIndex === 6) {
+                gameInfo.currentPosition--
+            }
+
             /* Check to see if game is over */
             checkGameOver()
 
@@ -504,6 +508,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 /* Initialize the first tetromino */
                 gameInfo.currentTetromino = tetrominoes[gameInfo.randomIndex][gameInfo.currentRotation];
+
+                /* Re-position iTetromino to be placed exactly in the center */
+                if (gameInfo.randomIndex === 6) {
+                    gameInfo.currentPosition--
+                }
             }
 
             pencil.draw()
