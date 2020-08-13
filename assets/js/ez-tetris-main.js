@@ -513,7 +513,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /**
      * Called, whenever freeze() is called, to check for rows that
-     * are full with tetromino blocks.  Each full row awards ten points.
+     * are full with tetromino blocks.  Each full row awards one point.
      * The way I have it implemented now seems to be inefficient.  Maybe
      * I can improve it later.
      */
