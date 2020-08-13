@@ -127,6 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
             this._playerName = playerName
             this._gameStarted = false
             this._gameOver = false
+            this._forceFreeze = false
             this._score = document.querySelector("#score-value-0")
             this._startBtn = document.querySelector("#start-btn-0")
             this._timer = null
@@ -150,6 +151,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         get gameOver() {
             return this._gameOver
+        }
+
+        get forceFreeze() {
+            return this._forceFreeze
         }
 
         get score() {
@@ -199,6 +204,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         set gameOver(updateGameOver) {
             this._gameOver = updateGameOver
+        }
+
+        set forceFreeze(updateForceFreeze) {
+            this._forceFreeze = updateForceFreeze
         }
 
         set timer(updateTimer) {
@@ -296,9 +305,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     break
 
                 case 40: /* Down */
-                    if (!checkRowBelow()) {
-                        moveDown()
+                    /* If there is space below the current tetromino, then move it down,
+                    otherwise freeze it immediately. */
+                    if (checkRowBelow()) {
+                        gameInfo.forceFreeze = true
                     }
+                    moveDown()
                     break
 
             }
@@ -316,7 +328,9 @@ document.addEventListener('DOMContentLoaded', () => {
             and the timer should be reset to normal speed. */
         gameInfo.instantDrop = true;
         clearInterval(gameInfo.timer);
-        gameInfo.timer = setInterval(moveDown, 0);
+        if (!gameInfo.timer) {
+            gameInfo.timer = setInterval(moveDown, 0);
+        }
     }
 
 
@@ -324,34 +338,52 @@ document.addEventListener('DOMContentLoaded', () => {
         * Moves the current tetromino down by one line.
         */
     function moveDown() {
-        /* Player may move the tetromino sideways right before it moves down, so we need to
+        if (gameInfo.forceFreeze) {
+			
+            gameInfo.timer = clearInterval(gameInfo.timer)
+            gameInfo.forceFreeze = false
+            gameInfo.instantDrop = false
+            freeze()
+            if (!gameInfo.gameOver && !gameInfo.timer) {
+                gameInfo.timer = setInterval(moveDown, 1000)
+            }
+
+        } else {
+
+            /* Player may move the tetromino sideways right before it moves down, so we need to
             make sure the tetromino is not drawn on top of an existing one below. */
-        if (!checkRowBelow()) {
-            pencil.undraw();
-            gameInfo.currentPosition += boardWidth;
-            pencil.draw();
-        }
+            if (!checkRowBelow()) {
+                pencil.undraw();
+                gameInfo.currentPosition += boardWidth;
+                pencil.draw();
+            }
 
-        /* Give time for tetromino to move or rotate before freezing in place */
-        if (checkRowBelow()) {
-            clearInterval(gameInfo.timer);
+            /* Give time for tetromino to move or rotate before freezing in place */
+            if (checkRowBelow()) {
+                
+                gameInfo.timer = clearInterval(gameInfo.timer);
 
-            const delayTime = gameInfo.instantDrop ? 0 : 1000;
+                const delayTime = gameInfo.instantDrop ? 0 : 1000;
 
-            setTimeout(() => {
-                /* Tetromino may have moved, so we should only call freeze() if it hits a wall */
-                if (checkRowBelow()) {
-                    freeze()
-                    if (!gameInfo.gameOver) {
-                        gameInfo.timer = setInterval(moveDown, 1000);
+                setTimeout(() => {
+                    /* Tetromino may have moved, so we should only call freeze() if it hits a wall */
+                    if (checkRowBelow()) {
+                        freeze()
+						
+                        if (!gameInfo.gameOver && !gameInfo.timer) {
+                            gameInfo.timer = setInterval(moveDown, 1000);
+                        }
+                    } else {
+                        moveDown()
                     }
-                } else {
-                    moveDown()
-                }
-            }, delayTime);
+                }, delayTime);
 
-            gameInfo.instantDrop = false;
+                gameInfo.instantDrop = false;
+
+            }
+
         }
+        
     }
 
     /*
@@ -421,8 +453,8 @@ document.addEventListener('DOMContentLoaded', () => {
             checkGameOver()
 
             if (!gameInfo.gameOver) {
-                pencil.draw()
                 displayUpNext()
+                pencil.draw()
             }
         }
     }
