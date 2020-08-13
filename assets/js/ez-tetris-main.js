@@ -519,53 +519,48 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     function updateScore() {
 
-        /* Check every row, starting from the bottom, for ones full with tetromino blocks. */
-        for (let i = boardBlocks.length - 20; i >= 10; i -= 10) {
+		const clearedRows = []
+		
+        /* Check every row, starting from the bottom, for ones full with tetromino blocks */
+        for (let rowNum = boardBlocks.length - 20; rowNum >= 0; rowNum -= 10) {
             let occupiedBlockCount = 0
 
             /* Check if the entire row is full with tetromino blocks */
-            if (boardBlocks.slice(i, i + 10).every(value => value.classList.contains("occupied-block"))) {
+            if (boardBlocks.slice(rowNum, rowNum + 10).every(value => value.classList.contains("occupied-block"))) {
 
-                occupiedBlockCount = 10;
+                occupiedBlockCount = 10
 
             }
 
             /* If a row is full, then occupiedBlockCount should be equal to ten, and
-                ten points are to be awarded. */
+                ten points are to be awarded */
             if (occupiedBlockCount === 10) {
                 gameInfo.score.innerHTML = parseInt(gameInfo.score.innerHTML) + 1;
 
-                /* First, clear the row. */
-                for (let rowBlockIndex = i; rowBlockIndex < (i + 10); rowBlockIndex++) {
-                    boardBlocks[rowBlockIndex].classList.remove("occupied-block");
-                    boardBlocks[rowBlockIndex].style.backgroundColor = "";
-                }
-
-                /* Then, move all rows above it down by one. */
-                for (let rowIndex = i - 10; rowIndex >= 0; rowIndex -= 10) {
-
-                    for (let colIndex = rowIndex; colIndex < (rowIndex + 10); colIndex++) {
-
-                        if (boardBlocks[colIndex].classList.contains("occupied-block")) {
-
-                            if (!boardBlocks[colIndex + 10].classList.contains("occupied-block")) {
-
-                                boardBlocks[colIndex + 10].classList.add("occupied-block");
-                                boardBlocks[colIndex + 10].style.backgroundColor = boardBlocks[colIndex].style.backgroundColor;
-
-                                boardBlocks[colIndex].classList.remove("occupied-block");
-                                boardBlocks[colIndex].style.backgroundColor = "";
-
-                            }
-
-                        }
-
-                    }
-
-                }
+                /* Clear the row */
+				for (let colNum = rowNum; colNum < rowNum + 10; colNum++) {
+					
+					boardBlocks[colNum].style.backgroundColor = ""
+					boardBlocks[colNum].classList.remove("occupied-block")
+					
+				}
+				
+				/* Save the empty row */
+				clearedRows.push(boardBlocks.splice(rowNum, 10))
             }
-
         }
+		
+		/* Now insert the cleared rows in the very front to shift all remaining rows down */
+		clearedRows.forEach(row => {
+			boardBlocks.unshift(...row)
+			for (let blockIndex = 9; blockIndex >= 0; blockIndex--) {
+					
+				const firstBlock = document.getElementById("game-board-0").firstChild
+				document.getElementById("game-board-0").insertBefore(boardBlocks[blockIndex], firstBlock)
+					
+			}
+		})
+				
     }
 
     /**
