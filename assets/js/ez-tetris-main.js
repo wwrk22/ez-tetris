@@ -337,7 +337,7 @@ document.addEventListener('DOMContentLoaded', () => {
         /* When the tetromino freezes, if the flag is ON, the flag should be turned off
             and the timer should be reset to normal speed. */
         gameInfo.instantDrop = true;
-        clearInterval(gameInfo.timer);
+        gameInfo.timer = clearInterval(gameInfo.timer);
         if (!gameInfo.timer) {
             gameInfo.timer = setInterval(moveDown, 0);
         }
