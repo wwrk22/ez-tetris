@@ -491,7 +491,7 @@ document.addEventListener('DOMContentLoaded', () => {
         * start/resume/pause the game.
         */
     gameInfo.startBtn.addEventListener('click', () => {
-
+		
         if (gameInfo.timer) {
             
             /* Allow browser to respond to keys */
@@ -536,9 +536,8 @@ document.addEventListener('DOMContentLoaded', () => {
             pencil.draw()
             gameInfo.timer = setInterval(moveDown, 1000)
         }
-
-        /* Set focus off the button so pressing spacebar doesn't resume the game */
-        document.activeElement.blur()
+		
+		document.activeElement.blur()
     })
 
     const keyDownHandler = function (event) {
