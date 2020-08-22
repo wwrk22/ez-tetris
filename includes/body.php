@@ -30,7 +30,8 @@
     $body .= "                      <h3 class=\"h3-score-text\" id=\"h3-score-text-0\">Score</h3>";
 	$body .= "						<span class=\"score-value\" id=\"score-value-0\">0</span>";
     $body .= "                  </div>";
-    $body .= "                  <button type=\"button\" class=\"start-btn\" id=\"start-btn-0\">START/PAUSE</button>";
+    $body .= "                  <button type=\"button\" class=\"game-btn\" id=\"pause-resume-btn\">PAUSE/RESUME</button>";
+    $body .= "                  <button type=\"button\" class=\"game-btn\" id=\"start-new-btn\">START NEW GAME</button>";
     $body .= "                  <p class=\"p-museo-moderno\"  id=\"p-museo-moderno-1\">Built by Won R.</p>";
     $body .= "              </div>";
     $body .= "          </div>";

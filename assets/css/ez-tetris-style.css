@@ -72,12 +72,15 @@ div.et-main-container .et-info-container .score-n-btn-container .score-container
 	color: #696B6D;
 }
 
-div.et-main-container .et-info-container .score-n-btn-container .start-btn {
+div.et-main-container .et-info-container .score-n-btn-container .game-btn {
     font-family: 'MuseoModerno', cursive;
     border: 1px solid #848B8F;
 	padding: 5px;
-	margin-top: 30px;
-	margin-bottom: 6px;
+	margin-bottom: 12px;
+}
+
+div.et-main-container .et-info-container .score-n-btn-container #pause-resume-btn {
+    margin-top: 30px;
 }
 
 div.et-main-container .et-info-container .h4-museo-moderno {
