@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
             this._forceFreeze = false
 			this._stopDoubleMoveDown = false
             this._score = document.querySelector("#score-value-0")
-            this._startBtn = document.querySelector("pause-resume-btn")
+            this._pauseResumeBtn = document.querySelector("pause-resume-btn")
             this._timer = null
             this._currentPosition = 4
             this._currentRotation = 0
@@ -171,8 +171,8 @@ document.addEventListener('DOMContentLoaded', () => {
             return this._score
         }
 
-        get startBtn() {
-            return this._startBtn
+        get pauseResumeBtn() {
+            return this._pauseResumeBtn
         }
 
         get timer() {
@@ -490,7 +490,7 @@ document.addEventListener('DOMContentLoaded', () => {
         * Pressing the START/PAUSE button will
         * start/resume/pause the game.
         */
-    gameInfo.startBtn.addEventListener('click', () => {
+    gameInfo.pauseResumeBtn.addEventListener('click', () => {
 		
         if (gameInfo.timer) {
             
