@@ -342,6 +342,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function keyDownCaller(event) {
+        keyDown(event, gameInfo)
+    }
+
+
     /**
      * Instantly drops tetromino to the bottom then freezes it in place
      * without giving the player time to rotate the tetromino at all.
@@ -491,10 +496,64 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    /*
-        * Pressing the START/PAUSE button will
-        * start/resume/pause the game.
-        */
+
+    /**
+     * Start new game button
+     */
+    gameInfo.startNewBtn.addEventListener('click', () => {
+
+        /* Clear the board */
+        for (let i = 0; i < boardBlocks.length - 10; i++) {
+            boardBlocks[i].classList.remove("occupied-block")
+            boardBlocks[i].style.backgroundColor = ""
+        }
+
+        gameInfo.gameStarted = true
+
+        /* Make game respond to keyboard input */
+        /* Remove the event listener first to prevent duplicates */
+        document.removeEventListener("keydown", keyDownCaller)
+        document.addEventListener("keydown", keyDownCaller)
+
+        /* Set the score to zero for a new game */
+        gameInfo.score.innerHTML = 0
+
+        /* Display the tetromino that will be spawned next */
+        gameInfo.nextUpRandomIndex = Math.floor(Math.random() * tetrominoes.length)
+        displayUpNext()
+
+        /* Initialize the first tetromino */
+        /* First, set randomIndex to a new random value! */
+        gameInfo.randomIndex = Math.floor(Math.random() * tetrominoes.length)
+        gameInfo.currentTetromino = tetrominoes[gameInfo.randomIndex][gameInfo.currentRotation]
+
+        /* gameInfo.currentPosition needs to be reset to 4 also */
+        gameInfo.currentPosition = 4
+
+        /* Re-position iTetromino to be placed exactly in the center */
+        if (gameInfo.randomIndex === 6) {
+            gameInfo.currentPosition--
+        }
+
+        /* Enable game keyboard input */
+        gameInfo.gamePaused = false
+
+        /* Prevent browser scroll from responding to the keys */
+        /* Remove the event listener first to prevent duplicates */
+        window.removeEventListener("keydown", keyDownHandler, false)
+        window.addEventListener("keydown", keyDownHandler, false)
+
+        /* Make sure to remove the timer if it's already set */
+        clearInterval(gameInfo.timer)
+        pencil.draw()
+        gameInfo.timer = setInterval(moveDown, 1000)
+    })
+
+
+    /**
+     * Pressing the PAUSE/RESUME button will
+     * pause or resume the game.
+     */
     gameInfo.pauseResumeBtn.addEventListener('click', () => {
 		
         if (gameInfo.timer) {
