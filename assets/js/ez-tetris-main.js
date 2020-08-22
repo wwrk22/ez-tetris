@@ -131,7 +131,8 @@ document.addEventListener('DOMContentLoaded', () => {
             this._forceFreeze = false
 			this._stopDoubleMoveDown = false
             this._score = document.querySelector("#score-value-0")
-            this._pauseResumeBtn = document.querySelector("pause-resume-btn")
+            this._pauseResumeBtn = document.querySelector("#pause-resume-btn")
+            this._startNewBtn = document.querySelector("#start-new-btn")
             this._timer = null
             this._currentPosition = 4
             this._currentRotation = 0
@@ -173,6 +174,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         get pauseResumeBtn() {
             return this._pauseResumeBtn
+        }
+
+        get startNewBtn() {
+            return this._startNewBtn
         }
 
         get timer() {
